@@ -1,9 +1,6 @@
 # CHANGELOG - SuperCarter
-> from AMSC
-> 所有顯著變更都會記錄在此檔案中。
-> 本專案遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/) 版本規範。
 
-[TOC]
+> 所有顯著變更都會記錄在此檔案中。
 
 ---
 
@@ -27,6 +24,7 @@ What's changed since 1.10.3
 **🐞 修復**
 
 - 移除功能檢測SC_FW, SC_HW測試項目
+- 調整功能檢測 Sampletest Volspec 的位置
 
 **♻️ 調整**
 
@@ -56,14 +54,15 @@ What's changed since 1.10.1
 
 **✨ 新增**
 
-- 無
+- 新增 CSLE005 分析器
+- 新增 CL200A 分析器
+- 新增 CL200A 即時顯示架構
+- 新增預發送 CL200A 的啟動指令於監控流程當中
 
 **🐞 修復**
 
 - 修改 TB 觸控事件蒐集座標資料的方式
-
-**♻️ 調整**
-
+- 修改 TB 觸控事件運行的時間調整
 - 修改 IsContinuousCommandSending 的設置
 - 修改 sampletest 恢復 第三部分的報告結果
 - 修改 ambient test 調控介面
@@ -75,6 +74,9 @@ What's changed since 1.10.1
 - 修改 ALS 監控 FIDM 目標選擇
 - 修改ALS 基本參數傳遞綁定
 - 修改ALS 基本參數傳遞綁定
+
+**♻️ 調整**
+
 - 修正 CL-200A 發送指令
 - 修正 ID 30 為固定 CL-200A發送介面
 
@@ -85,7 +87,9 @@ What's changed since 1.10.0
 
 **✨ 新增**
 
-- 無
+- 新增 SC SE FIDM 版本名稱的欄位顯示
+- 新增功能檢測報告格式中溫度的符號
+- 新增功能檢測報告格式中濕度的符號
 
 **🐞 修復**
 
@@ -103,8 +107,20 @@ What's changed since 1.9.8
 
 **✨ 新增**
 
+- 新增 CL-200A 的流程狀態切換(部分完成)
+- 新增 CL-200A 的監控流程(部分完成)
+- 新增可調整的屬性項目，關於 COM
+- 新增UCS 封包解析器
 - 修改 SC SE 裝置版本顯示
 - 修改 SC SE 裝置版本封包解析邏輯
+- 新增 TB 報告格式 的屬性欄位: chamberstatus
+- 新增 TB 報告格式 的屬性欄位: runtime option
+- 新增 ParseFuncDA_Rd20 解析器
+- 新增判斷是否進行訊號偵測當 runtime option 為外部設備主導時候
+- 新增 ambient light light sensor test 即時性面板參數
+- 新增 ambient light senser outputdata format
+- 新增監控模式 1.0 的二次發送
+- 新增監控模式 2.0 的二次發送 (Testbench)
 
 **🐞 修復**
 
@@ -147,7 +163,13 @@ What's changed since 1.9.6
 
 **✨ 新增**
 
-- 無
+- 新增 sampletest 增加 config名稱
+- 新增 sampletest hmf 測試程序的啟用開關
+- 新增 sampletest 測試資訊於報告內容中，關於 configuration file name
+- 新增 sampletest 測試資訊於報告內容中，關於 HMF file name
+- 新增 腳本資訊於 TB 監控模式報告中
+- 新增 軟體版本資訊於 TB 監控模式報告中
+- 新增 systeminfo 於 appdata 當中
 
 **🐞 修復**
 
@@ -260,12 +282,15 @@ What's changed since 1.9.0
 
 **✨ 新增**
 
-- 無
+- 新增觸控數值卡控策略於 sampletest 測試
+- 新增觸控數值卡控描述於 sampletest 的輸出報告中
+- 新增 hmf 相關的功能
+- **修復**
+- 修改 sampletest 輸出報告中觸控 NG 的描述資訊(原本沒有)
+- 修改 hmf 模組
 
 **🐞 修復**
 
-- 修改 sampletest 輸出報告中觸控 NG 的描述資訊(原本沒有)
-- 修改 hmf 模組
 - 無
 
 **♻️ 調整**
@@ -279,11 +304,16 @@ What's changed since 1.7.28
 
 **✨ 新增**
 
-- 無
+- 新增監控模式選項 - 預設
+- 新增監控模式選項 - 與爐子進行同步
+- 新增監控模式選項 - 軟體自己運算
+- 新增 HMF 檔案讀取
+- 新增爐子狀態的選擇欄位於腳本屬性
 
 **🐞 修復**
 
 - TB 模式 觸發運行過程鎖住相關參數介面的操作
+- 修復封包未接收的狀況(嘗試詢問三次暫存區域)
 
 **♻️ 調整**
 
@@ -297,7 +327,7 @@ What's changed since 1.7.21
 
 **✨ 新增**
 
-- 無
+- 新增條件切換的紀錄於功能檢測( #28)
 
 **🐞 修復**
 
@@ -314,8 +344,7 @@ What's changed since 1.7.18
 
 **✨ 新增**
 
-- 修改 Testbench 資料輸出合併電流欄位的數據
-- 數據長度從 5 萬行變成 10 萬行
+- 新增 block 運行的時間控制
 
 **🐞 修復**
 
@@ -326,9 +355,16 @@ What's changed since 1.7.18
 - 修改 scrolling SE 溫度顯示與計算方式
 - 修改 scrolling SE 溫度小數點顯示
 - 修正 sampletest 測試項目的文字說明於靜態電流的檢測於特殊電壓下
+- 修改 Testbench 時間優化 在 block loop 運行上新增截斷機制
+- 修改 Testbench 資料輸出合併電流欄位的數據
+- 數據長度從 5 萬行變成 10 萬行
 
 **♻️ 調整**
 
+- 調整 sampletest 的 serialnumber 的頁面位置
+- 調整 Testbench FA 系列 04 電壓精度調整
+- 調整 Testbench 電流經度顯示(毫安培)
+- 調整 Testbench 標題位置
 - 移除 功能檢測初期電壓顯示
 
 
@@ -338,7 +374,16 @@ What's changed since 1.7.5
 
 **✨ 新增**
 
-- 無
+- 新增 觸控的監控流程
+- 新增 sampletest 建置 wakeup voltage 測試項目
+- 新增 obserableobj 繼承項目
+- 新增Sampletest 實驗參數配置設定
+- 新增 sampletest 關於 app version
+- 新增 TB 監控系統 Touch 指令
+- 新增 監控功能 轉態更新Testcondition 寫成NA
+- 新增感測器配置模組化
+- 新增功能檢測 測試項目加入中斷參數
+- 新增 sampletest 溫溼度通訊
 
 **🐞 修復**
 
@@ -361,7 +406,7 @@ What's changed since 1.7.5
 
 **♻️ 調整**
 
-- 無
+- 調整 sampletest 測試的開關機制
 
 
 ## [1.7.5] - 2025-08-05
@@ -370,7 +415,7 @@ What's changed since 1.7.4
 
 **✨ 新增**
 
-- 無
+- 新增 觸控的監控流程
 
 **🐞 修復**
 
@@ -382,6 +427,8 @@ What's changed since 1.7.4
 - 修改安培檔位的小數點取用的機制
 - 修改即時監控的電流顯示
 - 修改監控程序 外部電壓值使其分配給所有通道
+- 新增PowerSupplyStatus ON/OFF
+- 新增即時監控的安培/微安培 欄位於介面中
 
 **♻️ 調整**
 
@@ -394,7 +441,8 @@ What's changed since 1.6.48
 
 **✨ 新增**
 
-- 無
+- 新增 Duration 時間的等待
+- 新增 ALS 的欄位
 
 **🐞 修復**
 
@@ -406,7 +454,7 @@ What's changed since 1.6.48
 
 **♻️ 調整**
 
-- 無
+- 調整 ExecuteworkflowAsync 工作排程
 
 
 ## [1.6.51] - 2025-07-28
@@ -415,6 +463,15 @@ What's changed since 1.6.48
 
 **✨ 新增**
 
+- 新增版本顯示
+- 新增對預留的Ack的長度與預設的長度做判斷
+- 新增 詢問版本功能 針對 Super-series  FW HW
+- 新增 版本功能的屬性 針對 Super-series  FW HW
+- 新增 版本功能的顯示 針對 Super-series  FW HW
+- 新增 詢問SuperEcho 當前裝置配置 的功能
+- 新增 顯示 SuperEcho 當前裝置配置 的功能
+- 新增控制面板的選單
+- 新增控制面板的後端功能
 - [x] Normal/Sleep
 - [x] Brightness
 - [x] Pattern/Image
@@ -447,7 +504,21 @@ What's changed since 1.6.43
 
 **✨ 新增**
 
-- 無
+- 新增 DB 系列指令(僅限基礎顏色)
+- 新增 Test Bench 運行流程
+- 新增 指令分析於 DB 系列(僅限基礎顏色)
+- 新增 TestBench 裝置匹配功能
+- 新增 TestBench 資料輸出
+- 新增 感測器數值即時撥放的功能
+- 新增 SuperEcho 感測器偵測機制
+- 新增 SuperCarrier 匹配條件
+- 新增 Super 系列的即時動態欄位
+- 新增 TestBench Lcok 機制
+- 新增 TestBench 感測器總表輸出
+- 新增 Powermode 指令觸發廣播所有 Comport
+- 新增 SuperEcho 電流策略的告知機制
+- 新增 動態腳本分配的方法
+- 新增 通訊指令的分析器
 
 **🐞 修復**
 
@@ -474,7 +545,11 @@ What's changed since 1.6.43
 
 **✨ 新增**
 
-- 無
+- 新增TestBench裝置感測試器的巡覽模式
+- 新增腳本儲存提示
+- 新增自動偵測 Super-device
+- 新增 SuperEcho 硬體裝置的屬性
+- 新增 監控功能的頁面
 
 **🐞 修復**
 
@@ -496,6 +571,11 @@ What's changed since 1.6.41
 
 **✨ 新增**
 
+- 新增 SuperEcho 感測器數據為空集合的判斷
+- 新增 SampleTest 新增測試項目 bootloader, partnumber
+- 新增刷新通訊界面的 matrix
+- 新增 TB 硬體更新與 COMPORT選取的更新
+- 新增 TB 硬體偵測的更新
 - Add Refresh SuperDevice when the SuperDevice be removed.
 
 **🐞 修復**
@@ -520,7 +600,10 @@ What's changed since 1.6.40
 
 **✨ 新增**
 
-- 無
+- 新增未知裝置圖示
+- 新增基礎類別針對Testbench屬性
+- 新增屬性轉化的條件 delaytime => IdleTime
+- 新增 監控腳本 觸發清除基礎腳本程序，當觸發清除 TestCondition or TestParameter 後清除該項目的 hashcode
 
 **🐞 修復**
 
@@ -534,7 +617,9 @@ What's changed since 1.6.40
 
 **♻️ 調整**
 
-- 無
+- 調整 doc文件
+- 調整型別通訊概念的型別，由介面改為抽象
+- 調整 TestBench 硬體頁面的排版
 
 
 ## [1.6.40] - 2025-05-21
@@ -543,7 +628,8 @@ What's changed since 1.6.39
 
 **✨ 新增**
 
-- 無
+- 新增 TestBench 硬體裝置的通訊機制
+- 新增 TestBench 用圖
 
 **🐞 修復**
 
@@ -554,5 +640,4 @@ What's changed since 1.6.39
 
 - TestBench 視覺頁面
 - 變數綁定
-
 
