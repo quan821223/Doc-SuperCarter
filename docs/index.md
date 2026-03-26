@@ -1,10 +1,11 @@
-# SuperCarter User Manual
+# SuperCarter CHANGELOG
 
-歡迎使用 SuperCarter 文件。
+SuperCarter 變更日誌
 
-本文件提供：
-- 安裝說明
-- 介面導覽
-- 設備連線
-- 腳本操作
-- 監控與資料匯出
+
+> 所有顯著變更都會記錄在此檔案中。
+> 本專案遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/) 版本規範。
+
+> from AMSC
+
+本文件提供： DQA
