@@ -16,23 +16,34 @@ markdown_extensions:
       permalink: true
   - tables
   - attr_list
+  - pymdownx.snippets:
+      base_path:
+        - docs
+
+hooks:
+  - hooks/generate_latest_changelog.py
 
 plugins:
   - print-site:
       add_table_of_contents: true
       toc_title: Table of Contents
-      toc_depth: 3
+      toc_depth: 4
   - search
 nav:
-   - CHANGELOG: CHANGELOG/CHANGELOG.md
 
-#   - 首頁: index.md
 
-#   - 快速上手:
-#       - 安裝: getting-started/installation.md
-#       - 介面導覽: getting-started/quick-tour.md
-#       - 基本流程: getting-started/workflow.md
+  - 首頁: index.md
 
+  - 更新日誌: 
+      - CHANGELOG: CHANGELOG/CHANGELOG.md
+
+
+  # - 首頁: index.md
+
+  # - 快速上手:
+  #     - 安裝: getting-started/installation.md
+  #     - 介面導覽: getting-started/quick-tour.md
+  #     - 基本流程: getting-started/workflow.md
 #   - 設備連線:
 #       - 支援設備: connection/supported-devices.md
 #       - 自動偵測: connection/auto-detect.md

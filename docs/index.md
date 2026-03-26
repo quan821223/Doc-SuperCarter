@@ -1,11 +1,7 @@
-# SuperCarter CHANGELOG
+# SuperCarter CHANGELOG 更新日誌
 
-SuperCarter 變更日誌
+## 最新版本修正狀況
 
+--8<-- "_generated/latest-changelog.md"
 
-> 所有顯著變更都會記錄在此檔案中。
-> 本專案遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/) 版本規範。
-
-> from AMSC
-
-本文件提供： DQA
+[查看完整 CHANGELOG](CHANGELOG/CHANGELOG.md)
