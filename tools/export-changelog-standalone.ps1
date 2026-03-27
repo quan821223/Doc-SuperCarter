@@ -1,5 +1,5 @@
 param(
-    [string]$OutputFile = "offline-manual.html"
+    [string]$OutputFile = "changelog-standalone.html"
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,12 +19,12 @@ try {
         throw "mkdocs build failed."
     }
 
-    & $python .\tools\inline_print_page.py --output $OutputFile
+    & $python .\tools\inline_print_page.py --input .\site\CHANGELOG\CHANGELOG\index.html --output $OutputFile
     if ($LASTEXITCODE -ne 0) {
-        throw "Standalone export failed."
+        throw "Standalone CHANGELOG export failed."
     }
 
-    Write-Host "Standalone HTML exported to $outputPath"
+    Write-Host "Standalone CHANGELOG exported to $outputPath"
 }
 finally {
     Pop-Location

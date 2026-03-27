@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import base64
 import mimetypes
 import re
@@ -8,8 +9,8 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_DIR = ROOT / 'site'
-PRINT_PAGE = SITE_DIR / 'print_page' / 'index.html'
-OUTPUT = SITE_DIR / 'offline-manual.html'
+DEFAULT_INPUT = SITE_DIR / 'print_page' / 'index.html'
+DEFAULT_OUTPUT = ROOT / 'offline-manual.html'
 
 URL_RE = re.compile(r'url\(([^)]+)\)')
 
@@ -45,10 +46,21 @@ def inline_css_urls(css_text: str, css_path: Path) -> str:
     return URL_RE.sub(repl, css_text)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description='Inline a built MkDocs HTML page into a single-file document.')
+    parser.add_argument('--input', type=Path, default=DEFAULT_INPUT, help='Input HTML file to inline.')
+    parser.add_argument('--output', type=Path, default=DEFAULT_OUTPUT, help='Output HTML file path.')
+    return parser.parse_args()
+
+
 def main() -> None:
-    html = PRINT_PAGE.read_text(encoding='utf-8')
+    args = parse_args()
+    input_path = (ROOT / args.input).resolve() if not args.input.is_absolute() else args.input.resolve()
+    output_path = (ROOT / args.output).resolve() if not args.output.is_absolute() else args.output.resolve()
+
+    html = input_path.read_text(encoding='utf-8')
     soup = BeautifulSoup(html, 'lxml')
-    base_dir = PRINT_PAGE.parent
+    base_dir = input_path.parent
 
     for link in list(soup.find_all('link', href=True)):
         href = link['href']
@@ -110,8 +122,8 @@ def main() -> None:
         if changed:
             tag['srcset'] = ', '.join(entries)
 
-    OUTPUT.write_text(str(soup), encoding='utf-8')
-    print(f'Wrote {OUTPUT}')
+    output_path.write_text(str(soup), encoding='utf-8')
+    print(f'Wrote {output_path}')
 
 
 if __name__ == '__main__':

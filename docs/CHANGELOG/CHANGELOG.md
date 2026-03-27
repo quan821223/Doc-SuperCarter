@@ -1,9 +1,16 @@
 # CHANGELOG - SuperCarter
-> from AMSC
+
+
 
 > 所有顯著變更都會記錄在此檔案中。  
 > 本專案遵循 [Semantic Versioning](https://semver.org/lang/zh-TW/) 版本規範。
 
+  - 文件名稱：SuperCarter CHANGELOG
+  - 文件版本：v1.0.0
+  - 適用軟體版本：SuperCarter v1.10.4
+  - 發布日期：2026-03-26
+  - 維護單位：DQA
+  
 ---
 
 ## [Unreleased]
