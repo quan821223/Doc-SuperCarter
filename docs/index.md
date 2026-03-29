@@ -1,10 +1,14 @@
-# SuperCarter User Manual
+# SuperCarter 
 
-歡迎使用 SuperCarter 文件。
+這個文件站現在採單一來源整理:
 
-本文件提供：
-- 安裝說明
-- 介面導覽
-- 設備連線
-- 腳本操作
-- 監控與資料匯出
+- 完整閱讀與較佳瀏覽體驗走整個網站。
+- 版本變更只維護一份 [`CHANGELOG`](CHANGELOG/CHANGELOG.md)，首頁只摘出最新版本。
+
+
+## 最新版本修正狀況
+
+--8<-- "_generated/latest-changelog.md"
+
+[查看完整 CHANGELOG](CHANGELOG/CHANGELOG.md)
+
