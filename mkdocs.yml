@@ -1,6 +1,7 @@
 site_name: SuperCarter Documentation
 site_description: SuperCarter 文件網站與變更紀錄
 site_author: SuperCarter Team
+site_url: https://quan821223.github.io/Doc-SuperCarter/
 
 theme:
   name: material
