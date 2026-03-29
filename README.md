@@ -106,6 +106,11 @@ site/
 
 ## 離線輸出
 
+離線分享分成兩種情境：
+
+- 如果只想給人看單一版本變更，可輸出 CHANGELOG 的獨立 HTML。
+- 如果要保留完整樣式、導覽與整體閱讀體驗，則輸出整站的離線版。
+
 ### 1. 匯出整站閱讀版
 
 ```powershell
@@ -146,6 +151,139 @@ changelog-standalone.html
   - 可指定輸入與輸出路徑，將 HTML 依賴資源內嵌成單檔
 - `hooks/generate_latest_changelog.py`
   - 從 `CHANGELOG.md` 擷取最新已發布版本，產生首頁摘要
+
+## 部署到 GitHub Pages
+
+這個專案可以直接部署到 GitHub Pages，讓使用者透過網路查看文件，不需要自行安裝環境。
+
+### 1. 前置條件
+
+- 已有 GitHub 帳號
+- 已將此 repo push 到 GitHub
+- repo 內容包含 `mkdocs.yml`、`docs/`、`requirements.txt`
+
+### 2. 建議的網址形式
+
+如果 repo 名稱是 `Doc-SuperCarter`，GitHub Pages 網址通常會是：
+
+```text
+https://<你的 GitHub 帳號>.github.io/Doc-SuperCarter/
+```
+
+如果之後有自訂網域，再另外綁定即可。
+
+### 3. 在 `mkdocs.yml` 補上 `site_url`
+
+建議在 `mkdocs.yml` 設定：
+
+```yaml
+site_url: https://<你的 GitHub 帳號>.github.io/Doc-SuperCarter/
+```
+
+這樣 sitemap、canonical URL 與部分主題功能會比較正常。
+
+### 4. 建立 GitHub Actions 部署流程
+
+在 repo 中新增檔案：
+
+```text
+.github/workflows/deploy-pages.yml
+```
+
+內容可使用：
+
+```yaml
+name: Deploy Docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - CL_main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Build site
+        run: python -m mkdocs build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+### 5. 在 GitHub 啟用 Pages
+
+到 GitHub repo 頁面操作：
+
+1. 進入 `Settings`
+2. 打開 `Pages`
+3. 在 `Build and deployment` 選擇 `GitHub Actions`
+
+設定完成後，之後只要 push 到指定 branch，就會自動部署。
+
+### 6. 推送後確認部署結果
+
+每次 push 後，可在 GitHub 的 `Actions` 頁面確認 workflow 是否成功。
+
+成功後可在：
+
+```text
+https://<你的 GitHub 帳號>.github.io/Doc-SuperCarter/
+```
+
+看到最新文件站內容。
+
+### 7. 常見注意事項
+
+- 如果 repo 名稱不是 `Doc-SuperCarter`，網址最後一段會跟著 repo 名稱改變。
+- 如果預設分支不是 `main`，要同步修改 workflow 內的 branch 名稱。
+- 如果網站資源路徑錯誤，先確認 `site_url` 是否正確。
+- GitHub Pages 適合靜態網站，這個 MkDocs 專案可直接使用。
+- 如果不想讓使用者直接看到 `github.io` 網址，可後續再綁自訂網域。
+
+### 8. 本機建置與線上部署的差異
+
+- 本機預覽使用：`.\scdoc\Scripts\python.exe -m mkdocs serve`
+- 正式上線部署使用：GitHub Actions 執行 `python -m mkdocs build`
+- GitHub Pages 只需要 `site/` 靜態輸出，不需要上傳 `scdoc/`
 
 ## 目前已完成的調整
 
