@@ -39,10 +39,63 @@
 
 ## 建置方式
 
+### 1. 建立虛擬環境
+
+建議直接使用 repo 內的腳本：
+
+```powershell
+.\tools\setup-venv.ps1
+```
+
+這個腳本會：
+
+- 在 repo 根目錄建立 `scdoc` 虛擬環境
+- 依 `requirements.txt` 安裝相依套件
+- 輸出後續啟用與執行 MkDocs 的指令
+
+如果需要重建已壞掉或搬移過路徑的 venv，可執行：
+
+```powershell
+.\tools\setup-venv.ps1 -Recreate
+```
+
+如果只想建立 venv、不安裝套件，可執行：
+
+```powershell
+.\tools\setup-venv.ps1 -SkipInstall
+```
+
+也可以手動執行：
+
+```powershell
+python -m venv scdoc
+```
+
+### 2. 啟用虛擬環境並安裝相依套件
+
+```powershell
+.\scdoc\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+如果不想先啟用，也可以直接使用虛擬環境內的 Python 安裝：
+
+```powershell
+.\scdoc\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+### 3. 建置網站
+
 使用 repo 內的虛擬環境：
 
 ```powershell
 .\scdoc\Scripts\python.exe -m mkdocs build
+```
+
+本機預覽：
+
+```powershell
+.\scdoc\Scripts\python.exe -m mkdocs serve
 ```
 
 輸出網站目錄：
@@ -87,6 +140,8 @@ changelog-standalone.html
   - 先建站，再把 `print_page` 內嵌成單檔 HTML
 - `tools/export-changelog-standalone.ps1`
   - 先建站，再把 `site/CHANGELOG/CHANGELOG/index.html` 內嵌成單檔 HTML
+- `tools/setup-venv.ps1`
+  - 建立或重建 `scdoc` 虛擬環境，並安裝 `requirements.txt`
 - `tools/inline_print_page.py`
   - 可指定輸入與輸出路徑，將 HTML 依賴資源內嵌成單檔
 - `hooks/generate_latest_changelog.py`

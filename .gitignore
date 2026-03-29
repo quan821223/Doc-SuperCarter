@@ -1,0 +1,7 @@
+scdoc/
+.venv/
+venv/
+.scdoc/
+
+__pycache__/
+*.pyc
