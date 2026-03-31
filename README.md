@@ -139,12 +139,28 @@ changelog-standalone.html
 
 用途：只給別人看版本變更，接近 `htmlark CHANGELOG/CHANGELOG/index.html -o changelog-standalone.html` 這種使用情境，但已整合進 repo 流程。
 
+### 3. 匯出 SEE10 補充文件單頁版
+
+```powershell
+.\tools\export-see10-supplemental.ps1
+```
+
+預設輸出：
+
+```text
+see10-supplemental-notes.html
+```
+
+用途：只分享 SEE10 補充文件，不需要整站離線包。
+
 ## 相關腳本
 
 - `tools/export-offline-html.ps1`
   - 先建站，再把 `print_page` 內嵌成單檔 HTML
 - `tools/export-changelog-standalone.ps1`
   - 先建站，再把 `site/CHANGELOG/CHANGELOG/index.html` 內嵌成單檔 HTML
+- `tools/export-see10-supplemental.ps1`
+  - 先建站，再把 `site/see10-supplemental-notes/index.html` 內嵌成單檔 HTML
 - `tools/setup-venv.ps1`
   - 建立或重建 `scdoc` 虛擬環境，並安裝 `requirements.txt`
 - `tools/inline_print_page.py`
@@ -313,3 +329,4 @@ https://<你的 GitHub 帳號>.github.io/Doc-SuperCarter/
 - `docs/CHANGELOG/CHANGELOG.md` 有既有未提交修改，這次沒有覆蓋
 - `site/` 目錄是建置產物，會隨 `mkdocs build` 更新
 - `docs/` 下仍有一些頁面尚未放回 `nav`，MkDocs build 會顯示 warning；這次未處理
+

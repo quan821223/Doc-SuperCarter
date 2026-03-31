@@ -51,6 +51,8 @@ nav:
       - 即時監控: monitoring/live-monitor.md
       - Logging: monitoring/logging.md
       - CSV 輸出: monitoring/csv-export.md
+  - 補充文件 👾:
+      - SuperEagleEye (SEE_1.0): see10-supplemental-notes.md
   - FAQ:
       - 常見問題: faq/faq.md
       - 名詞解釋: faq/glossary.md
@@ -63,5 +65,8 @@ nav:
   #     - 安裝: getting-started/installation.md
   #     - 介面導覽: getting-started/quick-tour.md
   #     - 基本流程: getting-started/workflow.md
+
+
+
 
 

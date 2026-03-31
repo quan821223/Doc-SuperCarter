@@ -1,0 +1,2935 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="SuperCarter 文件網站與變更紀錄">
+      
+      
+        <meta name="author" content="SuperCarter Team">
+      
+      
+        <link rel="canonical" href="https://quan821223.github.io/Doc-SuperCarter/see10-supplemental-notes/">
+      
+      
+        <link rel="prev" href="../monitoring/csv-export/">
+      
+      
+        <link rel="next" href="../faq/faq/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SuperEagleEye (SEE_1.0) - SuperCarter Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/print-site.css">
+    
+      <link rel="stylesheet" href="../css/print-site-material.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#supereagleeye-see_10" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href=".." title="SuperCarter Documentation" class="md-header__button md-logo" aria-label="SuperCarter Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SuperCarter Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SuperEagleEye (SEE_1.0)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清除" aria-label="清除" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="標籤" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首頁
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  快速上手
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../scripting/concepts/" class="md-tabs__link">
+          
+  
+  
+  腳本系統
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../connection/supported-devices/" class="md-tabs__link">
+          
+  
+  
+  設備連線
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../monitoring/live-monitor/" class="md-tabs__link">
+          
+  
+  
+  監控與資料
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  補充文件 👾
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../faq/faq/" class="md-tabs__link">
+          
+  
+  
+  FAQ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../CHANGELOG/CHANGELOG/" class="md-tabs__link">
+          
+  
+  
+  更新日誌
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SuperCarter Documentation" class="md-nav__button md-logo" aria-label="SuperCarter Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SuperCarter Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    快速上手
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安裝
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基本流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    相機說明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腳本系統
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    腳本系統
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/editor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    編輯器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/execution-modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    執行模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/parameters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    參數設定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    設備連線
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    設備連線
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connection/supported-devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    支援設備
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connection/auto-detect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自動偵測
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connection/com-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM 管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connection/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    問題排除
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    監控與資料
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    監控與資料
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/live-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    即時監控
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/csv-export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSV 輸出
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    補充文件 👾
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    補充文件 👾
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SuperEagleEye (SEE_1.0)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SuperEagleEye (SEE_1.0)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目前操作模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用小黑窗指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用小黑窗指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        查狀態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        開關相機
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        拍照與錄影
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercarter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 SuperCarter 中的觀念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercarter-see_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuperCarter 下達給 SEE_1.0 的指令大全
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SuperCarter 下達給 SEE_1.0 的指令大全">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supercarter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuperCarter 腳本編輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般欄位概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executecameracommand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExecuteCameraCommand 指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExecuteCameraCommand 指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PING
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open_camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPEN_CAMERA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#close_camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLOSE_CAMERA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swap_cameras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SWAP_CAMERAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        START_RECORD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop_record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STOP_RECORD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capture_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CAPTURE_SNAPSHOT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_camera_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SET_CAMERA_CONFIG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_output_root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SET_OUTPUT_ROOT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open_output_folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPEN_OUTPUT_FOLDER
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SHUTDOWN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#querycamerastate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QueryCameraState 查詢指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="QueryCameraState 查詢指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET_STATUS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list_cameras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LIST_CAMERAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list_devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LIST_DEVICES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_camera_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET_CAMERA_CONFIG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_record_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET_RECORD_STATE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercarter_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuperCarter 最常用的幾個指令
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        輸出路徑
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        已知注意事項
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建議排查順序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重要提醒
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    FAQ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常見問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    名詞解釋
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    更新日誌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    更新日誌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CHANGELOG/CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CHANGELOG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目前操作模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用小黑窗指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用小黑窗指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        查狀態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        開關相機
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        拍照與錄影
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercarter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 SuperCarter 中的觀念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercarter-see_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuperCarter 下達給 SEE_1.0 的指令大全
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SuperCarter 下達給 SEE_1.0 的指令大全">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supercarter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuperCarter 腳本編輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般欄位概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executecameracommand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExecuteCameraCommand 指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExecuteCameraCommand 指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PING
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open_camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPEN_CAMERA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#close_camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLOSE_CAMERA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swap_cameras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SWAP_CAMERAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        START_RECORD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop_record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STOP_RECORD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capture_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CAPTURE_SNAPSHOT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_camera_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SET_CAMERA_CONFIG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_output_root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SET_OUTPUT_ROOT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open_output_folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPEN_OUTPUT_FOLDER
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SHUTDOWN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#querycamerastate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QueryCameraState 查詢指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="QueryCameraState 查詢指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET_STATUS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list_cameras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LIST_CAMERAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list_devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LIST_DEVICES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_camera_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET_CAMERA_CONFIG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_record_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET_RECORD_STATE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercarter_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuperCarter 最常用的幾個指令
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        輸出路徑
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        已知注意事項
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建議排查順序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重要提醒
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="supereagleeye-see_10">SuperEagleEye (SEE_1.0) 使用者指南<a class="headerlink" href="#supereagleeye-see_10" title="Permanent link">&para;</a></h1>
+<p><em>AMSC_MGMDA0 · DQA</em></p>
+<p><em>SEE 軟體版本：至少 1.2.0</em>
+<em>文件版本：0.2</em></p>
+<p>這份文件說明目前 <code>SEE_1.0</code> 的實際操作方式。</p>
+<h2 id="_1">目前操作模型<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>目前請把：<ul>
+<li><code>cam0</code></li>
+<li><code>cam1</code></li>
+<li><code>cam2</code></li>
+</ul>
+</li>
+</ul>
+<p>視為固定的「邏輯相機槽位」。</p>
+<ul>
+<li>目前行為：<ul>
+<li><code>SEE_1.0</code> 啟動後，會自動把偵測到的相機分配給 <code>cam0</code>、<code>cam1</code>、<code>cam2</code>，並嘗試自動開啟</li>
+<li>平常操作請直接使用 <code>cam0</code>、<code>cam1</code>，不要再把它們當成 Windows <code>device_index</code></li>
+<li>如果要交換兩個槽位背後的硬體，請用 <code>swap cam0 cam1</code></li>
+<li><code>change cam0 cam1</code> 也可以用，功能與 <code>swap</code> 相同</li>
+</ul>
+</li>
+</ul>
+<h2 id="_2">常用小黑窗指令<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">查狀態<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">status
+list
+list_devices
+</code></pre>
+<ul>
+<li><code>status</code>：查看 runtime 狀態</li>
+<li><code>list</code>：查看目前已開啟的邏輯相機</li>
+<li><code>list_devices</code>：查看目前偵測到的硬體、裝置資訊，以及每顆硬體對應到哪個邏輯槽位</li>
+</ul>
+<h3 id="_4">開關相機<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">open cam1
+close cam1
+swap cam0 cam1
+change cam0 cam1
+</code></pre>
+<ul>
+<li><code>open cam1</code>：重新打開 <code>cam1</code> 這個邏輯槽位</li>
+<li><code>close cam1</code>：關閉 <code>cam1</code></li>
+<li><code>swap cam0 cam1</code>：交換 <code>cam0</code> 和 <code>cam1</code> 背後的硬體</li>
+<li><code>change cam0 cam1</code>：<code>swap</code> 的別名</li>
+</ul>
+<h3 id="_5">拍照與錄影<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">snapshot cam0
+record_start cam0 60
+record_stop cam0
+open_output_folder
+</code></pre>
+<ul>
+<li><code>snapshot cam0</code>：讓 <code>cam0</code> 拍一張照</li>
+<li><code>record_start cam0 60</code>：讓 <code>cam0</code> 開始錄影 60 秒分段</li>
+<li><code>record_stop cam0</code>：停止 <code>cam0</code> 錄影</li>
+<li><code>open_output_folder</code>：直接打開目前的輸出資料夾</li>
+</ul>
+<h2 id="supercarter">在 SuperCarter 中的觀念<a class="headerlink" href="#supercarter" title="Permanent link">&para;</a></h2>
+<ul>
+<li>目前建議：<ul>
+<li>使用 <code>cam0</code> / <code>cam1</code> 當作固定邏輯相機</li>
+<li>不要再依賴手動輸入 <code>device_index</code></li>
+<li>若兩台相機對應反了，直接用 <code>swap cam0 cam1</code> <strong>(請於運行前在小黑窗調適)</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="supercarter-see_10">SuperCarter 下達給 SEE_1.0 的指令大全<a class="headerlink" href="#supercarter-see_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>這一節描述的是：</p>
+<ul>
+<li>不是小黑窗手動輸入的指令</li>
+<li>而是 <code>SuperCarter</code> 透過<strong>指令</strong>傳給 <code>SEE_1.0</code> 的正式控制指令</li>
+</ul>
+</li>
+<li>
+<p>目前 <code>SuperCarter</code> 會使用兩種指令形式：</p>
+<ul>
+<li><code>ExecuteCameraCommand</code></li>
+<li><code>QueryCameraState</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="supercarter_1">SuperCarter 腳本編輯<a class="headerlink" href="#supercarter_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>請根據以下範例圖示選擇腳本內參數的設置：<ul>
+<li><code>Device</code> 請選擇 <code>SuperCarter</code></li>
+<li><code>Type1</code> 請選擇 <code>System</code></li>
+<li><code>Type2</code> 請選擇 <code>CAMERA</code></li>
+<li><code>Fun0</code> 請選擇 <code>1</code></li>
+<li><code>Fun1</code> 請選擇 <code>ASCII</code></li>
+<li><code>Name</code> 填寫該指令的名稱，所填寫的內容將變成圖片檔案的命名內容之一</li>
+<li><code>Command</code> 請參考以下關於 <strong><code>SEE1.0</code></strong> 指令的撰寫方式進行填寫</li>
+</ul>
+</li>
+</ul>
+<p><img alt="SEE10 啟動畫面" src="../assets/images/see10/see10-SCcommand-example-01-01.png" width="900" /></p>
+<blockquote>
+<p>SuperCarter 腳本編輯器中關於 <strong>SEE1.0</strong> 相關指令參數的選擇範例</p>
+</blockquote>
+<h3 id="_6">一般欄位概念<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>每次由 <code>SuperCarter</code> 呼叫時，通常會帶這些欄位：</p>
+<ul>
+<li><code>command</code> 或 <code>query</code>：真正的指令名稱</li>
+<li><code>camera_id</code>：要操作的邏輯相機，例如 <code>cam0</code>、<code>cam1</code>、<code>cam2</code>；凡是針對相機的指令，這個欄位都要明確填寫</li>
+<li><code>args_json</code>：補充參數，格式是 JSON 字串</li>
+<li><code>auth_token</code>：驗證用的共享金鑰</li>
+</ul>
+</li>
+<li>
+<p>如果只是看操作觀念，你可以先記住：</p>
+<ul>
+<li>有動作的指令，用 <code>ExecuteCameraCommand</code></li>
+<li>只是查狀態的指令，用 <code>QueryCameraState</code></li>
+</ul>
+</li>
+<li>
+<p>相機指定規則：</p>
+<ul>
+<li>指令名稱本身通常不會直接寫出 <code>cam0</code> 或 <code>cam1</code></li>
+<li>真正指定哪一顆邏輯相機，是靠 <code>camera_id</code> 欄位</li>
+<li>例如要讓 <code>cam0</code> 截圖，應該送：<ul>
+<li><code>command = "CAPTURE_SNAPSHOT"</code></li>
+<li><code>camera_id = "cam0"</code></li>
+<li>例如要讓 <code>cam1</code> 開始錄影，應該送：</li>
+<li><code>command = "START_RECORD"</code></li>
+<li><code>camera_id = "cam1"</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="executecameracommand">ExecuteCameraCommand 指令<a class="headerlink" href="#executecameracommand" title="Permanent link">&para;</a></h3>
+<h4 id="ping"><code>PING</code><a class="headerlink" href="#ping" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>確認 <code>SEE_1.0</code> 還活著</li>
+<li>檢查目前 runtime 看到的連線狀態</li>
+</ul>
+</li>
+<li>
+<p>通常參數：</p>
+<ul>
+<li><code>camera_id</code> 可空</li>
+</ul>
+</li>
+<li>
+<p>成功時會回：</p>
+<ul>
+<li><code>ack_hex</code></li>
+<li><code>connection_state</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>PING</code></p>
+</li>
+</ul>
+<h4 id="open_camera"><code>OPEN_CAMERA</code><a class="headerlink" href="#open_camera" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>打開指定的邏輯相機槽位</li>
+</ul>
+</li>
+<li>
+<p>常見用法：</p>
+<ul>
+<li><code>camera_id = "cam0"</code>；這個欄位就是實際要開啟的相機</li>
+</ul>
+</li>
+<li>
+<p>成功時會回：</p>
+<ul>
+<li>這顆邏輯相機目前的完整狀態</li>
+<li>例如 <code>opened</code>、<code>recording</code>、<code>width</code>、<code>height</code>、<code>fps</code></li>
+</ul>
+</li>
+<li>
+<p>適合什麼時候用：</p>
+<ul>
+<li>預覽視窗被關掉後想重新打開</li>
+<li>某個槽位被關掉後重新開啟</li>
+</ul>
+</li>
+<li>
+<p>範例：<code>OPEN_CAMERA cam0</code></p>
+</li>
+</ul>
+<h4 id="close_camera"><code>CLOSE_CAMERA</code><a class="headerlink" href="#close_camera" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>關閉一個邏輯相機槽位</li>
+</ul>
+</li>
+<li>
+<p>常見用法：</p>
+<ul>
+<li><code>camera_id = "cam1"</code>；這個欄位就是實際要關閉的相機</li>
+</ul>
+</li>
+<li>
+<p>成功時會回：</p>
+<ul>
+<li><code>camera_id</code></li>
+<li><code>closed = true</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>CLOSE_CAMERA cam1</code></p>
+</li>
+</ul>
+<h4 id="swap_cameras"><code>SWAP_CAMERAS</code><a class="headerlink" href="#swap_cameras" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>交換兩個邏輯槽位背後實際綁定的硬體</li>
+</ul>
+</li>
+<li>
+<p>這個指令很適合：</p>
+<ul>
+<li><code>cam0</code> 跟 <code>cam1</code> 對應反了</li>
+<li>兩顆相機畫面左右或上下顛倒分配</li>
+</ul>
+</li>
+<li>
+<p>字串指令格式：</p>
+</li>
+</ul>
+<pre><code class="language-text">SWAP_CAMERAS [source_camera_id] [target_camera_id]
+</code></pre>
+<ul>
+<li>
+<p>範例：<code>SWAP_CAMERAS cam0 cam6</code></p>
+</li>
+<li>
+<p>說明：</p>
+<ul>
+<li><code>source_camera_id</code>：要交換出去的邏輯槽位</li>
+<li><code>target_camera_id</code>：要交換進來的邏輯槽位</li>
+<li>執行後，這兩個邏輯槽位背後綁定的硬體會互換</li>
+</ul>
+</li>
+<li>
+<p>補充：</p>
+<ul>
+<li>目前底層 RPC 仍然會把這兩個值放在 <code>args_json</code></li>
+<li>但文件主體請把它理解成兩個明確的位置參數即可</li>
+</ul>
+</li>
+<li>
+<p>範例：<code>SWAP_CAMERAS cam0 cam6</code></p>
+</li>
+</ul>
+<h4 id="start_record"><code>START_RECORD</code><a class="headerlink" href="#start_record" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>讓指定邏輯相機開始錄影</li>
+</ul>
+</li>
+<li>
+<p>常見參數：</p>
+<ul>
+<li><code>camera_id = "cam0"</code> 或其他目標槽位</li>
+</ul>
+</li>
+</ul>
+<p>常見參數：</p>
+<pre><code class="language-json">{
+  &quot;duration_sec&quot;: 60,
+  &quot;file_prefix&quot;: &quot;cam0&quot;
+}
+</code></pre>
+<ul>
+<li>
+<p>可選欄位：</p>
+<ul>
+<li><code>duration_sec</code></li>
+<li><code>output_dir</code></li>
+<li><code>file_prefix</code></li>
+</ul>
+</li>
+<li>
+<p>成功時會回：</p>
+<ul>
+<li><code>camera_id</code></li>
+<li><code>recording = true</code></li>
+<li><code>duration_sec</code></li>
+</ul>
+</li>
+<li>
+<p>前提：</p>
+<ul>
+<li>該相機必須已經有畫面</li>
+</ul>
+</li>
+<li>
+<p>範例：<code>START_RECORD cam0 {"duration_sec":60}</code></p>
+</li>
+</ul>
+<h4 id="stop_record"><code>STOP_RECORD</code><a class="headerlink" href="#stop_record" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>停止指定邏輯相機的錄影</li>
+</ul>
+</li>
+<li>
+<p>常見用法：</p>
+<ul>
+<li><code>camera_id = "cam0"</code>；這個欄位就是實際要停止錄影的相機</li>
+</ul>
+</li>
+<li>
+<p>成功時會回：</p>
+<ul>
+<li><code>camera_id</code></li>
+<li><code>recording = false</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>STOP_RECORD cam0</code></p>
+</li>
+</ul>
+<h4 id="capture_snapshot"><code>CAPTURE_SNAPSHOT</code><a class="headerlink" href="#capture_snapshot" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>讓指定邏輯相機拍一張照</li>
+</ul>
+</li>
+<li>
+<p>補充說明：</p>
+<ul>
+<li>這就是 <code>SuperCarter</code> 要求 <code>SEE_1.0</code> 截圖時應該送的正式指令。</li>
+</ul>
+</li>
+<li>
+<p>字串指令格式：</p>
+</li>
+</ul>
+<pre><code class="language-text">CAPTURE_SNAPSHOT [cam0|cam1|cam2|all]
+</code></pre>
+<ul>
+<li>
+<p>目標定義：</p>
+<ul>
+<li><code>cam0|cam1|cam2</code>：指定其中一個邏輯相機拍照</li>
+<li><code>all</code>：目前所有已開啟的邏輯相機都各拍一張</li>
+</ul>
+</li>
+<li>
+<p>可接受的 target 寫法：</p>
+<ul>
+<li><code>cam0|cam1|cam2|all</code></li>
+<li><code>0|1|2</code></li>
+</ul>
+</li>
+<li>
+<p>結構化公式：</p>
+</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;command&quot;: &quot;CAPTURE_SNAPSHOT&quot;,
+  &quot;camera_id&quot;: &quot;&lt;cam0|cam1|cam2|all&gt;&quot;,
+  &quot;args_json&quot;: &quot;{} | {\&quot;output_path\&quot;:\&quot;D:\\\\temp\\\\cam0.jpg\&quot;}&quot;
+}
+</code></pre>
+<ul>
+<li>也可以指定輸出檔案：</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;output_path&quot;: &quot;D:\temp\cam0.jpg&quot;
+}
+</code></pre>
+<ul>
+<li>
+<p>成功時會回：</p>
+<ul>
+<li><code>camera_id</code></li>
+<li><code>snapshot_path</code></li>
+</ul>
+</li>
+<li>
+<p>如果使用 <code>camera_id = "all"</code>：</p>
+<ul>
+<li>會一次對所有已開啟的相機各拍一張</li>
+<li>回傳內容會改成：<ul>
+<li><code>camera_id = "all"</code></li>
+<li><code>snapshots</code>：每顆相機對應的 <code>snapshot_path</code></li>
+<li><code>count</code>：實際完成的截圖數量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>注意：</p>
+<ul>
+<li><code>all</code> 模式建議不要搭配單一 <code>output_path</code></li>
+<li>讓 runtime 自動產生每顆相機各自的檔名會比較安全</li>
+</ul>
+</li>
+<li>
+<p>補充規則：</p>
+<ul>
+<li><code>all</code> 目前只適用於 <code>CAPTURE_SNAPSHOT</code></li>
+<li><code>OPEN_CAMERA</code>、<code>CLOSE_CAMERA</code>、<code>SET_CAMERA_CONFIG</code> 這類單機性質指令，仍必須指定單一 <code>camera_id</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>CAPTURE_SNAPSHOT cam0</code>, <code>CAPTURE_SNAPSHOT all</code></p>
+</li>
+</ul>
+<h4 id="set_camera_config"><code>SET_CAMERA_CONFIG</code><a class="headerlink" href="#set_camera_config" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>更新某個邏輯相機的拍攝設定</li>
+</ul>
+</li>
+<li>
+<p>相機指定：</p>
+<ul>
+<li><code>camera_id = "cam0"</code> 或其他目標槽位</li>
+</ul>
+</li>
+<li>
+<p>可設定欄位：</p>
+<ul>
+<li><code>width</code></li>
+<li><code>height</code></li>
+<li><code>fps</code></li>
+<li><code>recording_duration</code></li>
+<li><code>max_folder_size_gb</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>SET_CAMERA_CONFIG cam0 {"width":1280,"height":720,"fps":20}</code></p>
+</li>
+</ul>
+<h4 id="set_output_root"><code>SET_OUTPUT_ROOT</code><a class="headerlink" href="#set_output_root" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>更新目前快照與錄影的預設儲存資料夾</li>
+</ul>
+</li>
+<li>
+<p>補充說明：</p>
+<ul>
+<li><code>SuperCarter</code> 平常就是靠這個指令，把目前選到的輸出路徑推給 <code>SEE_1.0</code>。</li>
+</ul>
+</li>
+<li>
+<p>範例：<code>SET_OUTPUT_ROOT {"output_dir":"D:\capture_output"}</code></p>
+</li>
+<li>
+<p>也可以用：</p>
+</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;save_path&quot;: &quot;D:\capture_output&quot;
+}
+</code></pre>
+<ul>
+<li>成功時會回：<ul>
+<li>目前生效的 <code>output_dir</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="open_output_folder"><code>OPEN_OUTPUT_FOLDER</code><a class="headerlink" href="#open_output_folder" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>取得目前輸出資料夾的位置</li>
+</ul>
+</li>
+<li>
+<p>目前實作會回：</p>
+<ul>
+<li><code>output_dir</code></li>
+</ul>
+</li>
+<li>
+<p>補充說明：</p>
+<ul>
+<li>通常是 <code>SuperCarter</code> 拿到這個路徑後，再決定是否幫你打開資料夾。</li>
+</ul>
+</li>
+<li>
+<p>範例：<code>OPEN_OUTPUT_FOLDER</code></p>
+</li>
+</ul>
+<h4 id="shutdown"><code>SHUTDOWN</code><a class="headerlink" href="#shutdown" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>要求整個 <code>SEE_1.0</code> runtime 結束</li>
+</ul>
+</li>
+<li>
+<p>這通常對應：</p>
+<ul>
+<li><code>Stop SEE_1.0</code></li>
+<li>或某些完整停止流程</li>
+</ul>
+</li>
+<li>
+<p>成功時會回：</p>
+<ul>
+<li><code>shutdown = true</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>SHUTDOWN</code></p>
+</li>
+</ul>
+<h3 id="querycamerastate">QueryCameraState 查詢指令<a class="headerlink" href="#querycamerastate" title="Permanent link">&para;</a></h3>
+<h4 id="get_status"><code>GET_STATUS</code><a class="headerlink" href="#get_status" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>查整個 runtime 的整體狀態</li>
+</ul>
+</li>
+<li>
+<p>會回：</p>
+<ul>
+<li><code>connection_state</code></li>
+<li><code>uptime_sec</code></li>
+<li><code>camera_count</code></li>
+<li><code>default_camera_id</code></li>
+<li><code>recording_cameras</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>GET_STATUS</code></p>
+</li>
+</ul>
+<h4 id="list_cameras"><code>LIST_CAMERAS</code><a class="headerlink" href="#list_cameras" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>查目前所有已開啟的邏輯相機</li>
+</ul>
+</li>
+<li>
+<p>每個項目通常包含：</p>
+<ul>
+<li><code>camera_id</code></li>
+<li><code>device_index</code></li>
+<li><code>friendly_name</code></li>
+<li><code>opened</code></li>
+<li><code>recording</code></li>
+<li><code>width</code></li>
+<li><code>height</code></li>
+<li><code>fps</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>LIST_CAMERAS</code></p>
+</li>
+</ul>
+<h4 id="list_devices"><code>LIST_DEVICES</code><a class="headerlink" href="#list_devices" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>查目前 Windows 偵測到的硬體相機與對應槽位</li>
+</ul>
+</li>
+<li>
+<p>每個項目可能包含：</p>
+<ul>
+<li><code>camera_index</code></li>
+<li><code>device_index</code></li>
+<li><code>friendly_name</code></li>
+<li><code>device_id</code></li>
+<li><code>pnp_device_id</code></li>
+<li><code>location_information</code></li>
+<li><code>manufacturer</code></li>
+<li><code>is_external</code></li>
+<li><code>assigned_camera_id</code></li>
+<li><code>opened_camera_id</code></li>
+</ul>
+</li>
+<li>
+<p>這個查詢很重要，因為：</p>
+<ul>
+<li>當兩顆相機同型號時，光看 <code>friendly_name</code> 常常不夠</li>
+<li>這時可以搭配 <code>device_id</code> / <code>pnp_device_id</code> 來辨識</li>
+</ul>
+</li>
+<li>
+<p>範例：<code>LIST_DEVICES</code></p>
+</li>
+</ul>
+<h4 id="get_camera_config"><code>GET_CAMERA_CONFIG</code><a class="headerlink" href="#get_camera_config" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>查某個邏輯相機目前的設定</li>
+</ul>
+</li>
+<li>
+<p>相機指定：</p>
+<ul>
+<li><code>camera_id = "cam0"</code> 或其他目標槽位</li>
+</ul>
+</li>
+<li>
+<p>通常會回：</p>
+<ul>
+<li><code>width</code></li>
+<li><code>height</code></li>
+<li><code>fps</code></li>
+<li><code>recording_duration</code></li>
+<li><code>max_folder_size_gb</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>GET_CAMERA_CONFIG cam0</code></p>
+</li>
+</ul>
+<h4 id="get_record_state"><code>GET_RECORD_STATE</code><a class="headerlink" href="#get_record_state" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>用途：</p>
+<ul>
+<li>查某個邏輯相機目前是否正在錄影</li>
+</ul>
+</li>
+<li>
+<p>相機指定：</p>
+<ul>
+<li><code>camera_id = "cam0"</code> 或其他目標槽位</li>
+</ul>
+</li>
+<li>
+<p>通常會回：</p>
+<ul>
+<li><code>camera_id</code></li>
+<li><code>recording</code></li>
+</ul>
+</li>
+<li>
+<p>範例：<code>GET_RECORD_STATE cam0</code></p>
+</li>
+</ul>
+<h2 id="supercarter_2">SuperCarter 最常用的幾個指令<a class="headerlink" href="#supercarter_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>如果只看最常用的操作，通常是這幾個：<ul>
+<li><code>SET_OUTPUT_ROOT</code></li>
+<li><code>CAPTURE_SNAPSHOT</code></li>
+<li><code>START_RECORD</code></li>
+<li><code>STOP_RECORD</code></li>
+<li><code>GET_STATUS</code></li>
+<li><code>LIST_DEVICES</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="_7">輸出路徑<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>目前輸出資料夾行為：<ul>
+<li><code>SuperCarter</code> 會透過 <code>SET_OUTPUT_ROOT</code> 把目前儲存位置推給 <code>SEE_1.0</code></li>
+<li>拍照與錄影都會寫到這個資料夾</li>
+<li>在小黑窗可直接用 <code>open_output_folder</code> 打開</li>
+</ul>
+</li>
+</ul>
+<h2 id="_8">已知注意事項<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>目前已知狀況：<ul>
+<li>兩台同型號相機可能會因 Windows 或 OpenCV backend 導致畫面異常</li>
+<li><code>cam1</code> 在 <code>CAP_MSMF</code> 下可能失敗，runtime 會在讀流失敗後切換 backend 重試</li>
+<li>如果兩台相機共用同一個 USB hub，穩定性可能更差</li>
+<li>若畫面對應錯誤，請先用 <code>list_devices</code> 檢查，再用 <code>swap cam0 cam1</code></li>
+<li>若 <code>close cam1</code> 過去曾造成異常，現在已加強關閉流程，但仍建議優先用最新打包版本驗證</li>
+</ul>
+</li>
+</ul>
+<h2 id="_9">建議排查順序<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ol>
+<li>啟動 <code>SEE_1.0</code></li>
+<li>打 <code>list_devices</code></li>
+<li>確認每顆硬體的 <code>assigned_camera_id</code> / <code>opened_camera_id</code></li>
+<li>如果相機對應反了，打 <code>swap cam0 cam1</code></li>
+</ol>
+<h2 id="_10">重要提醒<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>如果畫面仍不穩，請把兩顆相機分開插到不同 USB port，不要共用同一個 hub。
+兩顆同型號相機共用同一個 hub 時，容易出現黑畫面、卡頓、掉幀或取流異常。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../js/print-site.js"></script>
+      
+    
+  </body>
+</html>
