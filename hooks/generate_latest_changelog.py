@@ -7,9 +7,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_DIR = ROOT / "docs"
 CHANGELOG_PATH = DOCS_DIR / "CHANGELOG" / "CHANGELOG.md"
-OUTPUT_PATH = DOCS_DIR / "_generated" / "latest-changelog.md"
+INDEX_SNIPPET_MARKER = '--8<-- "_generated/latest-changelog.md"'
 
-RELEASE_HEADING_RE = re.compile(r"^## \[(?P<version>[^\]]+)\] - (?P<date>\d{4}-\d{2}-\d{2})\s*$")
+RELEASE_HEADING_RE = re.compile(r"^#{1,2} \[(?P<version>[^\]]+)\] - (?P<date>\d{4}-\d{2}-\d{2})\s*$")
 
 
 def extract_latest_release(markdown: str) -> tuple[str, str]:
@@ -48,12 +48,19 @@ def render_latest_release(title: str, body: str) -> str:
     return "\n".join(parts).rstrip() + "\n"
 
 
-def generate_latest_changelog() -> None:
+def generate_latest_changelog() -> str:
     markdown = CHANGELOG_PATH.read_text(encoding="utf-8")
     title, body = extract_latest_release(markdown)
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(render_latest_release(title, body), encoding="utf-8")
+    return render_latest_release(title, body)
 
 
 def on_pre_build(**kwargs) -> None:
-    generate_latest_changelog()
+    return None
+
+
+def on_page_markdown(markdown: str, page, **kwargs) -> str:
+    if getattr(page.file, "src_uri", "") != "index.md":
+        return markdown
+
+    latest_release = generate_latest_changelog()
+    return markdown.replace(INDEX_SNIPPET_MARKER, latest_release)
