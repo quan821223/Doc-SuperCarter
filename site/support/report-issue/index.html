@@ -1,0 +1,2132 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="SuperCarter 文件網站與變更紀錄">
+      
+      
+        <meta name="author" content="SuperCarter Team">
+      
+      
+        <link rel="canonical" href="https://quan821223.github.io/Doc-SuperCarter/support/report-issue/">
+      
+      
+        <link rel="prev" href="../../CHANGELOG/CHANGELOG/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>GitHub Issues - SuperCarter Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-material.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../.." title="SuperCarter Documentation" class="md-header__button md-logo" aria-label="SuperCarter Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SuperCarter Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GitHub Issues
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清除" aria-label="清除" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="標籤" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首頁
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  快速上手
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../scripting/concepts/" class="md-tabs__link">
+          
+  
+  
+  腳本系統
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../connection/supported-devices/" class="md-tabs__link">
+          
+  
+  
+  設備連線
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../monitoring/live-monitor/" class="md-tabs__link">
+          
+  
+  
+  監控與資料
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../see10-supplemental-notes/" class="md-tabs__link">
+          
+  
+  
+  補充文件 👾
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../TestResultViewer/ReportViewer%E4%BD%BF%E7%94%A8%E8%AA%AA%E6%98%8E/" class="md-tabs__link">
+          
+  
+  
+  測試報表
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../faq/faq/" class="md-tabs__link">
+          
+  
+  
+  FAQ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../CHANGELOG/CHANGELOG/" class="md-tabs__link">
+          
+  
+  
+  更新日誌
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  問題回報
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SuperCarter Documentation" class="md-nav__button md-logo" aria-label="SuperCarter Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SuperCarter Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    快速上手
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安裝
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基本流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    相機說明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腳本系統
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    腳本系統
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/editor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    編輯器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/execution-modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    執行模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/parameters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    參數設定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    設備連線
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    設備連線
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connection/supported-devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    支援設備
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connection/auto-detect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自動偵測
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connection/com-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM 管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connection/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    問題排除
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    監控與資料
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    監控與資料
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring/live-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    即時監控
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring/logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring/csv-export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSV 輸出
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    補充文件 👾
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    補充文件 👾
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../see10-supplemental-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SuperEagleEye (SEE_1.0)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    測試報表
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    測試報表
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TestResultViewer/ReportViewer%E4%BD%BF%E7%94%A8%E8%AA%AA%E6%98%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Report Viewer 使用說明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    FAQ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常見問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    名詞解釋
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    更新日誌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    更新日誌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CHANGELOG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    問題回報
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    問題回報
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub Issues
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回報入口
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="回報入口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用 GitHub 回報
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 使用 Email 回報
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Email 回報模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回報類型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="回報類型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程式異常或 Bug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        功能建議
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        開單前可先確認
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相關連結
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回報入口
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="回報入口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用 GitHub 回報
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 使用 Email 回報
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Email 回報模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回報類型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="回報類型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程式異常或 Bug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        功能建議
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        開單前可先確認
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相關連結
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">問題回報<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>如果你在使用 SuperCarter 時遇到錯誤、文件不清楚，或有功能建議，可以依照你的使用情境選擇下列回報方式。</p>
+<h2 id="_2">回報入口<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-github">1. 使用 GitHub 回報<a class="headerlink" href="#1-github" title="Permanent link">&para;</a></h3>
+<p>適合已有 GitHub 帳號的使用者。</p>
+<p><a class="md-button md-button--primary" href="https://github.com/onv-rgmda0/Tool-SuperCarter/issues" rel="noopener" target="_blank">前往 GitHub Issues</a>
+<a class="md-button" href="https://github.com/onv-rgmda0/Tool-SuperCarter/issues/new" rel="noopener" target="_blank">建立新 Issue</a></p>
+<h3 id="2-email">2. 使用 Email 回報<a class="headerlink" href="#2-email" title="Permanent link">&para;</a></h3>
+<p>適合沒有 GitHub 帳號，或希望直接寄信回報的使用者。</p>
+<p>先填下列表單，再按 <code>開啟郵件程式</code> 或 <code>複製回報內容</code>。</p>
+<div class="email-report-tool" style="border:1px solid var(--md-default-fg-color--lightest); border-radius:12px; padding:1rem; margin:1rem 0;">
+  <p><strong>收件人：</strong> <code>chon821223@gmail.com</code></p>
+  <p><strong>固定主旨：</strong> <code>[SuperCarter][Issue] 請填寫問題摘要</code></p>
+  <div style="display:grid; gap:0.75rem; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));">
+    <label>問題類型
+      <select id="issue-type" style="width:100%; padding:0.5rem;">
+        <option>Bug</option>
+        <option>文件問題</option>
+        <option>功能建議</option>
+        <option>其他</option>
+      </select>
+    </label>
+    <label>使用版本
+      <input id="issue-version" type="text" placeholder="例如：v1.11.2" style="width:100%; padding:0.5rem;">
+    </label>
+    <label>作業系統與環境
+      <input id="issue-env" type="text" placeholder="例如：Windows 11 / 設備型號" style="width:100%; padding:0.5rem;">
+    </label>
+    <label>問題摘要
+      <input id="issue-summary" type="text" placeholder="請簡述問題" style="width:100%; padding:0.5rem;">
+    </label>
+  </div>
+  <div style="display:grid; gap:0.75rem; margin-top:0.75rem;">
+    <label>問題描述
+      <textarea id="issue-description" rows="4" style="width:100%; padding:0.5rem;"></textarea>
+    </label>
+    <label>重現步驟
+      <textarea id="issue-steps" rows="4" placeholder="1. ...&#10;2. ...&#10;3. ..." style="width:100%; padding:0.5rem;"></textarea>
+    </label>
+    <label>預期結果
+      <textarea id="issue-expected" rows="3" style="width:100%; padding:0.5rem;"></textarea>
+    </label>
+    <label>實際結果
+      <textarea id="issue-actual" rows="3" style="width:100%; padding:0.5rem;"></textarea>
+    </label>
+    <label>錯誤訊息
+      <textarea id="issue-error" rows="3" style="width:100%; padding:0.5rem;"></textarea>
+    </label>
+    <label>附件說明
+      <textarea id="issue-attachments" rows="3" placeholder="如有截圖、log 或影片，請說明附件內容。" style="width:100%; padding:0.5rem;"></textarea>
+    </label>
+    <label>回報內容預覽
+      <textarea id="issue-preview" rows="16" readonly style="width:100%; padding:0.5rem;"></textarea>
+    </label>
+  </div>
+  <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.75rem;">
+    <button id="issue-compose" type="button" class="md-button md-button--primary">開啟郵件程式</button>
+    <button id="issue-copy" type="button" class="md-button">複製回報內容</button>
+  </div>
+  <p id="issue-feedback" style="margin-top:0.75rem;"></p>
+</div>
+
+<p>如果點擊 <code>開啟郵件程式</code> 沒有反應，請改用 <code>複製回報內容</code>，再手動寄信到 <code>chon821223@gmail.com</code>。</p>
+<h2 id="email">Email 回報模板<a class="headerlink" href="#email" title="Permanent link">&para;</a></h2>
+<p>如果 <code>Email 回報</code> 按鈕無法自動開啟郵件程式，可直接複製以下內容寄送：</p>
+<pre><code class="language-text">收件人：chon821223@gmail.com
+主旨：[SuperCarter][Issue] 請填寫問題摘要
+
+1. 問題類型
+Bug / 文件問題 / 功能建議 / 其他
+
+2. 使用版本
+例如：v1.11.2
+
+3. 作業系統與環境
+例如：Windows 11 / 設備型號
+
+4. 問題描述
+
+5. 重現步驟
+1.
+2.
+3.
+
+6. 預期結果
+
+7. 實際結果
+
+8. 錯誤訊息
+
+9. 附件說明
+如有截圖、log 或影片，請一併附上。
+</code></pre>
+<script>
+(() => {
+  const subjectPrefix = "[SuperCarter][Issue]";
+  const email = "chon821223@gmail.com";
+  const ids = {
+    type: "issue-type",
+    version: "issue-version",
+    env: "issue-env",
+    summary: "issue-summary",
+    description: "issue-description",
+    steps: "issue-steps",
+    expected: "issue-expected",
+    actual: "issue-actual",
+    error: "issue-error",
+    attachments: "issue-attachments",
+    preview: "issue-preview",
+    feedback: "issue-feedback",
+    compose: "issue-compose",
+    copy: "issue-copy"
+  };
+
+  const get = (key) => document.getElementById(ids[key]);
+  const text = (key) => get(key).value.trim();
+
+  function buildBody() {
+    return [
+      "1. 問題類型",
+      text("type"),
+      "",
+      "2. 使用版本",
+      text("version"),
+      "",
+      "3. 作業系統與環境",
+      text("env"),
+      "",
+      "4. 問題描述",
+      text("description"),
+      "",
+      "5. 重現步驟",
+      text("steps"),
+      "",
+      "6. 預期結果",
+      text("expected"),
+      "",
+      "7. 實際結果",
+      text("actual"),
+      "",
+      "8. 錯誤訊息",
+      text("error"),
+      "",
+      "9. 附件說明",
+      text("attachments")
+    ].join("\n");
+  }
+
+  function buildSubject() {
+    const summary = text("summary") || "請填寫問題摘要";
+    return `${subjectPrefix} ${summary}`;
+  }
+
+  function refreshPreview() {
+    get("preview").value = `收件人：${email}\n主旨：${buildSubject()}\n\n${buildBody()}`;
+    get("feedback").textContent = "";
+  }
+
+  function allInputs() {
+    return ["type", "version", "env", "summary", "description", "steps", "expected", "actual", "error", "attachments"];
+  }
+
+  allInputs().forEach((key) => {
+    get(key).addEventListener("input", refreshPreview);
+    get(key).addEventListener("change", refreshPreview);
+  });
+
+  get("compose").addEventListener("click", () => {
+    const href = `mailto:${email}?subject=${encodeURIComponent(buildSubject())}&body=${encodeURIComponent(buildBody())}`;
+    window.location.href = href;
+    get("feedback").textContent = "已嘗試開啟郵件程式。若沒有反應，請改用「複製回報內容」。";
+  });
+
+  get("copy").addEventListener("click", async () => {
+    const content = get("preview").value;
+    try {
+      await navigator.clipboard.writeText(content);
+      get("feedback").textContent = "回報內容已複製，可直接貼到 email。";
+    } catch (err) {
+      get("preview").focus();
+      get("preview").select();
+      get("feedback").textContent = "無法自動複製，已幫你選取內容，請手動複製。";
+    }
+  });
+
+  refreshPreview();
+})();
+</script>
+
+<div class="admonition info">
+<p class="admonition-title">建議回報內容</p>
+<p>為了讓問題更容易重現與排查，建議在 issue 或 email 內附上以下資訊：</p>
+<ul>
+<li>使用的版本號</li>
+<li>作業系統與環境</li>
+<li>問題發生步驟</li>
+<li>預期結果</li>
+<li>實際結果</li>
+<li>錯誤訊息、截圖或 log</li>
+</ul>
+</div>
+<h2 id="_3">回報類型<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="bug">程式異常或 Bug<a class="headerlink" href="#bug" title="Permanent link">&para;</a></h3>
+<p>適合回報：</p>
+<ul>
+<li>功能無法使用</li>
+<li>操作後出現錯誤訊息</li>
+<li>輸出結果異常</li>
+<li>文件描述與實際行為不一致</li>
+</ul>
+<h3 id="_4">功能建議<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>適合回報：</p>
+<ul>
+<li>希望新增功能</li>
+<li>希望調整 UI 或操作流程</li>
+<li>希望補充或改善文件內容</li>
+</ul>
+<h2 id="_5">開單前可先確認<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>是否已經在現有 issue 中有人回報過類似問題</li>
+<li>是否能穩定重現</li>
+<li>是否能提供最小重現步驟</li>
+</ul>
+<h2 id="_6">相關連結<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/onv-rgmda0/Tool-SuperCarter/issues">瀏覽所有 Issues</a></li>
+<li><a href="https://github.com/onv-rgmda0/Tool-SuperCarter/issues/new">建立新 Issue</a></li>
+<li><a href="mailto:chon821223@gmail.com?subject=%5BSuperCarter%5D%5BIssue%5D%20%E8%AB%8B%E5%A1%AB%E5%AF%AB%E5%95%8F%E9%A1%8C%E6%91%98%E8%A6%81&amp;body=1.%20%E5%95%8F%E9%A1%8C%E9%A1%9E%E5%9E%8B%0ABug%20%2F%20%E6%96%87%E4%BB%B6%E5%95%8F%E9%A1%8C%20%2F%20%E5%8A%9F%E8%83%BD%E5%BB%BA%E8%AD%B0%20%2F%20%E5%85%B6%E4%BB%96%0A%0A2.%20%E4%BD%BF%E7%94%A8%E7%89%88%E6%9C%AC%0A%E4%BE%8B%E5%A6%82%EF%BC%9Av1.11.2%0A%0A3.%20%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E8%88%87%E7%92%B0%E5%A2%83%0A%E4%BE%8B%E5%A6%82%EF%BC%9AWindows%2011%20%2F%20%E8%A8%AD%E5%82%99%E5%9E%8B%E8%99%9F%0A%0A4.%20%E5%95%8F%E9%A1%8C%E6%8F%8F%E8%BF%B0%0A%0A5.%20%E9%87%8D%E7%8F%BE%E6%AD%A5%E9%A9%9F%0A1.%20%0A2.%20%0A3.%20%0A%0A6.%20%E9%A0%90%E6%9C%9F%E7%B5%90%E6%9E%9C%0A%0A7.%20%E5%AF%A6%E9%9A%9B%E7%B5%90%E6%9E%9C%0A%0A8.%20%E9%8C%AF%E8%AA%A4%E8%A8%8A%E6%81%AF%0A%0A9.%20%E9%99%84%E4%BB%B6%E8%AA%AA%E6%98%8E%0A%E5%A6%82%E6%9C%89%E6%88%AA%E5%9C%96%E3%80%81log%20%E6%88%96%E5%BD%B1%E7%89%87%EF%BC%8C%E8%AB%8B%E4%B8%80%E4%BD%B5%E9%99%84%E4%B8%8A%E3%80%82">寄送 Email 回報</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/print-site.js"></script>
+      
+    
+  </body>
+</html>

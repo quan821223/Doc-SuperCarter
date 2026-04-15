@@ -2,9 +2,14 @@
 
 這份文件提供一般使用者快速上手 `Test Result Viewer`。
 
+[開啟 ReportViewer.html](./ReportViewer.html)
+
 ## 這是什麼
 
-`ReportViewer.html` 是 `Test Result Viewer` 的主程式，可直接用瀏覽器開啟，用來讀取測試紀錄檔，並提供：
+![top menu bar](../assets/images/testresultviewer/trv-intro-overview-01-01.png){ width="900" }
+
+
+ `Test Result Viewer` 的主程式，可直接用瀏覽器開啟，用來讀取測試紀錄檔，並提供：
 
 - 表格檢視
 - 關鍵字搜尋
@@ -12,7 +17,7 @@
 - 圖表繪製
 - Touch Panel 座標預覽
 
-不需要安裝程式，也不需要開發環境。
+不需要安裝程式，也不需要開發環境，其目的是根據當前 TestResult data 藉由**視覺化**的方式快速**確認監控過程的異常之處**。
 
 ## 如何開啟
 
@@ -23,22 +28,28 @@
 
 ## 基本操作
 
+
 ### 1. 載入檔案
 
 - 支援 `.csv`、`.tsv`、`.txt`、`.log`、`.data`
 - 載入後左邊會出現表格
 - 右邊會顯示選取列的詳細資訊
 
+![top menu bar](../assets/images/testresultviewer/trv-intro-topmenu-01-01.png){ width="900" }
 ### 2. 搜尋資料
 
 - 在左上方搜尋框輸入關鍵字
 - 可輸入多個關鍵字，中間用空白分開
 - 表格會即時篩選
 
+![top menu bar](../assets/images/testresultviewer/trv-intro-search-01-01.png){ width="900" }
+
 ### 3. 切換頁面
 
 - 用 `◀` / `▶` 切換頁面
 - 中間的頁碼會顯示目前頁數與資料範圍
+
+![top menu bar](../assets/images/testresultviewer/trv-intro-switch-01-01.png){ width="900" }
 
 ### 4. 查看單筆資料
 
@@ -49,6 +60,8 @@
   - `Test Parameter - Sample #1`
   - `Test Parameter - Sample #2`
   - `Test Parameter - Sample #3`
+
+![top menu bar](../assets/images/testresultviewer/trv-intro-checkrawdata-01-01.png){ width="900" }
 
 ### 5. 複製目前資料
 
@@ -76,6 +89,8 @@
 - `Height`
 - `Export 1x / 2x / 3x`
 
+![top menu bar](../assets/images/testresultviewer/trv-intro-scalesolutionlist-01-01.png){ width="900" }
+
 ### 圖表互動
 
 - 滑鼠拖曳：平移圖表
@@ -83,6 +98,9 @@
 - `Fit`：重新自動縮放
 - `Save PNG`：匯出圖片
 - 雙擊圖上的點：跳到對應的資料列
+
+
+![top menu bar](../assets/images/testresultviewer/trv-intro-interactivechart-01-01.png){ width="900" }
 
 ## Touch Panel 功能
 
@@ -97,6 +115,8 @@
 
 也可以使用 `Import Config` 匯入 JSON 設定檔。
 
+![top menu bar](../assets/images/testresultviewer/trv-intro-touchconfig-01-01.png){ width="900" }
+
 ### Touch Panel 預覽
 
 左側下方 `Touch Panel` 可顯示觸控座標。
@@ -108,6 +128,8 @@
 - `S1_Touch ID_ XY`
 - `S2_Touch ID_ XY`
 - `S3_Touch ID_ XY`
+
+![top menu bar](../assets/images/testresultviewer/trv-intro-touch-01-01.png){ width="900" }
 
 ### 可支援的資料格式
 
@@ -137,6 +159,8 @@ X=123 Y=456
 - 中間的直線可以左右拖曳
 - 可調整左側表格與右側 detail 的寬度
 
+![top menu bar](../assets/images/testresultviewer/trv-intro-horspliterline-01-01.png){ width="900" }
+
 ### 上下 split 區塊高度
 
 - Table 與下方區塊中間有一條 splitter line
@@ -144,14 +168,19 @@ X=123 Y=456
   - 上方 table 區
   - 下方 Chart / Touch Config / Touch Panel 區
 
+![top menu bar](../assets/images/testresultviewer/trv-intro-top2down-01-01.png){ width="900" }
+
 ### Theme
 
 - 右上角可切換 `Theme: Dark / Light`
 
+![top menu bar](../assets/images/testresultviewer/trv-intro-theme-01-01.png){ width="900" }
 ### 收合右側詳情
 
 - 點 `Toggle Detail`
 - 可暫時收合右側 detail，讓左側空間更大
+
+![top menu bar](../assets/images/testresultviewer/trv-intro-topmenu-01-01.png){ width="900" }
 
 ## 常見問題
 

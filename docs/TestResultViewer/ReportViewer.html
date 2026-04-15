@@ -1,0 +1,2980 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Test Result Viewer</title>
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#0b0f14; --panel:#0f1620; --panel2:#0d131b; --text:#e6edf3; --muted:#9fb0c0;
+      --border:#223041; --accent:#6ae4ff; --accent2:#9bffb3; --warn:#ffd36a;
+      --rowHover:#132234; --rowSelected:#1a3554; --chip:#122334;
+      --headerBg1:#0d141d; --headerBg2:#0b0f14; --headOverlay:rgba(255,255,255,0.02);
+      --tableHeadBg:#0f1722; --tableHeadText:#cfe3f5; --tableHeadHover:#111f2f; --tableCellText:#d8e3ee;
+      --tableBorder:rgba(34,48,65,0.65); --surfaceSoft:rgba(255,255,255,0.02); --surfacePanel:rgba(15,22,32,0.55);
+      --resizer:rgba(34,48,65,0.65); --resizerHover:rgba(106,228,255,0.4); --placeholder:#70879b;
+      --axis:#3a526a; --axisText:#9fb0c0; --chartHighlight:#ffffff; --chartSecondaryHighlight:#9bffb3;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    :root[data-theme="light"]{
+      color-scheme: light;
+      --bg:#f3f7fb; --panel:#ffffff; --panel2:#fbfdff; --text:#102033; --muted:#5a7087;
+      --border:#ccd8e5; --accent:#1479ff; --accent2:#0f9d78; --warn:#b7791f;
+      --rowHover:#eef5ff; --rowSelected:#dfeeff; --chip:#eef4fb;
+      --headerBg1:#ffffff; --headerBg2:#edf3f9; --headOverlay:rgba(255,255,255,0.7);
+      --tableHeadBg:#edf4fb; --tableHeadText:#1d334a; --tableHeadHover:#e0ebf7; --tableCellText:#22384d;
+      --tableBorder:rgba(184,198,214,0.72); --surfaceSoft:rgba(255,255,255,0.82); --surfacePanel:rgba(244,248,252,0.96);
+      --resizer:rgba(180,196,212,0.95); --resizerHover:rgba(20,121,255,0.28); --placeholder:#7a8ea3;
+      --axis:#95aac0; --axisText:#5a7087; --chartHighlight:#0f172a; --chartSecondaryHighlight:#1479ff;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; font-family:var(--sans); background:var(--bg); color:var(--text);
+      height:100vh; display:flex; flex-direction:column;
+    }
+    header{
+      padding:12px 14px; border-bottom:1px solid var(--border);
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+      background:linear-gradient(180deg, var(--headerBg1), var(--headerBg2));
+    }
+    header .title{ font-weight:700; letter-spacing:.2px; }
+    header .sub{ color:var(--muted); font-size:12px; }
+    header .spacer{ flex:1; }
+    .btn{
+      background:var(--panel); color:var(--text);
+      border:1px solid var(--border); border-radius:10px;
+      padding:8px 10px; cursor:pointer;
+    }
+    .btn:hover{ border-color:color-mix(in srgb, var(--border) 40%, var(--accent)); }
+    .btn:disabled{ opacity:.5; cursor:not-allowed; }
+    input[type="file"]{ display:none; }
+    .pill{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      background:var(--chip); border:1px solid var(--border); color:var(--muted);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .pill b{ color:var(--text); font-weight:600; }
+    .layout{
+      flex:1; display:grid; grid-template-columns: minmax(360px, 1.45fr) 8px minmax(320px, 1fr); gap:0;
+      padding:10px;
+      min-height:0;
+    }
+        .layout.collapsed{
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    .panel{
+      background:var(--panel2);
+      border:1px solid var(--border);
+      border-radius:14px;
+      min-height:0;
+      overflow:hidden;
+      display:flex; flex-direction:column;
+    }
+    .panel .head{
+      padding:10px 12px;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      background:var(--headOverlay);
+    }
+    .panel .head .h{ font-weight:700; }
+    .panel .head .meta{ color:var(--muted); font-size:12px; }
+    .panel .body{ flex:1; min-height:0; overflow:auto; }
+    .panel-left .body{
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+    }
+    .tableSplit{
+      flex:1;
+      min-height:0;
+      min-width:0;
+      width:100%;
+      max-width:100%;
+      display:grid;
+      grid-template-rows:minmax(60px, 1.25fr) 8px minmax(160px, 1fr);
+      gap:0;
+      padding:10px;
+    }
+    .tableTop,
+    .tableBottom{
+      min-height:0;
+      min-width:0;
+      width:100%;
+      max-width:100%;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .tableBottom{
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding-right:2px;
+      padding-top:10px;
+    }
+    .tableSplitResizer{
+      cursor:row-resize;
+      background:var(--resizer);
+      border-radius:999px;
+      margin:0 6px;
+    }
+    .tableSplitResizer:hover{ background:var(--resizerHover); }
+    .panel-right{ min-width:280px; }
+    .layout.collapsed .panel-right{ display:none; }
+    .layout.collapsed .resizer{ display:none; }
+    .resizer{
+      cursor:col-resize;
+      background:var(--resizer);
+      border-radius:999px;
+      align-self:stretch;
+      margin:8px 0;
+    }
+    .resizer:hover{ background:var(--resizerHover); }
+    .controls{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      width:100%;
+    }
+    .controls input, .controls select{
+      background:var(--panel);
+      border:1px solid var(--border);
+      color:var(--text);
+      border-radius:10px;
+      padding:8px 10px;
+      outline:none;
+      min-width:160px;
+    }
+    .controls input::placeholder{ color:var(--placeholder); }
+    .tableWrap{
+      flex:1;
+      min-height:0;
+      width:100%;
+      overflow-x:scroll;
+      overflow-y:auto;
+      position:relative;
+      scrollbar-color:color-mix(in srgb, var(--border) 40%, var(--accent)) var(--bg);
+      scrollbar-width:thin;
+    }
+    .sectionStack{
+      display:grid;
+      gap:10px;
+      min-width:0;
+      width:100%;
+      max-width:100%;
+    }
+    table{ border-collapse:separate; border-spacing:0; width:max(100%, 900px); }
+    thead th{
+      position:sticky; top:0; z-index:2;
+      background:var(--tableHeadBg);
+      border-bottom:1px solid var(--border);
+      color:var(--tableHeadText); font-size:12px;
+      text-align:left; padding:8px 10px;
+      white-space:nowrap;
+      cursor:pointer;
+      user-select:none;
+    }
+    thead th{ z-index:6; }
+    thead th:hover{ background:var(--tableHeadHover); }
+    tbody td{
+      border-bottom:1px solid var(--tableBorder);
+      padding:7px 10px; font-size:12px; color:var(--tableCellText);
+      white-space:nowrap;
+      max-width:420px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    tbody tr:hover{
+      background:var(--rowHover);
+      cursor:pointer;
+    }
+    tbody tr.selected{
+      background:var(--rowSelected);
+      outline:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+    .kpi{
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+    }
+    .kpi .card{
+      padding:8px 10px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:var(--surfaceSoft);
+      font-size:12px;
+      color:var(--muted);
+    }
+    .kpi .card b{ color:var(--text); }
+    .split{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      padding:10px;
+    }
+    .section{
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:var(--surfaceSoft);
+    }
+    .section .secHead{
+      padding:10px 12px;
+      border-bottom:1px solid var(--border);
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      background:var(--surfaceSoft);
+      flex-wrap:wrap;
+    }
+    .section .secHead .name{
+      font-weight:800;
+      display:flex; gap:8px; align-items:center;
+    }
+    .badge{
+      font-size:11px; padding:3px 8px; border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      background:rgba(255,255,255,0.02);
+      white-space:nowrap;
+    }
+    .section .secBody{
+      padding:10px 12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:8px 12px;
+    }
+    .kv{
+      border:1px solid var(--tableBorder);
+      border-radius:12px;
+      padding:8px 10px;
+      background:var(--surfacePanel);
+      min-height:44px;
+    }
+    .kv .k{ font-size:11px; color:var(--muted); margin-bottom:6px; }
+    .kv .v{
+      font-size:12px; color:var(--text);
+      word-break:break-word;
+    }
+    .mono{ font-family:var(--mono); white-space:pre-wrap; }
+    .touchRawValue{
+      cursor:pointer;
+      border:1px dashed transparent;
+      border-radius:10px;
+      padding:8px 10px;
+      background:color-mix(in srgb, var(--surfaceSoft) 72%, transparent);
+      transition:border-color .16s ease, background .16s ease;
+    }
+    .touchRawValue:hover,
+    .touchRawValue:focus-visible{
+      border-color:color-mix(in srgb, var(--accent) 56%, var(--border));
+      background:color-mix(in srgb, var(--accent) 10%, var(--surfaceSoft));
+      outline:none;
+    }
+    .touchRawValue.expanded{
+      border-color:color-mix(in srgb, var(--accent) 62%, var(--border));
+      background:color-mix(in srgb, var(--accent) 12%, var(--surfaceSoft));
+    }
+    .touchRawHint{
+      margin-top:8px;
+      font-size:11px;
+      color:var(--muted);
+    }
+    .touchRawPreview{
+      margin-top:10px;
+      padding:10px;
+      border:1px solid var(--tableBorder);
+      border-radius:12px;
+      background:var(--surfacePanel);
+      display:grid;
+      gap:10px;
+    }
+    .touchRawPreview[hidden]{ display:none; }
+    .touchRawSummary{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+    }
+    .touchRawChip{
+      padding:5px 9px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--chip);
+      font-size:11px;
+      color:var(--muted);
+    }
+    .touchRawChip b{ color:var(--text); }
+    .touchRawCanvasWrap{
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 36px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 36px);
+    }
+    .touchRawCanvasTitle{
+      padding:10px 12px;
+      border-bottom:1px solid var(--border);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:lowercase;
+      color:var(--text);
+      background:color-mix(in srgb, var(--panel) 88%, transparent);
+    }
+    .touchRawCanvas{
+      width:100%;
+      height:520px;
+      display:block;
+    }
+    .touchRawLegend{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(156px, 1fr));
+      gap:8px;
+    }
+    .touchRawLegendItem{
+      border:1px solid var(--tableBorder);
+      border-radius:12px;
+      padding:8px 10px;
+      background:color-mix(in srgb, var(--surfaceSoft) 82%, transparent);
+      font-size:11px;
+      line-height:1.55;
+    }
+    .touchRawLegendItem b{
+      display:inline-block;
+      margin-right:6px;
+      color:var(--text);
+    }
+    .touchRawLegendItem.muted{
+      color:var(--muted);
+    }
+    .touchRawLegendSwatch{
+      display:inline-block;
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      margin-right:6px;
+      vertical-align:middle;
+    }
+    .touchRawError{
+      border:1px dashed color-mix(in srgb, var(--warn) 48%, var(--border));
+      border-radius:12px;
+      padding:10px 12px;
+      color:var(--warn);
+      font-size:12px;
+      line-height:1.6;
+      background:color-mix(in srgb, var(--warn) 8%, transparent);
+    }
+    .configGrid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+      gap:10px;
+      width:100%;
+      min-width:0;
+    }
+    .configField label{
+      display:block;
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .configField input{
+      width:100%;
+      background:var(--panel);
+      border:1px solid var(--border);
+      color:var(--text);
+      border-radius:10px;
+      padding:8px 10px;
+      outline:none;
+    }
+    .configActions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin-top:10px;
+      width:100%;
+      min-width:0;
+    }
+    .configMeta{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+    .configMeta strong{ color:var(--text); }
+    .hint{
+      padding:10px 12px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+    .danger{ color:var(--warn); }
+    .errorBox{
+      margin:10px 12px;
+      padding:10px 12px;
+      border:1px solid rgba(255,211,106,0.35);
+      background:color-mix(in srgb, var(--warn) 10%, transparent);
+      border-radius:12px;
+      color:var(--warn);
+      font-size:12px;
+      line-height:1.6;
+      white-space:pre-wrap;
+    }
+
+    /* Chart */
+    .chartWrap{
+      padding:10px 12px 14px 12px;
+      display:grid;
+      gap:10px;
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      overflow:hidden;
+    }
+    .chartControls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+      gap:8px;
+      align-items:start;
+      width:100%;
+      min-width:0;
+    }
+    .chartControls > *{ min-width:0; }
+    .chartControls select{
+      width:100%;
+      background:var(--panel);
+      border:1px solid var(--border);
+      color:var(--text);
+      border-radius:10px;
+      padding:8px 10px;
+      outline:none;
+      min-width:0;
+    }
+    .chartControls .small{
+      min-width:0;
+    }
+    .chartControls .btn{
+      width:100%;
+    }
+    #drawBtn,
+    #fitBtn{
+      min-width:88px;
+      max-width:110px;
+      justify-self:start;
+    }
+    .chartControls .rangeWrap{
+      grid-column:span 2;
+    }
+    .chartControls .wide{
+      grid-column:1 / -1;
+    }
+    #yCol{
+      width:100%;
+      min-width:0;
+      max-width:100%;
+      height:132px;
+    }
+    .chartControls .rangeWrap{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      width:100%;
+      min-width:0;
+      overflow:hidden;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:6px 10px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .chartControls input[type="range"]{
+      flex:1 1 auto;
+      min-width:0;
+      width:100%;
+      accent-color: var(--accent);
+    }
+    .chartCanvasBox{
+      --chart-height: 320px;
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:color-mix(in srgb, var(--panel) 78%, transparent);
+    }
+    canvas{ display:block; width:100%; max-width:100%; height:var(--chart-height); }
+    .chartMeta{
+      color:var(--muted); font-size:12px; line-height:1.5;
+      min-width:0;
+      width:100%;
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+    #touchPanelPreviewHost,
+    #touchConfigSection,
+    #touchPanelSection,
+    #chartSection{
+      width:100%;
+      max-width:100%;
+      min-width:0;
+    }
+    .touchPanelPlaceholder{
+      border:1px dashed var(--border);
+      border-radius:14px;
+      padding:18px 16px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.7;
+      background:color-mix(in srgb, var(--surfaceSoft) 84%, transparent);
+    }
+    .touchPanelViewport{
+      cursor:grab;
+      touch-action:none;
+      user-select:none;
+    }
+    .touchPanelViewport.dragging{
+      cursor:grabbing;
+    }
+    .themeToggle{
+      min-width:132px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+    }
+
+    @media (max-width: 1000px){
+         .layout{ grid-template-columns:1fr; gap:10px; }
+      .resizer{ display:none; }
+      .tableSplit{ grid-template-rows:minmax(60px, 1fr) 8px auto; }
+      .section .secBody{ grid-template-columns:1fr; }
+      table{ width:max(100%, 700px); }
+      canvas{ height:280px; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div>
+    <div class="title">Test Result Viewer v0.1.0</div>
+    <div class="sub">Load → 檢視表格 → 點選 row → 右側顯示 + 選擇欄位繪圖</div>
+  </div>
+
+  <div class="spacer"></div>
+  <button class="btn themeToggle" id="themeToggleBtn" title="切換亮色 / 深色模式">Theme: Dark</button>
+  <button class="btn" id="toggleDetailBtn" title="折疊/展開 右側詳情">Toggle Detail</button>
+  <label class="btn" for="fileInput">Load CSV/TSV</label>
+  <input id="fileInput" type="file" accept=".csv,.txt,.tsv,.log,.data,text/plain,text/csv" />
+
+  <span class="pill" id="fileInfo"><b>未載入</b><span>—</span></span>
+</header>
+
+<div class="layout">
+  <!-- LEFT -->
+  <section class="panel panel-left">
+    <div class="head">
+      <div class="h">Table</div>
+      <div class="meta" id="tableMeta">—</div>
+      <div class="controls">
+        <input id="searchBox" placeholder="快速搜尋（多關鍵字用空白分隔）" />
+        <button class="btn" id="prevPageBtn" title="上一頁">◀</button>
+        <button class="btn" id="nextPageBtn" title="下一頁">▶</button>
+        <span class="pill" id="pageInfo"><b>Page 1/1</b><span>—</span></span>
+        <button class="btn" id="copyRowBtn" title="複製目前選取 row 的 JSON">Copy Row JSON</button>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="tableSplit">
+        <div class="tableTop">
+          <div class="hint" id="hintLeft">
+            1) 點上方 <b>Load CSV/TSV</b> 載入檔案<br/>
+            2) 左側表格點選任一列(row)<br/>
+            3) 右側會顯示 <b>Test Condition</b> 與 <b>Test Parameter (Sample #1~#3)</b><br/>
+            4) 下方 split 區域會顯示 <b>Touch Config / touch_panel / Chart</b>
+          </div>
+
+          <div id="errorBox" class="errorBox" style="display:none;"></div>
+
+          <div class="tableWrap" id="tableWrap" style="display:none;">
+            <table id="dataTable">
+              <thead><tr id="theadRow"></tr></thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tableSplitResizer" id="tableSplitResizer" title="拖曳調整上下高度"></div>
+
+        <div class="tableBottom">
+          <div class="sectionStack">
+            <div class="section" style="display:none;" id="chartSection">
+              <div class="secHead">
+               <div class="name">Chart：<span id="chartTitle">—</span><span class="badge">Line / Scatter</span></div>
+                <div class="badge" id="chartStatus">—</div>
+              </div>
+              <div class="chartWrap">
+                <div class="chartControls">
+                  <select id="xCol" class="small" title="X 軸欄位">
+                    <option value="__idx">X：Row Index</option>
+                  </select>
+                  <select id="chartType" class="small" title="圖表型態">
+                    <option value="line">Line（曲線）</option>
+                    <option value="scatter">Scatter（點狀）</option>
+                  </select>
+
+                  <select id="scaleMode" class="small" title="Y 軸縮放模式">
+                    <option value="raw" selected>Scale：Raw</option>
+                    <option value="normalize">Scale：Normalize (0-1)</option>
+                    <option value="zscore">Scale：Z-score</option>
+                    <option value="log">Scale：Log10</option>
+                  </select>
+
+                  <select id="chartSource" class="small" title="使用資料範圍">
+                    <option value="view">使用目前 View（篩選/排序/限制後）</option>
+                    <option value="all" selected>使用全部 Rows</option>
+                  </select>
+                  <button class="btn" id="drawBtn">Draw</button>
+                  <button class="btn" id="fitBtn" title="重新自動縮放">Fit</button>
+                  <div class="rangeWrap" title="調整圖表高度">
+                    <span>Height</span>
+                    <input id="chartHeight" type="range" min="220" max="900" step="20" value="320" />
+                    <span id="chartHeightValue">320px</span>
+                  </div>
+                  <select id="exportScale" class="small" title="匯出解析度倍數">
+                    <option value="1">Export 1x</option>
+                    <option value="2" selected>Export 2x</option>
+                    <option value="3">Export 3x</option>
+                  </select>
+                  <button class="btn" id="exportBtn">Save PNG</button>
+                  <select id="yCol" class="wide" multiple size="8" title="Y 軸欄位（可多選數值欄位，Ctrl/Shift）"></select>
+                </div>
+
+                <div class="chartCanvasBox">
+                  <canvas id="chartCanvas"></canvas>
+                </div>
+
+                <div class="chartMeta" id="chartMeta">
+                  選擇 X 欄位與一個或多個 Y 欄位（Ctrl/Shift 多選），必要時切換 Scale 模式後按 <b>Draw</b>。
+                </div>
+                <div class="chartMeta" id="chartPointInfo" style="display:none;"></div>
+              </div>
+            </div>
+
+            <div class="section" id="touchConfigSection">
+              <div class="secHead">
+                <div class="name">Touch Config<span class="badge">Panel Settings</span></div>
+                <div class="badge" id="touchConfigStatus">Manual</div>
+              </div>
+              <div class="chartWrap">
+                <div class="configGrid">
+                  <div class="configField">
+                    <label for="touchPanelX">Panel X</label>
+                    <input id="touchPanelX" type="number" min="1" value="3000" />
+                  </div>
+                  <div class="configField">
+                    <label for="touchPanelY">Panel Y</label>
+                    <input id="touchPanelY" type="number" min="1" value="1080" />
+                  </div>
+                </div>
+                <div class="configActions">
+                  <label class="btn" for="touchConfigFile">Import Config</label>
+                  <input id="touchConfigFile" type="file" accept=".json,application/json,text/plain" />
+                  <button class="btn" id="touchConfigApplyBtn" type="button">Apply Panel</button>
+                </div>
+                <div class="configMeta" id="touchConfigMeta">
+                  目前使用 <strong>3000 x 1080</strong>。匯入 JSON 後可自動帶入 `panel.x / panel.y`、`panelWidth / panelHeight`、`x / y` 等欄位。
+                </div>
+              </div>
+            </div>
+
+            <div class="section" id="touchPanelSection">
+              <div class="secHead">
+                <div class="name">Touch Panel<span class="badge">Touch Raw Preview</span></div>
+                <div class="badge" id="touchPanelStatus">—</div>
+              </div>
+              <div class="chartWrap">
+                <div class="chartMeta" id="touchPanelMeta">點擊 `Touch_Raw` 或 `Touch ID_ XY` 欄位後，這裡會顯示目前 frame 的座標資訊與 touch_panel。</div>
+                <div id="touchPanelPreviewHost">
+                  <div class="touchPanelPlaceholder">touch_panel 已就緒。先在右側 detail 點選 `Touch_Raw` 或 `Touch ID_ XY` 欄位，才會依目前資料繪出座標點與 frame 資訊。</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="resizer" id="panelResizer" title="拖曳調整左右寬度"></div>
+
+  <!-- RIGHT -->
+  <section class="panel panel-right">
+    <div class="head">
+      <div class="h">Row Detail</div>
+      <div class="meta" id="detailMeta">—</div>
+      <div class="kpi" id="kpi"></div>
+    </div>
+    <div class="body">
+      <div class="hint" id="hintRight">
+        尚未選取 row。<br/>
+        載入後點一下表格，再用鍵盤 <b>↑ / ↓</b> 可以快速切換列。
+      </div>
+
+      <div class="split" id="detailWrap" style="display:none;"></div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+/** ---------------- Utilities ---------------- **/
+
+function el(tag, className, text){
+  const n = document.createElement(tag);
+  if (className) n.className = className;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+function sanitizeHeader(h){ return (h ?? "").trim(); }
+function normalizeValue(v){ return (v === null || v === undefined) ? "" : String(v); }
+function roundRect(ctx, x, y, width, height, radius){
+  const r = Math.max(0, Math.min(radius, width / 2, height / 2));
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + width, y, x + width, y + height, r);
+  ctx.arcTo(x + width, y + height, x, y + height, r);
+  ctx.arcTo(x, y + height, x, y, r);
+  ctx.arcTo(x, y, x + width, y, r);
+  ctx.closePath();
+}
+function clampPositiveInt(value, fallback){
+  const n = Number(value);
+  if (!Number.isFinite(n) || n <= 0) return fallback;
+  return Math.round(n);
+}
+
+/** ---------------- Layout Controls ---------------- **/
+const layout = document.querySelector(".layout");
+const resizer = document.getElementById("panelResizer");
+const tableSplit = document.querySelector(".tableSplit");
+const tableSplitResizer = document.getElementById("tableSplitResizer");
+const toggleDetailBtn = document.getElementById("toggleDetailBtn");
+const themeToggleBtn = document.getElementById("themeToggleBtn");
+const leftPanel = document.querySelector(".panel-left");
+const rightPanel = document.querySelector(".panel-right");
+const THEME_STORAGE_KEY = "reportViewerTheme";
+
+let isCollapsed = false;
+const minLeft = 360;
+const minRight = 320;
+const minTableTop = 60;
+const minTableBottom = 160;
+
+function getThemePreference(){
+  const saved = localStorage.getItem(THEME_STORAGE_KEY);
+  if (saved === "light" || saved === "dark") return saved;
+  return "light";
+}
+
+function getThemePalette(){
+  const css = getComputedStyle(document.documentElement);
+  return {
+    axis: css.getPropertyValue("--axis").trim(),
+    axisText: css.getPropertyValue("--axisText").trim(),
+    chartHighlight: css.getPropertyValue("--chartHighlight").trim(),
+    chartSecondaryHighlight: css.getPropertyValue("--chartSecondaryHighlight").trim(),
+  };
+}
+
+function updateThemeToggleLabel(theme){
+  themeToggleBtn.textContent = theme === "light" ? "Theme: Light" : "Theme: Dark";
+}
+
+function applyTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
+  updateThemeToggleLabel(theme);
+  if (chartState.allPoints.length) refreshChartCanvas();
+}
+
+function updateToggleLabel(){
+  toggleDetailBtn.textContent = isCollapsed ? "Expand Detail" : "Collapse Detail";
+}
+
+function setCollapsed(state){
+  isCollapsed = state;
+  layout.classList.toggle("collapsed", isCollapsed);
+  updateToggleLabel();
+}
+
+toggleDetailBtn.addEventListener("click", () => {
+  setCollapsed(!isCollapsed);
+});
+
+themeToggleBtn.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+  applyTheme(current === "light" ? "dark" : "light");
+});
+
+resizer.addEventListener("mousedown", (event) => {
+  if (isCollapsed) return;
+  event.preventDefault();
+  const startX = event.clientX;
+  const startLeft = leftPanel.getBoundingClientRect().width;
+  const startRight = rightPanel.getBoundingClientRect().width;
+  const total = startLeft + startRight + resizer.getBoundingClientRect().width;
+
+  function onMove(e){
+    const dx = e.clientX - startX;
+    let newLeft = startLeft + dx;
+    newLeft = Math.max(minLeft, Math.min(newLeft, total - minRight));
+    const newRight = total - newLeft - resizer.getBoundingClientRect().width;
+    layout.style.gridTemplateColumns = `${newLeft}px 8px ${newRight}px`;
+  }
+
+  function onUp(){
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", onUp);
+  }
+
+  document.addEventListener("mousemove", onMove);
+  document.addEventListener("mouseup", onUp);
+});
+
+resizer.addEventListener("dblclick", () => {
+  layout.style.gridTemplateColumns = "minmax(360px, 1.45fr) 8px minmax(320px, 1fr)";
+});
+
+tableSplitResizer.addEventListener("mousedown", (event) => {
+  event.preventDefault();
+  const splitRect = tableSplit.getBoundingClientRect();
+  const resizerRect = tableSplitResizer.getBoundingClientRect();
+  const startY = event.clientY;
+  const startTop = splitRect.height
+    - tableSplit.querySelector(".tableBottom").getBoundingClientRect().height
+    - resizerRect.height;
+  const total = splitRect.height;
+
+  function onMove(e){
+    const dy = e.clientY - startY;
+    let newTop = startTop + dy;
+    newTop = Math.max(minTableTop, Math.min(newTop, total - minTableBottom - resizerRect.height));
+    const newBottom = total - newTop - resizerRect.height;
+    tableSplit.style.gridTemplateRows = `${newTop}px 8px ${newBottom}px`;
+  }
+
+  function onUp(){
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", onUp);
+  }
+
+  document.addEventListener("mousemove", onMove);
+  document.addEventListener("mouseup", onUp);
+});
+
+tableSplitResizer.addEventListener("dblclick", () => {
+  tableSplit.style.gridTemplateRows = "minmax(60px, 1.25fr) 8px minmax(160px, 1fr)";
+});
+
+
+function parseLine(line, delimiter){
+  const out = [];
+  let cur = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++){
+    const ch = line[i];
+
+    if (ch === '"'){
+      if (inQuotes && line[i+1] === '"'){ cur += '"'; i++; }
+      else inQuotes = !inQuotes;
+      continue;
+    }
+
+    if (!inQuotes && ch === delimiter){
+      out.push(cur);
+      cur = "";
+      continue;
+    }
+    cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
+function detectBestDelimiterAndHeaders(line){
+  const candidates = ["\t", ",", ";", "|"];
+  let best = { delim: "\t", headers: [], cols: 0 };
+
+  for (const d of candidates){
+    const hs = parseLine(line, d).map(sanitizeHeader);
+    const nonEmpty = hs.filter(x => x !== "").length;
+    if (nonEmpty > best.cols) best = { delim: d, headers: hs, cols: nonEmpty };
+  }
+  return best;
+}
+
+function findHeaderLine(lines){
+  let best = { idx: -1, delim: "\t", headers: [], cols: 0, rawLine: "" };
+  for (let i=0; i<lines.length; i++){
+    const ln = lines[i];
+    if (!ln || !ln.trim()) continue;
+    const cand = detectBestDelimiterAndHeaders(ln);
+    if (cand.cols > best.cols){
+      best = { idx: i, delim: cand.delim, headers: cand.headers, cols: cand.cols, rawLine: ln };
+    }
+  }
+  return best;
+}
+
+function rowMatches(rowObj, tokens){
+  if (!tokens.length) return true;
+  const hay = rowObj.__search;
+  for (const t of tokens){
+    if (!hay.includes(t)) return false;
+  }
+  return true;
+}
+
+function compareValues(a, b){
+  const na = Number(a), nb = Number(b);
+  const aNum = !Number.isNaN(na) && String(a).trim() !== "";
+  const bNum = !Number.isNaN(nb) && String(b).trim() !== "";
+  if (aNum && bNum) return na - nb;
+  return String(a).localeCompare(String(b), "zh-Hant", { numeric:true, sensitivity:"base" });
+}
+
+/** ---------------- Sample Grouping ---------------- **/
+
+function isSampleHeader(h){
+  const s = String(h ?? "").trim();
+  // Accept patterns like:
+  // 1) "#1 xxx", "#1_xxx", "#1-xxx", "#1:xxx", or just "#1"
+  // 2) "S1_xxx", "S2_xxx", "S3_xxx"
+  return /^#\s*[123](?:\s+|[_\-:：]|$)/i.test(s)
+    || /^S[123](?:[_\-\s]|$)/i.test(s);
+}
+function sampleIndexFromHeader(h){
+  const s = String(h ?? "").trim();
+  const mHash = s.match(/^#\s*([123])(?:\s+|[_\-:：]|$)/i);
+  if (mHash) return Number(mHash[1]);
+
+  const mS = s.match(/^S([123])(?:[_\-\s]|$)/i);
+  if (mS) return Number(mS[1]);
+
+  return null;
+}
+function buildGroups(headers){
+  const condition = [], s1 = [], s2 = [], s3 = [];
+  for (const h of headers){
+    if (isSampleHeader(h)){
+      const idx = sampleIndexFromHeader(h);
+      if (idx === 1) s1.push(h);
+      else if (idx === 2) s2.push(h);
+      else if (idx === 3) s3.push(h);
+      else condition.push(h);
+    } else condition.push(h);
+  }
+  return { condition, s1, s2, s3 };
+}
+
+/** ---------------- Parsing ---------------- **/
+
+function parseTextToTable(text){
+  const lines = text.replace(/\r\n/g,"\n").replace(/\r/g,"\n").split("\n");
+  const best = findHeaderLine(lines);
+  if (best.idx === -1 || best.cols < 2){
+    throw new Error(
+      "找不到可用的 header 行（欄位數太少）。\n" +
+      "請確認檔案是否為 CSV/TSV 格式，且至少有兩個欄位。"
+    );
+  }
+
+  const delimiter = best.delim;
+  const headers = best.headers.map(sanitizeHeader);
+  const rows = [];
+
+  for (let i=best.idx+1; i<lines.length; i++){
+    const ln = lines[i];
+    if (!ln || !ln.trim()) continue;
+    if (ln.trim().startsWith("#")) continue;
+
+    const cells = parseLine(ln, delimiter);
+
+    if (cells.length <= 1 && headers.filter(h => h !== "").length >= 5) continue;
+
+    const row = { __idx: rows.length };
+    for (let c=0; c<headers.length; c++){
+      const key = headers[c] || `(col ${c+1})`;
+      row[key] = cells[c] !== undefined ? cells[c] : "";
+    }
+
+    row.__search = Object.entries(row)
+   .filter(([k,_]) => !k.startsWith("__"))
+      .map(([k,v]) => `${k}:${normalizeValue(v)}`.toLowerCase())
+     .join(" | ") + ` | index:${rows.length + 1}`;
+
+    rows.push(row);
+  }
+
+  return { delimiter, headerLineIndex: best.idx, headers, rows };
+}
+
+/** ---------------- App State ---------------- **/
+
+const state = {
+  rawText: "",
+  delimiter: "\t",
+  headerLineIndex: -1,
+  headers: [],
+  rows: [],
+  viewRows: [],
+  selectedIndex: -1,
+  sort: { key: null, dir: 1 },
+  groups: { condition: [], s1: [], s2: [], s3: [] },
+};
+
+/** ---------------- DOM ---------------- **/
+
+const $fileInput = document.getElementById("fileInput");
+const $fileInfo = document.getElementById("fileInfo");
+const $tableMeta = document.getElementById("tableMeta");
+const $detailMeta = document.getElementById("detailMeta");
+const $searchBox = document.getElementById("searchBox");
+const $prevPageBtn = document.getElementById("prevPageBtn");
+const $nextPageBtn = document.getElementById("nextPageBtn");
+const $pageInfo = document.getElementById("pageInfo");
+const $theadRow = document.getElementById("theadRow");
+const $tbody = document.getElementById("tbody");
+const $tableWrap = document.getElementById("tableWrap");
+const $hintLeft = document.getElementById("hintLeft");
+const $hintRight = document.getElementById("hintRight");
+const $detailWrap = document.getElementById("detailWrap");
+const $kpi = document.getElementById("kpi");
+const $copyRowBtn = document.getElementById("copyRowBtn");
+const $errorBox = document.getElementById("errorBox");
+const $touchPanelX = document.getElementById("touchPanelX");
+const $touchPanelY = document.getElementById("touchPanelY");
+const $touchConfigFile = document.getElementById("touchConfigFile");
+const $touchConfigApplyBtn = document.getElementById("touchConfigApplyBtn");
+const $touchConfigMeta = document.getElementById("touchConfigMeta");
+const $touchConfigStatus = document.getElementById("touchConfigStatus");
+const $touchPanelSection = document.getElementById("touchPanelSection");
+const $touchPanelStatus = document.getElementById("touchPanelStatus");
+const $touchPanelMeta = document.getElementById("touchPanelMeta");
+const $touchPanelPreviewHost = document.getElementById("touchPanelPreviewHost");
+
+// Chart DOM
+const $chartSection = document.getElementById("chartSection");
+const $chartStatus = document.getElementById("chartStatus");
+const $chartMeta = document.getElementById("chartMeta");
+const $chartTitle = document.getElementById("chartTitle");
+const $chartPointInfo = document.getElementById("chartPointInfo");
+const $xCol = document.getElementById("xCol");
+const $yCol = document.getElementById("yCol");
+const $chartType = document.getElementById("chartType");
+const $scaleMode = document.getElementById("scaleMode");
+const $chartSource = document.getElementById("chartSource");
+const $drawBtn = document.getElementById("drawBtn");
+const $fitBtn = document.getElementById("fitBtn");
+const $chartHeight = document.getElementById("chartHeight");
+const $chartHeightValue = document.getElementById("chartHeightValue");
+const $exportScale = document.getElementById("exportScale");
+const $exportBtn = document.getElementById("exportBtn");
+const $canvas = document.getElementById("chartCanvas");
+const ctx = $canvas.getContext("2d");
+const $chartCanvasBox = document.querySelector(".chartCanvasBox");
+
+const chartColors = [
+  "#6ae4ff",
+  "#9bffb3",
+  "#ffd36a",
+  "#ff9aa2",
+  "#bdb2ff",
+  "#a0c4ff",
+  "#caffbf",
+  "#ffc6ff",
+];
+const touchConfigState = {
+  panelWidth: 3000,
+  panelHeight: 1080,
+  source: "manual",
+  rawConfig: null,
+};
+const touchPanelState = {
+  parsed: null,
+  header: "",
+  rawText: "",
+  zoom: 1,
+  offsetX: 0,
+  offsetY: 0,
+  dragging: false,
+  pointerId: null,
+  startClientX: 0,
+  startClientY: 0,
+  startOffsetX: 0,
+  startOffsetY: 0,
+  hasViewState: false,
+};
+const touchRawParseCache = new Map();
+
+// chart view state
+const chartState = {
+  rawSeries: [],
+  rawAllPoints: [],
+  series: [],
+  allPoints: [],
+  pointByRowIdx: new Map(),
+  pixelPoints: [],
+  hitBuckets: new Map(),
+  hitBucketSize: 24,
+  hitThreshold: 12,
+  bounds: { xmin:0, xmax:1, ymin:0, ymax:1 },
+  padding: { l:50, r:18, t:18, b:40 },
+  fitted: true,
+  highlightIdx: null,
+  highlightSeriesKey: null,
+  isPanning: false,
+  panPointerId: null,
+  panStartX: 0,
+  panStartY: 0,
+  panStartBounds: null,
+};
+const pageState = {
+  size: 2000,
+  page: 0,
+  totalPages: 1,
+  filteredRows: [],
+  filteredIndexByOriginalIdx: new Map(),
+  viewIndexByOriginalIdx: new Map(),
+};
+const touchRawPreviewState = {
+  openPreviews: new Set(),
+};
+
+setChartHeight($chartHeight.value);
+applyTheme(getThemePreference());
+syncTouchConfigUi();
+resetTouchPanelPreview();
+
+/** ---------------- Rendering Table ---------------- **/
+
+function renderTable(){
+  const tokens = $searchBox.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+
+  let view = state.rows.filter(r => rowMatches(r, tokens));
+
+  if (state.sort.key){
+    const key = state.sort.key;
+    const dir = state.sort.dir;
+    view.sort((a,b)=> compareValues(a[key], b[key]) * dir);
+  }
+
+  pageState.filteredRows = view;
+  pageState.filteredIndexByOriginalIdx = new Map(
+    view.map((rowObj, idx) => [rowObj.__idx, idx])
+  );
+  pageState.totalPages = Math.max(1, Math.ceil(view.length / pageState.size));
+  if (pageState.page >= pageState.totalPages) pageState.page = pageState.totalPages - 1;
+  if (pageState.page < 0) pageState.page = 0;
+
+  const start = pageState.page * pageState.size;
+  const end = start + pageState.size;
+  const pageSlice = view.slice(start, end);
+  state.viewRows = pageSlice;
+  pageState.viewIndexByOriginalIdx = new Map(
+    state.viewRows.map((rowObj, idx) => [rowObj.__idx, idx])
+  );
+
+
+  $theadRow.innerHTML = "";
+
+ const indexTh = el("th","", "Index");
+  if (state.sort.key === "__idx"){
+    indexTh.textContent = `Index ${state.sort.dir === 1 ? "▲" : "▼"}`;
+  }
+  indexTh.addEventListener("click", ()=> {
+    if (state.sort.key === "__idx") state.sort.dir *= -1;
+    else { state.sort.key = "__idx"; state.sort.dir = 1; }
+    renderTable();
+    updateChartStatusOnly();
+  });
+  $theadRow.appendChild(indexTh);
+
+
+
+  state.headers.forEach(h=>{
+    const display = h || "(empty)";
+    const th = el("th","",display);
+    if (state.sort.key === h){
+      th.textContent = `${display} ${state.sort.dir === 1 ? "▲" : "▼"}`;
+    }
+    th.addEventListener("click", ()=>{
+      if (state.sort.key === h) state.sort.dir *= -1;
+      else { state.sort.key = h; state.sort.dir = 1; }
+      renderTable();
+      updateChartStatusOnly();
+    });
+    $theadRow.appendChild(th);
+  });
+
+  $tbody.innerHTML = "";
+  const frag = document.createDocumentFragment();
+
+  state.viewRows.forEach((rowObj)=>{
+    const tr = document.createElement("tr");
+    if (state.selectedIndex === rowObj.__idx) tr.classList.add("selected");
+    tr.addEventListener("click", ()=> selectRowByOriginalIndex(rowObj.__idx));
+
+   const indexTd = el("td","", String(rowObj.__idx + 1));
+    indexTd.title = String(rowObj.__idx + 1);
+    tr.appendChild(indexTd);
+
+
+    state.headers.forEach(h=>{
+      const key = h || "(empty)";
+      const td = el("td","");
+      const v = normalizeValue(rowObj[key]);
+      td.textContent = v;
+      td.title = v;
+      tr.appendChild(td);
+    });
+
+    frag.appendChild(tr);
+  });
+
+  $tbody.appendChild(frag);
+
+  const delimName = state.delimiter === "\t" ? "TAB" : state.delimiter;
+  $tableMeta.textContent =
+    `Rows: ${state.rows.length} | View: ${state.viewRows.length} | Cols: ${state.headers.length} | Delim: ${delimName} | Header Line: ${state.headerLineIndex+1}`;
+
+
+ updatePageInfo();
+
+
+  if (state.rows.length){
+    $hintLeft.style.display = "none";
+    $tableWrap.style.display = "block";
+    $chartSection.style.display = "block";
+  } else {
+    $hintLeft.style.display = "block";
+    $tableWrap.style.display = "none";
+    $chartSection.style.display = "none";
+  }
+
+  syncSelectedRowClass();
+}
+
+
+
+function updatePageInfo(){
+  const total = pageState.filteredRows.length;
+  const start = total ? pageState.page * pageState.size + 1 : 0;
+  const end = Math.min(total, (pageState.page + 1) * pageState.size);
+  $pageInfo.querySelector("b").textContent = `Page ${pageState.page + 1}/${pageState.totalPages}`;
+  $pageInfo.querySelector("span").textContent = total
+    ? `Rows ${start}-${end} of ${total}`
+    : "—";
+  $prevPageBtn.disabled = pageState.page === 0;
+  $nextPageBtn.disabled = pageState.page >= pageState.totalPages - 1;
+}
+
+
+function syncSelectedRowClass(){
+  const trs = $tbody.querySelectorAll("tr");
+  trs.forEach(tr => tr.classList.remove("selected"));
+
+  const selectedOriginalIdx = state.selectedIndex;
+  if (selectedOriginalIdx < 0) return;
+
+  const viewPos = pageState.viewIndexByOriginalIdx.get(selectedOriginalIdx);
+  if (viewPos >= 0 && trs[viewPos]) trs[viewPos].classList.add("selected");
+}
+
+/** ---------------- Rendering Details ---------------- **/
+
+function renderDetail(){
+  if (state.selectedIndex < 0){
+    $detailMeta.textContent = "—";
+    $kpi.innerHTML = "";
+    $hintRight.style.display = "block";
+    $detailWrap.style.display = "none";
+    return;
+  }
+
+  const row = state.rows[state.selectedIndex];
+  if (!row) return;
+
+  $hintRight.style.display = "none";
+  $detailWrap.style.display = "grid";
+  $detailWrap.innerHTML = "";
+  $kpi.innerHTML = "";
+
+  $detailMeta.textContent = `Selected Original Row #${state.selectedIndex + 1}`;
+
+  // KPI guess
+  const headersLower = state.headers.map(h => String(h).toLowerCase());
+  const getKeyBy = (pred) => {
+    const i = headersLower.findIndex(pred);
+    return i >= 0 ? state.headers[i] : null;
+  };
+  const timeKey = getKeyBy(h => h === "time") || getKeyBy(h => h.includes("time")) || null;
+  const phaseKey = getKeyBy(h => h === "phase") || null;
+  const pmKey = getKeyBy(h => h.includes("powermode")) || null;
+  const ipKey = getKeyBy(h => h.includes("imagepattern")) || null;
+  const brKey = getKeyBy(h => h.includes("brightness")) || null;
+
+  const kpiItems = [
+    ["Time", timeKey ? row[timeKey] : ""],
+    ["Phase", phaseKey ? row[phaseKey] : ""],
+    ["PowerMode", pmKey ? row[pmKey] : ""],
+    ["ImagePattern", ipKey ? row[ipKey] : ""],
+    ["Brightness", brKey ? row[brKey] : ""],
+  ].filter(x => normalizeValue(x[1]).trim() !== "");
+
+  kpiItems.forEach(([k,v])=>{
+    const card = el("div","card");
+    card.innerHTML = `<b>${k}</b>：${normalizeValue(v)}`;
+    $kpi.appendChild(card);
+  });
+
+  $detailWrap.appendChild(buildSection("Test Condition", "非 Sample #1/#2/#3 欄位", state.groups.condition, row, {isSample:false}));
+  $detailWrap.appendChild(buildSection("Test Parameter - Sample #1", "Sample #1 欄位（#1 開頭）", state.groups.s1, row, {isSample:true}));
+  $detailWrap.appendChild(buildSection("Test Parameter - Sample #2", "Sample #2 欄位（#2 開頭）", state.groups.s2, row, {isSample:true}));
+  $detailWrap.appendChild(buildSection("Test Parameter - Sample #3", "Sample #3 欄位（#3 開頭）", state.groups.s3, row, {isSample:true}));
+}
+
+function refreshOpenTouchRawPreviews(){
+  touchRawPreviewState.openPreviews.forEach((preview) => {
+    if (!preview?._touchRawCanvas || !preview?._touchRawParsed) return;
+    renderTouchRawCanvas(preview._touchRawCanvas, preview._touchRawParsed);
+  });
+  if (touchPanelState.parsed && $touchPanelPreviewHost._touchRawCanvas){
+    renderTouchRawCanvas($touchPanelPreviewHost._touchRawCanvas, touchPanelState.parsed);
+  }
+}
+
+function syncTouchConfigUi(){
+  $touchPanelX.value = String(touchConfigState.panelWidth);
+  $touchPanelY.value = String(touchConfigState.panelHeight);
+  $touchConfigStatus.textContent = touchConfigState.source === "import" ? "Imported" : "Manual";
+  $touchConfigMeta.innerHTML =
+    `目前使用 <strong>${touchConfigState.panelWidth} x ${touchConfigState.panelHeight}</strong>。` +
+    `來源：<strong>${touchConfigState.source === "import" ? "Config Import" : "Manual Input"}</strong>。` +
+    ` 匯入 JSON 後可自動帶入 <code>panel.x</code> / <code>panel.y</code>、<code>panelWidth</code> / <code>panelHeight</code>、<code>x</code> / <code>y</code>。`;
+}
+
+function applyTouchConfig(width, height, source = "manual", rawConfig = null){
+  const prevWidth = touchConfigState.panelWidth;
+  const prevHeight = touchConfigState.panelHeight;
+  touchConfigState.panelWidth = clampPositiveInt(width, 3000);
+  touchConfigState.panelHeight = clampPositiveInt(height, 1080);
+  touchConfigState.source = source;
+  touchConfigState.rawConfig = rawConfig;
+  syncTouchConfigUi();
+  const configChanged =
+    prevWidth !== touchConfigState.panelWidth ||
+    prevHeight !== touchConfigState.panelHeight;
+  if (touchPanelState.parsed){
+    if (!touchPanelState.rawText){
+      touchPanelState.parsed.panelWidth = touchConfigState.panelWidth;
+      touchPanelState.parsed.panelHeight = touchConfigState.panelHeight;
+      if (configChanged){
+        centerTouchPanelViewport();
+      }
+    } else {
+      touchPanelState.parsed.panelWidth = touchConfigState.panelWidth;
+      touchPanelState.parsed.panelHeight = touchConfigState.panelHeight;
+      if (configChanged || !touchPanelState.hasViewState){
+        centerTouchPanelViewport();
+      }
+    }
+  }
+  refreshOpenTouchRawPreviews();
+}
+
+function findConfigPair(config){
+  if (!config || typeof config !== "object") return null;
+
+  const directWidth = config.panelWidth ?? config.width ?? config.x ?? null;
+  const directHeight = config.panelHeight ?? config.height ?? config.y ?? null;
+  if (directWidth && directHeight){
+    return { width: directWidth, height: directHeight };
+  }
+
+  const panel = config.panel ?? config.Panel ?? null;
+  if (panel && typeof panel === "object"){
+    const width = panel.x ?? panel.X ?? panel.width ?? panel.Width ?? null;
+    const height = panel.y ?? panel.Y ?? panel.height ?? panel.Height ?? null;
+    if (width && height){
+      return { width, height };
+    }
+  }
+
+  for (const value of Object.values(config)){
+    if (!value || typeof value !== "object") continue;
+    const nested = findConfigPair(value);
+    if (nested) return nested;
+  }
+  return null;
+}
+
+function importTouchConfigFromText(text){
+  const parsed = JSON.parse(text);
+  const pair = findConfigPair(parsed);
+  if (!pair){
+    throw new Error("找不到 panel x/y。請確認 JSON 內有 panel.x / panel.y 或 panelWidth / panelHeight。");
+  }
+  applyTouchConfig(pair.width, pair.height, "import", parsed);
+}
+
+function buildEmptyTouchPanelParsed(){
+  return {
+    ok: true,
+    rawText: "",
+    bytes: [],
+    sourceId: null,
+    fingerCount: 0,
+    slotCount: 0,
+    slots: [],
+    active: [],
+    panelWidth: touchConfigState.panelWidth,
+    panelHeight: touchConfigState.panelHeight,
+  };
+}
+
+function clampTouchPanelZoom(zoom){
+  return Math.min(10, Math.max(0.1, zoom));
+}
+
+function getTouchPanelViewport(){
+  return $touchPanelPreviewHost.querySelector(".touchPanelViewport");
+}
+
+function centerTouchPanelViewport(){
+  const viewport = getTouchPanelViewport();
+  const canvas = $touchPanelPreviewHost._touchRawCanvas;
+  const parsed = touchPanelState.parsed;
+  if (!viewport || !canvas || !parsed) return;
+
+  const rect = viewport.getBoundingClientRect();
+  const titleHeight = 42;
+  const viewportWidth = Math.max(1, rect.width);
+  const viewportHeight = Math.max(1, rect.height - titleHeight);
+  const fitScale = Math.min(
+    viewportWidth / parsed.panelWidth,
+    viewportHeight / parsed.panelHeight
+  );
+  touchPanelState.zoom = clampTouchPanelZoom(fitScale * 0.92);
+  touchPanelState.offsetX = (viewportWidth - parsed.panelWidth * touchPanelState.zoom) / 2;
+  touchPanelState.offsetY = titleHeight + (viewportHeight - parsed.panelHeight * touchPanelState.zoom) / 2;
+  touchPanelState.hasViewState = true;
+}
+
+function resetTouchPanelPreview(){
+  touchPanelState.parsed = buildEmptyTouchPanelParsed();
+  touchPanelState.header = "";
+  touchPanelState.rawText = "";
+  touchPanelState.zoom = 1;
+  touchPanelState.offsetX = 0;
+  touchPanelState.offsetY = 0;
+  touchPanelState.dragging = false;
+  touchPanelState.pointerId = null;
+  touchPanelState.hasViewState = false;
+  $touchPanelStatus.textContent = "Ready";
+  $touchPanelMeta.textContent = `目前顯示預設 panel 版面：${touchConfigState.panelWidth} x ${touchConfigState.panelHeight}。點擊右側 detail 的 Touch_Raw 或 Touch ID_ XY 欄位後，會在此疊上座標點與 frame 資訊。`;
+  renderTouchRawPreview($touchPanelPreviewHost, touchPanelState.parsed);
+  centerTouchPanelViewport();
+  if ($touchPanelPreviewHost._touchRawCanvas){
+    renderTouchRawCanvas($touchPanelPreviewHost._touchRawCanvas, touchPanelState.parsed);
+  }
+}
+
+function showTouchPanelPreview(header, rawText){
+  const parsed = parseTouchPanelPreviewValue(header, rawText);
+  const shouldPreserveView = touchPanelState.hasViewState;
+  touchPanelState.header = header;
+  touchPanelState.rawText = rawText;
+  touchPanelState.parsed = parsed.ok ? parsed : null;
+
+  $touchPanelStatus.textContent = parsed.ok
+    ? `${parsed.active.length}/${parsed.slotCount} Active`
+    : "Invalid";
+  $touchPanelMeta.textContent = parsed.ok
+    ? `${header} | Source=${parsed.sourceId ?? "-"} | Bytes=${parsed.bytes.length} | Panel=${parsed.panelWidth} x ${parsed.panelHeight}`
+    : `${header} | ${parsed.reason}`;
+
+  renderTouchRawPreview($touchPanelPreviewHost, parsed);
+  if (parsed.ok){
+    if (!shouldPreserveView){
+      centerTouchPanelViewport();
+    }
+    renderTouchRawCanvas($touchPanelPreviewHost._touchRawCanvas, parsed);
+  }
+}
+
+function isTouchRawHeader(header){
+  return /touch_raw/i.test(normalizeValue(header));
+}
+
+function isTouchPointHeader(header){
+  const value = normalizeValue(header);
+  if (/touch_raw/i.test(value) || /\braw\b/i.test(value)) return false;
+  return /touch\s*id[\s_]*xy/i.test(value);
+}
+
+function isTouchPanelPreviewHeader(header){
+  return isTouchRawHeader(header) || isTouchPointHeader(header);
+}
+
+function getTouchEventName(eventCode){
+  const kind = eventCode & 0x0F;
+  if (kind === 1) return "Down";
+  if (kind === 2) return "Move";
+  if (kind === 3) return "Leave";
+  return "No Touch";
+}
+
+function parseTouchRawValue(rawText){
+  const text = normalizeValue(rawText).trim();
+  if (!text || /^n\/a$/i.test(text)){
+    return { ok:false, reason:"此欄位沒有 touch raw 資料。" };
+  }
+
+  let base = touchRawParseCache.get(text);
+  if (!base){
+    const byteMatches = text.match(/\b[0-9A-Fa-f]{2}\b/g) || [];
+    if (byteMatches.length < 10){
+      return { ok:false, reason:"找不到足夠的 hex byte，無法解析 touch frame。" };
+    }
+
+    const bytes = byteMatches.map(token => parseInt(token, 16));
+    let end = bytes.length;
+    if (end >= 2 && bytes[end - 2] === 0x0D && bytes[end - 1] === 0x0A){
+      end -= 2;
+    }
+
+    const sourceId = bytes[1] ?? null;
+    const fingerCount = bytes[3] ?? 0;
+    const slotCount = Math.floor(Math.max(0, end - 4) / 6);
+    const slots = [];
+    const active = [];
+
+    for (let slotIndex = 0; slotIndex < slotCount; slotIndex++){
+      const offset = 4 + slotIndex * 6;
+      if (offset + 5 >= end) break;
+
+      const type = bytes[offset];
+      const eventCode = bytes[offset + 1];
+      const x = (bytes[offset + 2] << 8) | bytes[offset + 3];
+      const y = (bytes[offset + 4] << 8) | bytes[offset + 5];
+      const eventName = getTouchEventName(eventCode);
+      const enabled = (eventCode & 0x0F) !== 0 && x !== 0xFFFF && y !== 0xFFFF;
+      const slot = {
+        index: slotIndex + 1,
+        type,
+        eventCode,
+        eventName,
+        x,
+        y,
+        enabled,
+      };
+      slots.push(slot);
+      if (enabled) active.push(slot);
+    }
+    base = { bytes, sourceId, fingerCount, slotCount, slots, active };
+    touchRawParseCache.set(text, base);
+  }
+
+  const maxX = base.active.length ? Math.max(...base.active.map(item => item.x)) : 0;
+  const maxY = base.active.length ? Math.max(...base.active.map(item => item.y)) : 0;
+  const panelWidth = touchConfigState.panelWidth;
+  const panelHeight = touchConfigState.panelHeight;
+
+  return {
+    ok:true,
+    rawText:text,
+    bytes: base.bytes,
+    sourceId: base.sourceId,
+    fingerCount: base.fingerCount,
+    slotCount: base.slotCount,
+    slots: base.slots,
+    active: base.active,
+    panelWidth,
+    panelHeight,
+  };
+}
+
+function parseTouchPointValue(rawText){
+  const pair = tryParsePointPair(rawText);
+  if (!pair){
+    return { ok:false, reason:"找不到可用的 XY 座標。" };
+  }
+
+  const panelWidth = touchConfigState.panelWidth;
+  const panelHeight = touchConfigState.panelHeight;
+
+  return {
+    ok: true,
+    rawText: normalizeValue(rawText).trim(),
+    bytes: [],
+    sourceId: null,
+    fingerCount: 1,
+    slotCount: 1,
+    slots: [{
+      index: 1,
+      type: null,
+      eventCode: null,
+      eventName: "Point",
+      x: pair.x,
+      y: pair.y,
+      enabled: true,
+    }],
+    active: [{
+      index: 1,
+      type: null,
+      eventCode: null,
+      eventName: "Point",
+      x: pair.x,
+      y: pair.y,
+      enabled: true,
+    }],
+    panelWidth,
+    panelHeight,
+  };
+}
+
+function parseTouchPanelPreviewValue(header, rawText){
+  if (isTouchRawHeader(header)){
+    const rawParsed = parseTouchRawValue(rawText);
+    if (rawParsed.ok) return rawParsed;
+    const pointParsed = parseTouchPointValue(rawText);
+    if (pointParsed.ok) return pointParsed;
+    return rawParsed;
+  }
+  if (isTouchPointHeader(header)){
+    const pointParsed = parseTouchPointValue(rawText);
+    if (pointParsed.ok) return pointParsed;
+    const rawParsed = parseTouchRawValue(rawText);
+    if (rawParsed.ok) return rawParsed;
+    return pointParsed;
+  }
+  return parseTouchRawValue(rawText);
+}
+
+function renderTouchRawCanvas(canvas, parsed){
+  resizeCanvasToDisplaySize(canvas, 0.75);
+  const targetCtx = canvas.getContext("2d");
+  const width = canvas.width;
+  const height = canvas.height;
+
+  clearCanvas(targetCtx, canvas);
+
+  const bgGradient = targetCtx.createLinearGradient(0, 0, 0, height);
+  bgGradient.addColorStop(0, "#f8fbff");
+  bgGradient.addColorStop(1, "#e7eef7");
+  targetCtx.fillStyle = bgGradient;
+  targetCtx.fillRect(0, 0, width, height);
+
+  const padding = Math.max(40, Math.round(width * 0.09));
+  const zoom = clampTouchPanelZoom(touchPanelState.zoom || 1);
+  touchPanelState.zoom = zoom;
+  const panelRect = {
+    x: touchPanelState.offsetX || padding,
+    y: touchPanelState.offsetY || padding,
+    w: Math.max(120, parsed.panelWidth * zoom),
+    h: Math.max(100, parsed.panelHeight * zoom),
+  };
+
+  targetCtx.save();
+  targetCtx.fillStyle = "#ffffff";
+  targetCtx.beginPath();
+  targetCtx.rect(panelRect.x, panelRect.y, panelRect.w, panelRect.h);
+  targetCtx.fill();
+  targetCtx.strokeStyle = "rgba(71, 85, 105, 0.22)";
+  targetCtx.lineWidth = 1;
+  targetCtx.stroke();
+  targetCtx.restore();
+
+  targetCtx.save();
+  targetCtx.beginPath();
+  targetCtx.rect(panelRect.x, panelRect.y, panelRect.w, panelRect.h);
+  targetCtx.clip();
+
+  const panelGradient = targetCtx.createLinearGradient(panelRect.x, panelRect.y, panelRect.x, panelRect.y + panelRect.h);
+  panelGradient.addColorStop(0, "#ffffff");
+  panelGradient.addColorStop(1, "#dbe7f4");
+  targetCtx.fillStyle = panelGradient;
+  targetCtx.fillRect(panelRect.x, panelRect.y, panelRect.w, panelRect.h);
+
+  targetCtx.strokeStyle = "rgba(71, 85, 105, 0.10)";
+  targetCtx.lineWidth = 1;
+  const panelGrid = Math.max(64, Math.round(panelRect.w / 8));
+  for (let x = panelRect.x; x <= panelRect.x + panelRect.w; x += panelGrid){
+    targetCtx.beginPath();
+    targetCtx.moveTo(x, panelRect.y);
+    targetCtx.lineTo(x, panelRect.y + panelRect.h);
+    targetCtx.stroke();
+  }
+  for (let y = panelRect.y; y <= panelRect.y + panelRect.h; y += panelGrid){
+    targetCtx.beginPath();
+    targetCtx.moveTo(panelRect.x, y);
+    targetCtx.lineTo(panelRect.x + panelRect.w, y);
+    targetCtx.stroke();
+  }
+  targetCtx.restore();
+
+  const palette = [
+    "#14b8a6",
+    "#3b82f6",
+    "#f97316",
+    "#ef4444",
+    "#8b5cf6",
+    "#22c55e",
+    "#eab308",
+    "#ec4899",
+    "#06b6d4",
+    "#84cc16",
+  ];
+
+  const toScreen = (x, y) => ({
+    x: panelRect.x + x * zoom,
+    y: panelRect.y + y * zoom,
+  });
+
+  parsed.active.forEach((finger, index) => {
+    const color = palette[index % palette.length];
+    const point = toScreen(finger.x, finger.y);
+    const radius = Math.max(8, 21 * zoom);
+
+    targetCtx.beginPath();
+    targetCtx.fillStyle = `${color}44`;
+    targetCtx.strokeStyle = color;
+    targetCtx.lineWidth = 3;
+    targetCtx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+    targetCtx.fill();
+    targetCtx.stroke();
+
+    targetCtx.beginPath();
+    targetCtx.fillStyle = color;
+    targetCtx.arc(point.x, point.y, Math.max(3, radius * 0.18), 0, Math.PI * 2);
+    targetCtx.fill();
+
+    targetCtx.fillStyle = "rgba(15, 23, 42, 0.82)";
+    targetCtx.font = `600 ${Math.max(12, radius * 0.62)}px Segoe UI`;
+    targetCtx.fillText(`#${finger.index}`, point.x + radius + 8, point.y - 8);
+    targetCtx.font = `${Math.max(11, radius * 0.46)}px Consolas, monospace`;
+    targetCtx.fillText(`(${finger.x}, ${finger.y}) ${finger.eventName}`, point.x + radius + 8, point.y + 11);
+  });
+
+  targetCtx.fillStyle = "rgba(15, 23, 42, 0.72)";
+  targetCtx.font = `${Math.max(11, width * 0.018)}px Segoe UI`;
+  targetCtx.fillText(`${parsed.panelWidth} x ${parsed.panelHeight}`, panelRect.x + 16, panelRect.y + 24);
+  targetCtx.fillText(`source:${parsed.sourceId ?? "-"} active:${parsed.active.length}/${parsed.slotCount} zoom:${zoom.toFixed(2)}x`, panelRect.x + 16, panelRect.y + 44);
+}
+
+function renderTouchRawPreview(preview, parsed){
+  preview.innerHTML = "";
+
+  if (!parsed.ok){
+    const error = el("div", "touchRawError", parsed.reason);
+    preview.appendChild(error);
+    return;
+  }
+
+  const summary = el("div", "touchRawSummary");
+  [
+    ["Bytes", parsed.bytes.length],
+    ["Source", parsed.sourceId ?? "-"],
+    ["Header Count", parsed.fingerCount],
+    ["Active", `${parsed.active.length}/${parsed.slotCount}`],
+    ["Panel", `${parsed.panelWidth} x ${parsed.panelHeight}`],
+  ].forEach(([key, value]) => {
+    const chip = el("div", "touchRawChip");
+    chip.innerHTML = `<b>${key}</b> ${value}`;
+    summary.appendChild(chip);
+  });
+
+  const canvasWrap = el("div", "touchRawCanvasWrap");
+  const canvasTitle = el("div", "touchRawCanvasTitle", "touch_panel");
+  const canvas = el("canvas", "touchRawCanvas");
+  canvas.classList.add("touchPanelViewport");
+  canvasWrap.appendChild(canvasTitle);
+  canvasWrap.appendChild(canvas);
+
+  const legend = el("div", "touchRawLegend");
+  if (parsed.active.length){
+    const palette = [
+      "#14b8a6",
+      "#3b82f6",
+      "#f97316",
+      "#ef4444",
+      "#8b5cf6",
+      "#22c55e",
+      "#eab308",
+      "#ec4899",
+      "#06b6d4",
+      "#84cc16",
+    ];
+    parsed.active.forEach((finger, index) => {
+      const item = el("div", "touchRawLegendItem");
+      const swatch = `<span class="touchRawLegendSwatch" style="background:${palette[index % palette.length]};"></span>`;
+      item.innerHTML =
+        `<div>${swatch}<b>Finger #${finger.index}</b>${finger.eventName}</div>` +
+        `<div>Type=${finger.type} | EventCode=0x${finger.eventCode.toString(16).toUpperCase().padStart(2, "0")}</div>` +
+        `<div>X=${finger.x} | Y=${finger.y}</div>`;
+      legend.appendChild(item);
+    });
+  } else {
+    const item = el("div", "touchRawLegendItem muted", parsed.rawText
+      ? "沒有有效的觸控點。這筆 frame 可能是 No Touch、Leave，或資料格式不完整。"
+      : "目前是依照預設 Panel X / Y 顯示空白 touch panel。點擊右側 Touch_Raw 或 Touch ID XY 欄位後，會在這裡繪出座標點。");
+    legend.appendChild(item);
+  }
+
+  preview.appendChild(summary);
+  preview.appendChild(canvasWrap);
+  preview.appendChild(legend);
+  renderTouchRawCanvas(canvas, parsed);
+  preview._touchRawCanvas = canvas;
+  preview._touchRawParsed = parsed;
+
+  canvas.addEventListener("pointerdown", (event) => {
+    touchPanelState.dragging = true;
+    touchPanelState.pointerId = event.pointerId;
+    touchPanelState.startClientX = event.clientX;
+    touchPanelState.startClientY = event.clientY;
+    touchPanelState.startOffsetX = touchPanelState.offsetX;
+    touchPanelState.startOffsetY = touchPanelState.offsetY;
+    canvas.classList.add("dragging");
+    canvas.setPointerCapture?.(event.pointerId);
+  });
+  canvas.addEventListener("pointermove", (event) => {
+    if (!touchPanelState.dragging || touchPanelState.pointerId !== event.pointerId || !preview._touchRawParsed) return;
+    touchPanelState.offsetX = touchPanelState.startOffsetX + (event.clientX - touchPanelState.startClientX);
+    touchPanelState.offsetY = touchPanelState.startOffsetY + (event.clientY - touchPanelState.startClientY);
+    touchPanelState.hasViewState = true;
+    renderTouchRawCanvas(canvas, preview._touchRawParsed);
+  });
+  const stopDrag = (event) => {
+    if (touchPanelState.pointerId !== event.pointerId) return;
+    touchPanelState.dragging = false;
+    touchPanelState.pointerId = null;
+    canvas.classList.remove("dragging");
+    canvas.releasePointerCapture?.(event.pointerId);
+  };
+  canvas.addEventListener("pointerup", stopDrag);
+  canvas.addEventListener("pointercancel", stopDrag);
+  canvas.addEventListener("wheel", (event) => {
+    if (!preview._touchRawParsed) return;
+    event.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const cursorX = event.clientX - rect.left;
+    const cursorY = event.clientY - rect.top;
+    const prevZoom = touchPanelState.zoom;
+    const nextZoom = clampTouchPanelZoom(prevZoom * (event.deltaY < 0 ? 1.12 : 0.9));
+    if (Math.abs(nextZoom - prevZoom) < 0.0001) return;
+
+    const panelX = (cursorX - touchPanelState.offsetX) / prevZoom;
+    const panelY = (cursorY - touchPanelState.offsetY) / prevZoom;
+    touchPanelState.zoom = nextZoom;
+    touchPanelState.offsetX = cursorX - panelX * nextZoom;
+    touchPanelState.offsetY = cursorY - panelY * nextZoom;
+    touchPanelState.hasViewState = true;
+    renderTouchRawCanvas(canvas, preview._touchRawParsed);
+  }, { passive:false });
+}
+
+function toggleTouchRawPreview(valueNode, previewNode, rawText){
+  const isExpanded = !previewNode.hidden;
+  if (isExpanded){
+    previewNode.hidden = true;
+    valueNode.classList.remove("expanded");
+    touchRawPreviewState.openPreviews.delete(previewNode);
+    return;
+  }
+
+  renderTouchRawPreview(previewNode, parseTouchRawValue(rawText));
+  previewNode.hidden = false;
+  valueNode.classList.add("expanded");
+  touchRawPreviewState.openPreviews.add(previewNode);
+}
+
+function buildTouchRawCard(header, rawText){
+  const kvc = el("div", "kv");
+  const k = el("div", "k", header || "(empty header)");
+  const valueNode = el("div", "v mono touchRawValue");
+  const hintNode = el("div", "touchRawHint", "Click to open the touch_panel preview in the lower split area.");
+
+  valueNode.textContent = rawText;
+  valueNode.tabIndex = 0;
+  valueNode.title = "Click to open touch_panel preview";
+
+  const toggle = () => {
+    showTouchPanelPreview(header, rawText);
+    valueNode.classList.add("expanded");
+  };
+  valueNode.addEventListener("click", toggle);
+  valueNode.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    toggle();
+  });
+
+  kvc.appendChild(k);
+  kvc.appendChild(valueNode);
+  kvc.appendChild(hintNode);
+  return kvc;
+}
+
+function buildSection(title, subtitle, headers, row, opt){
+  const section = el("div","section");
+  const head = el("div","secHead");
+  const name = el("div","name");
+  name.appendChild(el("span","",title));
+  name.appendChild(el("span","badge", opt?.isSample ? "SAMPLE" : "COND"));
+  head.appendChild(name);
+  head.appendChild(el("div","badge", subtitle));
+  section.appendChild(head);
+
+  const body = el("div","secBody");
+  if (!headers.length){
+    const p = el("div","kv");
+    p.style.gridColumn = "1 / -1";
+    p.innerHTML = `<div class="k">（無欄位）</div><div class="v">未找到符合此區塊的欄位。</div>`;
+    body.appendChild(p);
+  } else {
+    headers.forEach(h=>{
+      const val = normalizeValue(row[h] ?? "");
+      let kvc;
+      if (isTouchPanelPreviewHeader(h)){
+        kvc = buildTouchRawCard(h, val);
+      } else {
+        kvc = el("div","kv");
+        const k = el("div","k", h || "(empty header)");
+        const v = el("div","v");
+        const looksRaw = val.length > 60 || /(^|\s)([0-9A-F]{2}\s){8,}/i.test(val);
+        v.className = "v" + (looksRaw ? " mono" : "");
+        v.textContent = val;
+        kvc.appendChild(k);
+        kvc.appendChild(v);
+      }
+      body.appendChild(kvc);
+    });
+  }
+
+  section.appendChild(body);
+  return section;
+}
+
+/** ---------------- Selection ---------------- **/
+
+function selectRowByOriginalIndex(originalIdx){
+  state.selectedIndex = originalIdx;
+  syncSelectedRowClass();
+  renderDetail();
+  if (chartState.allPoints.length){
+    chartState.highlightIdx = originalIdx;
+    const point = chartState.pointByRowIdx.get(originalIdx) || null;
+    chartState.highlightSeriesKey = point?.yKey ?? null;
+    refreshChartCanvas();
+    if (point){
+      const scaleMode = $scaleMode.value || "raw";
+      const yInfo = scaleMode === "raw"
+        ? `Y=${point.y}`
+        : `Y(raw)=${point.yRaw} | Y(${scaleMode})=${point.y}`;
+      $chartPointInfo.textContent =
+        `Selected：Series=${point.yKey} | Index=${originalIdx + 1} | X=${point.x} | ${yInfo}`;
+      $chartPointInfo.style.display = "block";
+    }
+  }
+}
+
+function goToRowByOriginalIndex(originalIdx){
+  let filteredPos = pageState.filteredIndexByOriginalIdx.get(originalIdx);
+  if (filteredPos === undefined && $searchBox.value.trim()){
+    $searchBox.value = "";
+    renderTable();
+    updateChartStatusOnly();
+    filteredPos = pageState.filteredIndexByOriginalIdx.get(originalIdx);
+  }
+  if (filteredPos !== undefined){
+    pageState.page = Math.floor(filteredPos / pageState.size);
+  }
+  renderTable();
+  selectRowByOriginalIndex(originalIdx);
+  scrollToSelectedRow();
+}
+
+function scrollToSelectedRow(){
+  if (state.selectedIndex < 0) return;
+  const viewPos = pageState.viewIndexByOriginalIdx.get(state.selectedIndex);
+  if (viewPos === undefined) return;
+  const tr = $tbody.querySelectorAll("tr")[viewPos];
+  tr?.scrollIntoView({ block:"nearest" });
+
+  
+}
+
+/** ---------------- Errors ---------------- **/
+
+function showError(msg){
+  $errorBox.style.display = "block";
+  $errorBox.textContent = msg;
+}
+function clearError(){
+  $errorBox.style.display = "none";
+  $errorBox.textContent = "";
+}
+
+/** ---------------- Chart: data extraction ---------------- **/
+
+function tryParseNumber(v){
+  if (v === null || v === undefined) return null;
+  const s = String(v).trim();
+  if (!s) return null;
+
+  // remove commas in numbers like "1,234.5"
+  const normalized = s.replace(/,/g, "");
+
+  // allow scientific notation
+  const n = Number(normalized);
+  if (Number.isNaN(n)) return null;
+  return n;
+}
+
+function tryParsePointPair(v){
+  if (v === null || v === undefined) return null;
+  const s = String(v).trim();
+  if (!s) return null;
+
+  const patterns = [
+    /^\(?\s*(-?\d+(?:\.\d+)?)\s*[,/]\s*(-?\d+(?:\.\d+)?)\s*\)?$/,
+    /^\(?\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)\s*\)?$/,
+    /x\s*[:=]\s*(-?\d+(?:\.\d+)?)\D+y\s*[:=]\s*(-?\d+(?:\.\d+)?)/i,
+  ];
+
+  for (const pattern of patterns){
+    const match = s.match(pattern);
+    if (!match) continue;
+    const x = Number(match[1]);
+    const y = Number(match[2]);
+    if (Number.isFinite(x) && Number.isFinite(y)){
+      return { x, y };
+    }
+  }
+  return null;
+}
+
+function buildPointSeries(sourceRows, xKey, yKey){
+  const pts = [];
+  for (const r of sourceRows){
+    const y = tryParseNumber(r[yKey]);
+    if (y === null){
+      const pair = tryParsePointPair(r[yKey]);
+      if (pair){
+        pts.push({ x: pair.x, y: pair.y, idx: r.__idx });
+      }
+      continue;
+    }
+
+    let x;
+    if (xKey === "__idx") x = r.__idx + 1;
+    else {
+      const xn = tryParseNumber(r[xKey]);
+      if (xn === null) continue;
+      x = xn;
+    }
+    pts.push({x, y, idx: r.__idx});
+  }
+  return pts;
+}
+
+function getSelectedYKeys(){
+  return Array.from($yCol.selectedOptions || [])
+    .map(opt => opt.value)
+    .filter(Boolean);
+}
+
+function buildSeriesCollection(sourceRows, xKey, yKeys){
+  const series = [];
+  const allPoints = [];
+
+  yKeys.forEach((yKey, i) => {
+    const points = buildPointSeries(sourceRows, xKey, yKey);
+    if (!points.length) return;
+
+    const color = chartColors[i % chartColors.length];
+    series.push({ yKey, points, color });
+
+    for (const p of points){
+      allPoints.push({ ...p, yKey, color });
+    }
+  });
+
+  return { series, allPoints };
+}
+
+function computeSeriesStats(points){
+  if (!points.length) return null;
+  let min = points[0].y;
+  let max = points[0].y;
+  let sum = 0;
+  for (const p of points){
+    if (p.y < min) min = p.y;
+    if (p.y > max) max = p.y;
+    sum += p.y;
+  }
+  const mean = sum / points.length;
+  let varSum = 0;
+  for (const p of points){
+    const d = p.y - mean;
+    varSum += d * d;
+  }
+  const std = Math.sqrt(varSum / points.length);
+  return { min, max, mean, std };
+}
+
+function transformSeriesForScale(rawSeries, mode){
+  if (mode === "raw"){
+    const allPoints = [];
+    for (const s of rawSeries){
+      for (const p of s.points){
+        allPoints.push({
+          ...p,
+          yRaw: p.y,
+          yKey: s.yKey,
+          color: s.color,
+        });
+      }
+    }
+    return { series: rawSeries, allPoints, notes: [] };
+  }
+
+  const transformedSeries = [];
+  const transformedAllPoints = [];
+  const notes = [];
+
+  for (const s of rawSeries){
+    const stats = computeSeriesStats(s.points);
+    if (!stats) continue;
+
+    const range = stats.max - stats.min;
+    const safeRange = range === 0 ? 1 : range;
+    const safeStd = stats.std === 0 ? 1 : stats.std;
+
+    const pts = [];
+    for (const p of s.points){
+      let yScaled = p.y;
+
+      if (mode === "normalize"){
+        yScaled = (p.y - stats.min) / safeRange;
+      } else if (mode === "zscore"){
+        yScaled = (p.y - stats.mean) / safeStd;
+      } else if (mode === "log"){
+        if (p.y <= 0) continue;
+        yScaled = Math.log10(p.y);
+      }
+
+      const scaledPoint = {
+        ...p,
+        y: yScaled,
+        yRaw: p.y,
+        yKey: s.yKey,
+        color: s.color,
+      };
+      pts.push(scaledPoint);
+      transformedAllPoints.push(scaledPoint);
+    }
+
+    if (mode === "log" && pts.length < s.points.length){
+      notes.push(`${s.yKey}: filtered ${s.points.length - pts.length} non-positive values for log scale`);
+    }
+
+    if (pts.length){
+      transformedSeries.push({
+        ...s,
+        points: pts,
+        stats,
+      });
+    }
+  }
+
+  return { series: transformedSeries, allPoints: transformedAllPoints, notes };
+}
+
+function computeBounds(points){
+  if (!points.length) return { xmin:0, xmax:1, ymin:0, ymax:1 };
+  let xmin = points[0].x, xmax = points[0].x;
+  let ymin = points[0].y, ymax = points[0].y;
+  for (const p of points){
+    if (p.x < xmin) xmin = p.x;
+    if (p.x > xmax) xmax = p.x;
+    if (p.y < ymin) ymin = p.y;
+    if (p.y > ymax) ymax = p.y;
+  }
+  // avoid zero-range
+  if (xmin === xmax) { xmin -= 1; xmax += 1; }
+  if (ymin === ymax) { ymin -= 1; ymax += 1; }
+  // add small margin
+  const mx = (xmax - xmin) * 0.05;
+  const my = (ymax - ymin) * 0.08;
+  return { xmin: xmin - mx, xmax: xmax + mx, ymin: ymin - my, ymax: ymax + my };
+}
+
+/** ---------------- Chart: drawing primitives ---------------- **/
+
+function resizeCanvasToDisplaySize(canvas, scale = 1){
+  const rect = canvas.getBoundingClientRect();
+  const dpr = (window.devicePixelRatio || 1) * scale;
+  const w = Math.max(1, Math.round(rect.width * dpr));
+  const h = Math.max(1, Math.round(rect.height * dpr));
+  if (canvas.width !== w || canvas.height !== h){
+    canvas.width = w;
+    canvas.height = h;
+    return true;
+  }
+  return false;
+}
+
+function clearCanvas(targetCtx, canvas){
+  targetCtx.clearRect(0,0,canvas.width,canvas.height);
+}
+
+function mapX(x, bounds, pad, canvas){
+  const w = canvas.width - pad.l - pad.r;
+  return pad.l + ( (x - bounds.xmin) / (bounds.xmax - bounds.xmin) ) * w;
+}
+function mapY(y, bounds, pad, canvas){
+  const h = canvas.height - pad.t - pad.b;
+  // y axis inverted
+  return pad.t + (1 - ( (y - bounds.ymin) / (bounds.ymax - bounds.ymin) )) * h;
+}
+
+function clamp(value, min, max){
+  return Math.min(max, Math.max(min, value));
+}
+
+function pixelToData(px, py, bounds, pad, canvas){
+  const plotWidth = canvas.width - pad.l - pad.r;
+  const plotHeight = canvas.height - pad.t - pad.b;
+  if (plotWidth <= 0 || plotHeight <= 0) return null;
+
+  const tx = clamp((px - pad.l) / plotWidth, 0, 1);
+  const ty = clamp((py - pad.t) / plotHeight, 0, 1);
+
+  return {
+    tx,
+    ty,
+    x: bounds.xmin + tx * (bounds.xmax - bounds.xmin),
+    y: bounds.ymax - ty * (bounds.ymax - bounds.ymin),
+  };
+}
+
+function zoomChartAtPixel(px, py, zoomFactor){
+  if (!chartState.allPoints.length || !Number.isFinite(zoomFactor) || zoomFactor <= 0) return;
+
+  const anchor = pixelToData(px, py, chartState.bounds, chartState.padding, $canvas);
+  if (!anchor) return;
+
+  const bounds = chartState.bounds;
+  const width = bounds.xmax - bounds.xmin;
+  const height = bounds.ymax - bounds.ymin;
+  const nextWidth = Math.max(1e-9, width * zoomFactor);
+  const nextHeight = Math.max(1e-9, height * zoomFactor);
+
+  const xmin = anchor.x - anchor.tx * nextWidth;
+  const xmax = xmin + nextWidth;
+  const ymin = anchor.y - (1 - anchor.ty) * nextHeight;
+  const ymax = ymin + nextHeight;
+
+  chartState.bounds = { xmin, xmax, ymin, ymax };
+  chartState.fitted = false;
+  refreshChartCanvas();
+}
+
+function panChartByPixels(dx, dy){
+  if (!chartState.allPoints.length || !chartState.panStartBounds) return;
+  const pad = chartState.padding;
+  const plotWidth = $canvas.width - pad.l - pad.r;
+  const plotHeight = $canvas.height - pad.t - pad.b;
+  if (plotWidth <= 0 || plotHeight <= 0) return;
+
+  const startBounds = chartState.panStartBounds;
+  const xSpan = startBounds.xmax - startBounds.xmin;
+  const ySpan = startBounds.ymax - startBounds.ymin;
+  const dataDx = (dx / plotWidth) * xSpan;
+  const dataDy = (dy / plotHeight) * ySpan;
+
+  chartState.bounds = {
+    xmin: startBounds.xmin - dataDx,
+    xmax: startBounds.xmax - dataDx,
+    ymin: startBounds.ymin + dataDy,
+    ymax: startBounds.ymax + dataDy,
+  };
+  chartState.fitted = false;
+  refreshChartCanvas();
+}
+
+function selectNearestPointAtClientPosition(clientX, clientY){
+  if (!chartState.allPoints.length) return;
+  const rect = $canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const px = (clientX - rect.left) * dpr;
+  const py = (clientY - rect.top) * dpr;
+  const nearest = getNearestPointByPixel(px, py);
+  if (!nearest) return;
+
+  chartState.highlightIdx = nearest.idx;
+  chartState.highlightSeriesKey = nearest.yKey;
+  refreshChartCanvas();
+  const scaleMode = $scaleMode.value || "raw";
+  const yInfo = scaleMode === "raw"
+    ? `Y=${nearest.y}`
+    : `Y(raw)=${nearest.yRaw} | Y(${scaleMode})=${nearest.y}`;
+  $chartPointInfo.textContent =
+    `Selected：Series=${nearest.yKey} | Index=${nearest.idx + 1} | X=${nearest.x} | ${yInfo}`;
+  $chartPointInfo.style.display = "block";
+  goToRowByOriginalIndex(nearest.idx);
+}
+
+function drawAxes(targetCtx, canvas, bounds, pad, scaleFactor = 1){
+  const palette = getThemePalette();
+  targetCtx.save();
+  // axis lines
+  targetCtx.globalAlpha = 0.8;
+  targetCtx.lineWidth = 1 * scaleFactor;
+  targetCtx.strokeStyle = palette.axis;
+  targetCtx.beginPath();
+  // x-axis
+  targetCtx.moveTo(pad.l, canvas.height - pad.b);
+  targetCtx.lineTo(canvas.width - pad.r, canvas.height - pad.b);
+  // y-axis
+  targetCtx.moveTo(pad.l, pad.t);
+  targetCtx.lineTo(pad.l, canvas.height - pad.b);
+  targetCtx.stroke();
+
+  // ticks
+  const tickCount = 6;
+  targetCtx.fillStyle = palette.axisText;
+  targetCtx.font = `${12*scaleFactor}px ui-sans-serif`;
+  targetCtx.globalAlpha = 0.9;
+
+  // x ticks
+  for (let i=0; i<tickCount; i++){
+    const t = i/(tickCount-1);
+    const xv = bounds.xmin + t*(bounds.xmax - bounds.xmin);
+    const x = pad.l + t*(canvas.width - pad.l - pad.r);
+    targetCtx.globalAlpha = 0.25;
+    targetCtx.strokeStyle = palette.axis;
+    targetCtx.beginPath();
+    targetCtx.moveTo(x, pad.t);
+    targetCtx.lineTo(x, canvas.height - pad.b);
+    targetCtx.stroke();
+
+    targetCtx.globalAlpha = 0.9;
+    targetCtx.fillText(formatTick(xv), x - 14*scaleFactor, canvas.height - pad.b + 18*scaleFactor);
+  }
+
+  // y ticks
+  for (let i=0; i<tickCount; i++){
+    const t = i/(tickCount-1);
+    const yv = bounds.ymin + (1-t)*(bounds.ymax - bounds.ymin);
+    const y = pad.t + t*(canvas.height - pad.t - pad.b);
+
+    targetCtx.globalAlpha = 0.25;
+    targetCtx.strokeStyle = palette.axis;
+    targetCtx.beginPath();
+    targetCtx.moveTo(pad.l, y);
+    targetCtx.lineTo(canvas.width - pad.r, y);
+    targetCtx.stroke();
+
+    targetCtx.globalAlpha = 0.9;
+    targetCtx.fillText(formatTick(yv), 6*scaleFactor, y + 4*scaleFactor);
+  }
+
+  targetCtx.restore();
+}
+
+function formatTick(v){
+  const av = Math.abs(v);
+  if (av >= 1000) return v.toFixed(0);
+  if (av >= 100) return v.toFixed(1);
+  if (av >= 10) return v.toFixed(2);
+  if (av >= 1) return v.toFixed(3);
+  return v.toExponential(2);
+}
+
+function drawSeries(
+  targetCtx,
+  canvas,
+  seriesList,
+  type,
+  bounds,
+  pad,
+  highlightIdx,
+  highlightSeriesKey,
+  scaleFactor = 1
+){
+  if (!seriesList.length) return;
+  const palette = getThemePalette();
+
+  const r = (type === "scatter" ? 2.3 : 1.8) * scaleFactor;
+
+  for (const s of seriesList){
+    const points = s.points;
+    if (!points.length) continue;
+
+    targetCtx.save();
+    targetCtx.lineWidth = 1.6 * scaleFactor;
+    targetCtx.strokeStyle = s.color;
+    targetCtx.fillStyle = s.color;
+    targetCtx.globalAlpha = 0.95;
+
+    if (type === "line"){
+      const sorted = points.slice().sort((a,b)=>a.x-b.x);
+      targetCtx.beginPath();
+      for (let i=0; i<sorted.length; i++){
+        const px = mapX(sorted[i].x, bounds, pad, canvas);
+        const py = mapY(sorted[i].y, bounds, pad, canvas);
+        if (i === 0) targetCtx.moveTo(px, py);
+        else targetCtx.lineTo(px, py);
+      }
+      targetCtx.stroke();
+    }
+
+    // points (scatter dots for both types, but lighter for line)
+    targetCtx.globalAlpha = type === "scatter" ? 0.95 : 0.65;
+    for (const p of points){
+      const px = mapX(p.x, bounds, pad, canvas);
+      const py = mapY(p.y, bounds, pad, canvas);
+      targetCtx.beginPath();
+      targetCtx.arc(px, py, r, 0, Math.PI * 2);
+      targetCtx.fill();
+    }
+
+    if (highlightIdx !== null && highlightIdx !== undefined){
+      const focus = points.find(p => p.idx === highlightIdx);
+      if (focus){
+        const px = mapX(focus.x, bounds, pad, canvas);
+        const py = mapY(focus.y, bounds, pad, canvas);
+        targetCtx.globalAlpha = 0.98;
+        targetCtx.strokeStyle = highlightSeriesKey === s.yKey ? palette.chartHighlight : palette.chartSecondaryHighlight;
+        targetCtx.lineWidth = (highlightSeriesKey === s.yKey ? 2.8 : 2.2) * scaleFactor;
+        targetCtx.beginPath();
+        targetCtx.arc(px, py, r * 2.2, 0, Math.PI * 2);
+        targetCtx.stroke();
+      }
+    }
+
+    targetCtx.restore();
+  }
+}
+function renderChartToContext(
+  targetCtx,
+  canvas,
+  seriesList,
+  type,
+  bounds,
+  pad,
+  highlightIdx,
+  highlightSeriesKey,
+  scaleFactor = 1
+){
+  clearCanvas(targetCtx, canvas);
+  drawAxes(targetCtx, canvas, bounds, pad, scaleFactor);
+  drawSeries(
+    targetCtx,
+    canvas,
+    seriesList,
+    type,
+    bounds,
+    pad,
+    highlightIdx,
+    highlightSeriesKey,
+    scaleFactor
+  );
+}
+
+function rebuildChartInteractionCache(){
+  chartState.pointByRowIdx = new Map();
+  chartState.pixelPoints = [];
+  chartState.hitBuckets = new Map();
+
+  if (!chartState.allPoints.length || !$canvas.width || !$canvas.height) return;
+
+  const bounds = chartState.bounds;
+  const pad = chartState.padding;
+  const dpr = window.devicePixelRatio || 1;
+  const type = $chartType.value;
+  const pointRadius = (type === "scatter" ? 2.3 : 1.8) * dpr;
+  const bucketSize = Math.max(18, Math.round(24 * dpr));
+  const hitThreshold = Math.max(12 * dpr, pointRadius * 4.5);
+
+  chartState.hitBucketSize = bucketSize;
+  chartState.hitThreshold = hitThreshold;
+
+  for (const p of chartState.allPoints){
+    if (!chartState.pointByRowIdx.has(p.idx)) chartState.pointByRowIdx.set(p.idx, p);
+
+    const px = mapX(p.x, bounds, pad, $canvas);
+    const py = mapY(p.y, bounds, pad, $canvas);
+    const pixelPoint = { point: p, px, py };
+    chartState.pixelPoints.push(pixelPoint);
+
+    const bx = Math.floor(px / bucketSize);
+    const by = Math.floor(py / bucketSize);
+    const key = `${bx},${by}`;
+    const bucket = chartState.hitBuckets.get(key);
+    if (bucket) bucket.push(pixelPoint);
+    else chartState.hitBuckets.set(key, [pixelPoint]);
+  }
+}
+
+function refreshChartCanvas(){
+  resizeCanvasToDisplaySize($canvas);
+  const rect = $canvas.getBoundingClientRect();
+  const scaleFactor = rect.width ? ($canvas.width / rect.width) : 1;
+  renderChartToContext(
+    ctx,
+    $canvas,
+    chartState.series,
+    $chartType.value,
+    chartState.bounds,
+    chartState.padding,
+    chartState.highlightIdx,
+    chartState.highlightSeriesKey,
+    scaleFactor
+  );
+  rebuildChartInteractionCache();
+}
+
+function drawChart(){
+  if (!state.rows.length){
+    $chartStatus.textContent = "未載入資料";
+    return;
+  }
+  const xKey = $xCol.value;
+  const yKeys = getSelectedYKeys();
+  if (!yKeys.length){
+    $chartStatus.textContent = "請先選至少一個 Y 欄位（可多選）";
+    return;
+  }
+
+  const source = state.rows;
+  const { series: rawSeries, allPoints: rawAllPoints } = buildSeriesCollection(source, xKey, yKeys);
+
+  chartState.rawSeries = rawSeries;
+  chartState.rawAllPoints = rawAllPoints;
+
+  const scaleMode = $scaleMode.value || "raw";
+  const scaled = transformSeriesForScale(rawSeries, scaleMode);
+  const series = scaled.series;
+  const allPoints = scaled.allPoints;
+
+  chartState.series = series;
+  chartState.allPoints = allPoints;
+  chartState.pointByRowIdx = new Map();
+  chartState.pixelPoints = [];
+  chartState.hitBuckets = new Map();
+
+  if (!allPoints.length){
+    $chartStatus.textContent = "沒有可用點（所選 Y 可能不是數字欄位）";
+    $chartMeta.textContent =
+      `X=${xKey} | Y=${yKeys.join(", ")} | Source=all → 0 points（已略過非數字/空值）`;
+    clearCanvas(ctx, $canvas);
+    return;
+  }
+
+  // fit bounds
+  chartState.bounds = computeBounds(allPoints);
+  chartState.fitted = true;
+  chartState.highlightIdx = null;
+  chartState.highlightSeriesKey = null;
+  $chartPointInfo.style.display = "none";
+
+  // draw
+  refreshChartCanvas();
+
+  updateChartTitle();
+
+  const seriesCount = series.length;
+  const pointCount = allPoints.length;
+  $chartStatus.textContent = `${seriesCount} series / ${pointCount} points`;
+  const previewKeys = yKeys.slice(0, 4).join(", ");
+  const more = yKeys.length > 4 ? ` +${yKeys.length - 4} more` : "";
+  const noteText = scaled.notes.length ? ` | Notes: ${scaled.notes.join(" ; ")}` : "";
+  $chartMeta.textContent =
+    `X=${xKey} | Y=${previewKeys}${more} | Type=${$chartType.value} | Scale=${scaleMode} | Source=all | series=${seriesCount} | points=${pointCount}${noteText} | 拖曳可平移，滾輪可 Zoom，雙擊點可跳到對應列`;
+}
+
+function fitChart(){
+  if (!chartState.allPoints.length){
+    $chartStatus.textContent = "沒有點可 Fit";
+    return;
+  }
+  chartState.bounds = computeBounds(chartState.allPoints);
+  refreshChartCanvas();
+  chartState.fitted = true;
+}
+
+function updateChartStatusOnly(){
+  // 不強制重畫，僅提示目前 view/all 的列數
+  const src = state.rows.length;
+  $chartStatus.textContent = `Ready（source size=${src}）`;
+}
+
+
+function setChartHeight(value){
+  const h = Number(value);
+  const safe = Number.isFinite(h) ? h : 320;
+  $chartCanvasBox.style.setProperty("--chart-height", `${safe}px`);
+  $chartHeightValue.textContent = `${safe}px`;
+  if (chartState.allPoints.length) fitChart();
+}
+
+function updateChartTitle(){
+  const yKeys = getSelectedYKeys();
+  if (!yKeys.length){
+    $chartTitle.textContent = "—";
+    return;
+  }
+  const preview = yKeys.slice(0, 3).join(", ");
+  const more = yKeys.length > 3 ? ` +${yKeys.length - 3}` : "";
+  $chartTitle.textContent = `${preview}${more}`;
+}
+
+function getNearestPointByPixel(px, py){
+  if (!chartState.pixelPoints.length) return null;
+  const bucketSize = chartState.hitBucketSize || 24;
+  const baseX = Math.floor(px / bucketSize);
+  const baseY = Math.floor(py / bucketSize);
+  const candidates = [];
+
+  for (let dx = -1; dx <= 1; dx++){
+    for (let dy = -1; dy <= 1; dy++){
+      const bucket = chartState.hitBuckets.get(`${baseX + dx},${baseY + dy}`);
+      if (bucket?.length) candidates.push(...bucket);
+    }
+  }
+
+  if (!candidates.length) return null;
+  let nearest = null;
+  let nearestDist = Infinity;
+
+  for (const item of candidates){
+    const dx = item.px - px;
+    const dy = item.py - py;
+    const dist = Math.hypot(dx, dy);
+    if (dist < nearestDist){
+      nearestDist = dist;
+      nearest = item.point;
+    }
+  }
+
+  const threshold = chartState.hitThreshold || (12 * (window.devicePixelRatio || 1));
+  if (nearestDist <= threshold) return nearest;
+  return null;
+}
+
+function exportChartPng(){
+  if (!chartState.allPoints.length){
+    alert("請先繪製圖表再匯出。");
+    return;
+  }
+  const scale = Number($exportScale.value) || 1;
+  const exportCanvas = document.createElement("canvas");
+  const rect = $canvas.getBoundingClientRect();
+  const dpr = (window.devicePixelRatio || 1) * scale;
+  exportCanvas.width = Math.max(1, Math.round(rect.width * dpr));
+  exportCanvas.height = Math.max(1, Math.round(rect.height * dpr));
+
+  const exportCtx = exportCanvas.getContext("2d");
+  const scaleFactor = rect.width ? (exportCanvas.width / rect.width) : scale;
+  renderChartToContext(
+    exportCtx,
+    exportCanvas,
+    chartState.series,
+    $chartType.value,
+    chartState.bounds,
+    chartState.padding,
+    chartState.highlightIdx,
+    chartState.highlightSeriesKey,
+    scaleFactor
+  );
+
+  const link = document.createElement("a");
+  const name = `chart_${Date.now()}_${scale}x.png`;
+  link.download = name;
+  link.href = exportCanvas.toDataURL("image/png");
+  link.click();
+}
+
+
+/** ---------------- Chart: populate selects ---------------- **/
+
+function populateChartSelectors(){
+  // X select
+  $xCol.innerHTML = "";
+  $xCol.appendChild(new Option("X：Row Index", "__idx"));
+
+  // Y select
+  $yCol.innerHTML = "";
+
+  // prefer numeric-like columns for Y (sample some rows)
+  const candidates = [];
+  const sample = state.rows.slice(0, Math.min(200, state.rows.length));
+
+  for (const h of state.headers){
+    if (!h) continue;
+    let numericCount = 0;
+    for (const r of sample){
+      const n = tryParseNumber(r[h]);
+      const pair = n === null ? tryParsePointPair(r[h]) : null;
+      if (n !== null || pair !== null) numericCount++;
+    }
+    // put likely numeric first
+    candidates.push({ h, score: numericCount });
+  }
+  candidates.sort((a,b)=> b.score - a.score || a.h.localeCompare(b.h, "zh-Hant"));
+
+  for (const c of candidates){
+    $xCol.appendChild(new Option("X：" + c.h, c.h));
+  }
+  for (const c of candidates){
+    $yCol.appendChild(new Option("Y：" + c.h, c.h));
+  }
+
+  // auto-pick a nice default Y (try common names)
+  const tryPick = (kw) => candidates.find(c => c.h.toLowerCase().includes(kw))?.h;
+  const defY =
+    tryPick("current") ||
+    tryPick("inputvoltage") ||
+    tryPick("voltage") ||
+    tryPick("lightsensor") ||
+    candidates[0]?.h || "";
+
+  if (defY){
+    const defOpt = Array.from($yCol.options).find(o => o.value === defY);
+    if (defOpt) defOpt.selected = true;
+  }
+  updateChartTitle();
+  $chartStatus.textContent = "Ready";
+  $chartSource.value = "all";
+  $chartSource.disabled = true;
+}
+
+/** ---------------- Events ---------------- **/
+
+$fileInput.addEventListener("change", async (e)=>{
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  clearError();
+
+  const text = await file.text();
+
+  try{
+    const parsed = parseTextToTable(text);
+
+    state.rawText = text;
+    state.delimiter = parsed.delimiter;
+    state.headerLineIndex = parsed.headerLineIndex;
+    state.headers = parsed.headers;
+    state.rows = parsed.rows;
+
+    state.groups = buildGroups(state.headers);
+    state.sort = { key: null, dir: 1 };
+    state.selectedIndex = -1;
+    pageState.page = 0;
+    // UI file info
+    document.querySelector("#fileInfo b").textContent = file.name;
+    document.querySelector("#fileInfo span").textContent = `${(file.size/1024).toFixed(1)} KB`;
+
+    if (state.rows.length === 0){
+      showError(
+        "已找到 header，但解析出來的資料列 (rows) = 0。\n\n" +
+        "常見原因：\n" +
+        "1) 資料列的分隔符號跟 header 不一致\n" +
+        "2) 檔案只有 header 沒有資料\n" +
+        "3) 內容中有特殊格式造成每行只剩 1 欄\n\n" +
+        "你可以把檔案前 30 行貼上，我可以再把 parser 調得更嚴格。"
+      );
+    }
+
+    renderTable();
+    renderDetail();
+
+    // chart setup
+    populateChartSelectors();
+    // 預設畫一次（可關掉：如果你不想載入後就畫）
+    drawChart();
+
+  } catch(err){
+    showError("解析失敗：\n" + (err?.message || err));
+    console.error(err);
+  }
+});
+
+// search + paging
+$searchBox.addEventListener("input", ()=> {
+  pageState.page = 0;
+  renderTable();
+  updateChartStatusOnly();
+});
+$prevPageBtn.addEventListener("click", ()=> {
+  if (pageState.page > 0){
+    pageState.page -= 1;
+    renderTable();
+  }
+});
+$nextPageBtn.addEventListener("click", ()=> {
+  if (pageState.page < pageState.totalPages - 1){
+    pageState.page += 1;
+    renderTable();
+  }
+});
+
+
+// keyboard navigation
+document.addEventListener("keydown", (e)=>{
+  if (!state.viewRows.length) return;
+
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    if (state.selectedIndex < 0){
+      selectRowByOriginalIndex(state.viewRows[0].__idx);
+      return;
+    }
+    const viewPos = state.viewRows.findIndex(r => r.__idx === state.selectedIndex);
+    if (viewPos < 0) return;
+
+    const nextPos = e.key === "ArrowDown"
+      ? Math.min(viewPos+1, state.viewRows.length-1)
+      : Math.max(viewPos-1, 0);
+
+    selectRowByOriginalIndex(state.viewRows[nextPos].__idx);
+    const tr = $tbody.querySelectorAll("tr")[nextPos];
+    tr?.scrollIntoView({ block:"nearest" });
+  }
+});
+
+// copy row json
+$copyRowBtn.addEventListener("click", async ()=>{
+  if (state.selectedIndex < 0){
+    alert("請先選取一列(row)");
+    return;
+  }
+  const row = {...state.rows[state.selectedIndex]};
+  delete row.__search;
+
+  try{
+    await navigator.clipboard.writeText(JSON.stringify(row, null, 2));
+    alert("已複製目前 row 的 JSON 到剪貼簿");
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = JSON.stringify(row, null, 2);
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    alert("已複製目前 row 的 JSON 到剪貼簿（fallback）");
+  }
+});
+
+$touchConfigApplyBtn.addEventListener("click", ()=> {
+  applyTouchConfig($touchPanelX.value, $touchPanelY.value, "manual", null);
+});
+$touchPanelX.addEventListener("change", ()=> {
+  applyTouchConfig($touchPanelX.value, $touchPanelY.value, "manual", null);
+});
+$touchPanelY.addEventListener("change", ()=> {
+  applyTouchConfig($touchPanelX.value, $touchPanelY.value, "manual", null);
+});
+$touchConfigFile.addEventListener("change", async (event) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    importTouchConfigFromText(text);
+  } catch (error) {
+    alert(`Config 匯入失敗: ${error?.message || error}`);
+  } finally {
+    $touchConfigFile.value = "";
+  }
+});
+
+// chart events
+$drawBtn.addEventListener("click", drawChart);
+$fitBtn.addEventListener("click", fitChart);
+$exportBtn.addEventListener("click", exportChartPng);
+$chartType.addEventListener("change", ()=> {
+  if (chartState.allPoints.length) fitChart();
+});
+$scaleMode.addEventListener("change", ()=> {
+  drawChart();
+});
+$yCol.addEventListener("change", ()=> {
+  updateChartTitle();
+  drawChart();
+});
+$chartSource.addEventListener("change", ()=> updateChartStatusOnly());
+$chartHeight.addEventListener("input", (e)=> setChartHeight(e.target.value));
+$canvas.addEventListener("pointerdown", (e)=> {
+  if (e.button !== undefined && e.button !== 0) return;
+  if (!chartState.allPoints.length) return;
+  chartState.isPanning = true;
+  chartState.panPointerId = e.pointerId;
+  chartState.panStartX = e.clientX;
+  chartState.panStartY = e.clientY;
+  chartState.panStartBounds = { ...chartState.bounds };
+  $canvas.setPointerCapture?.(e.pointerId);
+});
+$canvas.addEventListener("pointermove", (e)=> {
+  if (!chartState.isPanning || chartState.panPointerId !== e.pointerId) return;
+  panChartByPixels(e.clientX - chartState.panStartX, e.clientY - chartState.panStartY);
+});
+$canvas.addEventListener("pointerup", (e)=> {
+  if (chartState.panPointerId !== e.pointerId) return;
+  chartState.isPanning = false;
+  chartState.panPointerId = null;
+  chartState.panStartBounds = null;
+  $canvas.releasePointerCapture?.(e.pointerId);
+});
+$canvas.addEventListener("pointercancel", (e)=> {
+  if (chartState.panPointerId !== e.pointerId) return;
+  chartState.isPanning = false;
+  chartState.panPointerId = null;
+  chartState.panStartBounds = null;
+  $canvas.releasePointerCapture?.(e.pointerId);
+});
+$canvas.addEventListener("wheel", (e)=> {
+  if (!chartState.allPoints.length) return;
+  e.preventDefault();
+  const rect = $canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const px = (e.clientX - rect.left) * dpr;
+  const py = (e.clientY - rect.top) * dpr;
+  const zoomFactor = e.deltaY < 0 ? 0.86 : 1.16;
+  zoomChartAtPixel(px, py, zoomFactor);
+}, { passive: false });
+$canvas.addEventListener("dblclick", (e)=> {
+  selectNearestPointAtClientPosition(e.clientX, e.clientY);
+});
+
+window.addEventListener("resize", ()=> {
+  // keep chart crisp on resize
+  if (chartState.allPoints.length) fitChart();
+  refreshOpenTouchRawPreviews();
+});
+
+</script>
+</body>
+</html>
