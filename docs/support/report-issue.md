@@ -8,8 +8,8 @@
 
 適合已有 GitHub 帳號的使用者。
 
-[前往 GitHub Issues](https://github.com/onv-rgmda0/Tool-SuperCarter/issues){ .md-button .md-button--primary target="_blank" rel="noopener" }
-[建立新 Issue](https://github.com/onv-rgmda0/Tool-SuperCarter/issues/new){ .md-button target="_blank" rel="noopener" }
+[前往 GitHub Issues](https://github.com/quan821223/SuperCarter/issues){ .md-button .md-button--primary target="_blank" rel="noopener" }
+[建立新 Issue](https://github.com/quan821223/SuperCarter/issues/new){ .md-button target="_blank" rel="noopener" }
 
 ### 2. 使用 Email 回報
 
