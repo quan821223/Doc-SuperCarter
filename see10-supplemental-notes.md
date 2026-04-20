@@ -22,28 +22,6 @@
 - 如果要交換兩個槽位背後的硬體，請用 `swap cam0 cam1`
 - `change cam0 cam1` 也可以用，功能與 `swap` 相同
 
-## 手動雙開 SuperEagleEye.exe
-
-一般情況不建議雙開，因為兩個 runtime 可能會搶同一台相機。
-
-如果真的需要手動啟動兩個 `SuperEagleEye.exe`，每一個視窗都要給不同的：
-- `--instance_id`
-- `--grpc_port`
-- `--device_indexes`
-- `--save_path`
-
-範例：
-
-```powershell
-.\SuperEagleEye.exe --instance_id see10_a --grpc_port 50051 --device_indexes 0 --save_path .\videos_a
-.\SuperEagleEye.exe --instance_id see10_b --grpc_port 50052 --device_indexes 1 --save_path .\videos_b
-```
-
-重點：
-- 第一個 runtime 只使用 `device_index 0`
-- 第二個 runtime 只使用 `device_index 1`
-- 不要只改 `--instance_id` 卻不設定 `--device_indexes`，否則兩個 runtime 仍可能搶同一批相機
-
 ## 常用小黑窗指令
 
 ### 查狀態

@@ -12,6 +12,30 @@
 - （尚未釋出的功能請記在此處）
 
 ---
+# [1.11.3] - 2026-04-20
+
+What's changed since 1.11.2
+
+**✨ 新增**
+
+* 新增 --instance_id 與 --device_indexes，支援刻意雙開且避免搶同一台相機
+* 在 README.md 與 README_user.md 補上雙開啟動範例
+* 將 CLI help 改成左側指令、右側描述的對齊格式
+* 讓 OPEN_CAMERA 等待相機初始開啟後再回傳狀態
+* 在 SuperCarter 與 SuperEagleEye runtime 加入防誤雙開保護
+* 在預覽視窗標題與畫面疊字顯示 --grpc_port、--instance_id、--device_indexes、--save_path
+* 拍照與錄影檔名加入毫秒時間戳與 port 標記
+* 更新 open_output_folder：顯示實際輸出路徑，並支援 CLI 直接開啟 Explorer
+
+**🐞 修復**
+
+* 修正 refresh_cameras：重新建立邏輯槽位、開啟新連線相機 session，並等待初始開流完成
+* 手動 refresh 時將 camera backend 重設回 DSHOW，並允許 backend failover 循環，避免卡在 MSMF
+
+**♻️ 調整**
+
+* 將 SEE10 runtime 版本進版到 1.2.0
+
 
 # [1.11.2] - 2026-04-14
 

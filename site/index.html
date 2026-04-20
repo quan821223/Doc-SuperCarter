@@ -282,7 +282,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="see10-supplemental-notes/" class="md-tabs__link">
+        <a href="see10-supplemental-notes.md" class="md-tabs__link">
           
   
   
@@ -486,10 +486,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1112-2026-04-14" class="md-nav__link">
+  <a href="#1113-2026-04-20" class="md-nav__link">
     <span class="md-ellipsis">
       
-        最新版本：1.11.2 (2026-04-14)
+        最新版本：1.11.3 (2026-04-20)
       
     </span>
   </a>
@@ -1196,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="see10-supplemental-notes/" class="md-nav__link">
+      <a href="see10-supplemental-notes.md" class="md-nav__link">
         
   
   
@@ -1639,10 +1639,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1112-2026-04-14" class="md-nav__link">
+  <a href="#1113-2026-04-20" class="md-nav__link">
     <span class="md-ellipsis">
       
-        最新版本：1.11.2 (2026-04-14)
+        最新版本：1.11.3 (2026-04-20)
       
     </span>
   </a>
@@ -1678,7 +1678,29 @@
 <li>版本變更只維護一份 <a href="CHANGELOG/CHANGELOG/"><code>CHANGELOG</code></a>，首頁只摘出最新版本。</li>
 </ul>
 <h2 id="_1">最新版本修正狀況<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h3 id="1112-2026-04-14">最新版本：1.11.2 (2026-04-14)<a class="headerlink" href="#1112-2026-04-14" title="Permanent link">&para;</a></h3>
+<h3 id="1113-2026-04-20">最新版本：1.11.3 (2026-04-20)<a class="headerlink" href="#1113-2026-04-20" title="Permanent link">&para;</a></h3>
+<p>What's changed since 1.11.2</p>
+<p><strong>✨ 新增</strong></p>
+<ul>
+<li>新增 --instance_id 與 --device_indexes，支援刻意雙開且避免搶同一台相機</li>
+<li>在 README.md 與 README_user.md 補上雙開啟動範例</li>
+<li>將 CLI help 改成左側指令、右側描述的對齊格式</li>
+<li>讓 OPEN_CAMERA 等待相機初始開啟後再回傳狀態</li>
+<li>在 SuperCarter 與 SuperEagleEye runtime 加入防誤雙開保護</li>
+<li>在預覽視窗標題與畫面疊字顯示 --grpc_port、--instance_id、--device_indexes、--save_path</li>
+<li>拍照與錄影檔名加入毫秒時間戳與 port 標記</li>
+<li>更新 open_output_folder：顯示實際輸出路徑，並支援 CLI 直接開啟 Explorer</li>
+</ul>
+<p><strong>🐞 修復</strong></p>
+<ul>
+<li>修正 refresh_cameras：重新建立邏輯槽位、開啟新連線相機 session，並等待初始開流完成</li>
+<li>手動 refresh 時將 camera backend 重設回 DSHOW，並允許 backend failover 循環，避免卡在 MSMF</li>
+</ul>
+<p><strong>♻️ 調整</strong></p>
+<ul>
+<li>將 SEE10 runtime 版本進版到 1.2.0</li>
+</ul>
+<h1 id="1112-2026-04-14">[1.11.2] - 2026-04-14<a class="headerlink" href="#1112-2026-04-14" title="Permanent link">&para;</a></h1>
 <p>What's changed since 1.11.1</p>
 <p><strong>✨ 新增</strong></p>
 <ul>
@@ -2265,7 +2287,7 @@ UCS_DQA Supercarrier 2.0_20250724.xlsx</p>
 <p><a href="CHANGELOG/CHANGELOG/">查看完整 CHANGELOG</a></p>
 <h2 id="supplemental-docs">Supplemental Docs<a class="headerlink" href="#supplemental-docs" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="see10-supplemental-notes/">👾 前往 SEE10 補充文件</a></li>
+<li><a href="see10-supplemental-notes.md">👾 前往 SEE10 補充文件</a></li>
 </ul>
 
 
