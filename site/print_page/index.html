@@ -284,7 +284,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../see10-supplemental-notes.md" class="md-tabs__link">
+        <a href="../see10-supplemental-notes/" class="md-tabs__link">
           
   
   
@@ -1123,7 +1123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../see10-supplemental-notes.md" class="md-nav__link">
+      <a href="../see10-supplemental-notes/" class="md-nav__link">
         
   
   
@@ -1792,6 +1792,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="6 補充文件 👾">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#see10-supplemental-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 SuperEagleEye (SEE_1.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2559,7 +2576,7 @@ UCS_DQA Supercarrier 2.0_20250724.xlsx</p>
 <p><a href="#changelog-changelog">查看完整 CHANGELOG</a></p>
 <h2 id="index-supplemental-docs">Supplemental Docs<a class="headerlink" href="#index-supplemental-docs" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#see10-supplemental-notes.md">👾 前往 SEE10 補充文件</a></li>
+<li><a href="#see10-supplemental-notes">👾 前往 SEE10 補充文件</a></li>
 </ul></section>
                     <section class='print-page md-section' id='section-2' heading-number='2'>
                         <h1>快速上手<a class='headerlink' href='#section-2' title='Permanent link'></a>
@@ -3847,7 +3864,356 @@ python -m pip install opencv-python grpcio grpcio-tools protobuf
                     <section class='print-page md-section' id='section-6' heading-number='6'>
                         <h1>補充文件 👾<a class='headerlink' href='#section-6' title='Permanent link'></a>
                         </h1>
-                    </section>
+                    <section class="print-page" id="see10-supplemental-notes" heading-number="6.1"><h1 id="see10-supplemental-notes-supereagleeye-see_10">SuperEagleEye (SEE_1.0) 使用者指南<a class="headerlink" href="#see10-supplemental-notes-supereagleeye-see_10" title="Permanent link">&para;</a></h1>
+<p><em>AMSC_MGMDA0 · DQA</em></p>
+<p><em>SEE 軟體版本：至少 1.2.0</em>
+<em>文件版本：0.2</em></p>
+<p>這份文件說明目前 <code>SEE_1.0</code> 的實際操作方式。</p>
+<h2 id="see10-supplemental-notes-_1">目前操作模型<a class="headerlink" href="#see10-supplemental-notes-_1" title="Permanent link">&para;</a></h2>
+<p>目前請把：
+- <code>cam0</code>
+- <code>cam1</code>
+- <code>cam2</code></p>
+<p>視為固定的「邏輯相機槽位」。</p>
+<p>目前行為：
+- <code>SEE_1.0</code> 啟動後，會自動把偵測到的相機分配給 <code>cam0</code>、<code>cam1</code>、<code>cam2</code>，並嘗試自動開啟
+- 平常操作請直接使用 <code>cam0</code>、<code>cam1</code>，不要再把它們當成 Windows <code>device_index</code>
+- 如果要交換兩個槽位背後的硬體，請用 <code>swap cam0 cam1</code>
+- <code>change cam0 cam1</code> 也可以用，功能與 <code>swap</code> 相同</p>
+<h2 id="see10-supplemental-notes-_2">常用小黑窗指令<a class="headerlink" href="#see10-supplemental-notes-_2" title="Permanent link">&para;</a></h2>
+<h3 id="see10-supplemental-notes-_3">查狀態<a class="headerlink" href="#see10-supplemental-notes-_3" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">status
+list
+list_devices
+scan_devices
+refresh_cameras
+set_grpc_port
+</code></pre>
+<ul>
+<li><code>status</code>：查看 runtime 狀態</li>
+<li><code>list</code>：查看目前已開啟的邏輯相機</li>
+<li><code>list_devices</code>：查看目前偵測到的硬體、裝置資訊，以及每顆硬體對應到哪個邏輯槽位</li>
+<li><code>scan_devices</code>：手動重新搜尋一次相機，並立即刷新邏輯槽位綁定</li>
+<li><code>refresh_cameras</code>：重新掃描目前裝置，並強制所有已開啟的相機 session 重新開流</li>
+<li><code>set_grpc_port</code> / <code>grpc_port</code>：互動式重新設定目前 gRPC port，可設定範圍是 <code>50051</code> 到 <code>50060</code>，輸入不合理時會使用預設值 <code>50051</code></li>
+</ul>
+<h3 id="see10-supplemental-notes-_4">開關相機<a class="headerlink" href="#see10-supplemental-notes-_4" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">open cam1
+close cam1
+scan_devices
+refresh_cameras
+swap cam0 cam1
+change cam0 cam1
+</code></pre>
+<ul>
+<li><code>open cam1</code>：重新打開 <code>cam1</code> 這個邏輯槽位</li>
+<li><code>close cam1</code>：關閉 <code>cam1</code></li>
+<li><code>scan_devices</code>：手動重新搜尋目前已插入的相機，適合插入新設備後立即確認</li>
+<li><code>refresh_cameras</code> / <code>refresh</code>：重新掃描裝置，並把目前已開啟的相機畫面重新建立，適合插拔後畫面對應錯誤時使用</li>
+<li><code>swap cam0 cam1</code>：交換 <code>cam0</code> 和 <code>cam1</code> 背後的硬體</li>
+<li><code>change cam0 cam1</code>：<code>swap</code> 的別名</li>
+</ul>
+<h3 id="see10-supplemental-notes-_5">拍照與錄影<a class="headerlink" href="#see10-supplemental-notes-_5" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">snapshot cam0
+record_start cam0 60
+record_stop cam0
+open_output_folder
+</code></pre>
+<ul>
+<li><code>snapshot cam0</code>：讓 <code>cam0</code> 拍一張照</li>
+<li><code>record_start cam0 60</code>：讓 <code>cam0</code> 開始錄影 60 秒分段</li>
+<li><code>record_stop cam0</code>：停止 <code>cam0</code> 錄影</li>
+<li><code>open_output_folder</code>：直接打開目前的輸出資料夾</li>
+</ul>
+<h2 id="see10-supplemental-notes-supercarter">在 SuperCarter 中的觀念<a class="headerlink" href="#see10-supplemental-notes-supercarter" title="Permanent link">&para;</a></h2>
+<p>目前建議：
+- 使用 <code>cam0</code> / <code>cam1</code> 當作固定邏輯相機
+- 不要再依賴手動輸入 <code>device_index</code>
+- 若兩台相機對應反了，直接用 <code>swap cam0 cam1</code></p>
+<h2 id="see10-supplemental-notes-supercarter-see_10">SuperCarter 下達給 SEE_1.0 的指令大全<a class="headerlink" href="#see10-supplemental-notes-supercarter-see_10" title="Permanent link">&para;</a></h2>
+<p>這一節描述的是：
+- 不是小黑窗手動輸入的指令
+- 而是 <code>SuperCarter</code> 透過<strong>指令</strong>傳給 <code>SEE_1.0</code> 的正式控制指令</p>
+<p>目前 <code>SuperCarter</code> 會使用兩種指令形式：
+- <code>ExecuteCameraCommand</code>
+- <code>QueryCameraState</code></p>
+<h3 id="see10-supplemental-notes-_6">一般欄位概念<a class="headerlink" href="#see10-supplemental-notes-_6" title="Permanent link">&para;</a></h3>
+<p>每次由 <code>SuperCarter</code> 呼叫時，通常會帶這些欄位：
+- <code>command</code> 或 <code>query</code>：真正的指令名稱
+- <code>camera_id</code>：要操作的邏輯相機，例如 <code>cam0</code>、<code>cam1</code>、<code>cam2</code>；凡是針對相機的指令，這個欄位都要明確填寫
+- <code>args_json</code>：補充參數，格式是 JSON 字串
+- <code>auth_token</code>：驗證用的共享金鑰</p>
+<p>如果只是看操作觀念，你可以先記住：
+- 有動作的指令，用 <code>ExecuteCameraCommand</code>
+- 只是查狀態的指令，用 <code>QueryCameraState</code></p>
+<p>相機指定規則：
+- 指令名稱本身通常不會直接寫出 <code>cam0</code> 或 <code>cam1</code>
+- 真正指定哪一顆邏輯相機，是靠 <code>camera_id</code> 欄位
+- 例如要讓 <code>cam0</code> 截圖，應該送：
+  - <code>command = "CAPTURE_SNAPSHOT"</code>
+  - <code>camera_id = "cam0"</code>
+- 例如要讓 <code>cam1</code> 開始錄影，應該送：
+  - <code>command = "START_RECORD"</code>
+  - <code>camera_id = "cam1"</code></p>
+<h3 id="see10-supplemental-notes-executecameracommand">ExecuteCameraCommand 指令<a class="headerlink" href="#see10-supplemental-notes-executecameracommand" title="Permanent link">&para;</a></h3>
+<h4 id="see10-supplemental-notes-ping"><code>PING</code><a class="headerlink" href="#see10-supplemental-notes-ping" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 確認 <code>SEE_1.0</code> 還活著
+- 檢查目前 runtime 看到的連線狀態</p>
+<p>通常參數：
+- <code>camera_id</code> 可空</p>
+<p>成功時會回：
+- <code>ack_hex</code>
+- <code>connection_state</code></p>
+<p><strong>ex:</strong> <code>PING</code></p>
+<h4 id="see10-supplemental-notes-open_camera"><code>OPEN_CAMERA</code><a class="headerlink" href="#see10-supplemental-notes-open_camera" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 打開指定的邏輯相機槽位</p>
+<p>常見用法：
+- <code>camera_id = "cam0"</code>；這個欄位就是實際要開啟的相機</p>
+<p>成功時會回：
+- 這顆邏輯相機目前的完整狀態
+- 例如 <code>opened</code>、<code>recording</code>、<code>width</code>、<code>height</code>、<code>fps</code></p>
+<p>適合什麼時候用：
+- 預覽視窗被關掉後想重新打開
+- 某個槽位被關掉後重新開啟</p>
+<p><strong>ex:</strong> <code>OPEN_CAMERA cam0</code></p>
+<h4 id="see10-supplemental-notes-close_camera"><code>CLOSE_CAMERA</code><a class="headerlink" href="#see10-supplemental-notes-close_camera" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 關閉一個邏輯相機槽位</p>
+<p>常見用法：
+- <code>camera_id = "cam1"</code>；這個欄位就是實際要關閉的相機</p>
+<p>成功時會回：
+- <code>camera_id</code>
+- <code>closed = true</code></p>
+<p><strong>ex:</strong> <code>CLOSE_CAMERA cam1</code></p>
+<h4 id="see10-supplemental-notes-swap_cameras"><code>SWAP_CAMERAS</code><a class="headerlink" href="#see10-supplemental-notes-swap_cameras" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 交換兩個邏輯槽位背後實際綁定的硬體</p>
+<p>這個指令很適合：
+- <code>cam0</code> 跟 <code>cam1</code> 對應反了
+- 兩顆相機畫面左右或上下顛倒分配</p>
+<p>字串指令格式：</p>
+<pre><code class="language-text">SWAP_CAMERAS [source_camera_id] [target_camera_id]
+</code></pre>
+<p><strong>ex:</strong> <code>SWAP_CAMERAS cam0 cam6</code></p>
+<p>說明：
+- <code>source_camera_id</code>：要交換出去的邏輯槽位
+- <code>target_camera_id</code>：要交換進來的邏輯槽位
+- 執行後，這兩個邏輯槽位背後綁定的硬體會互換</p>
+<p>補充：
+- 目前底層 RPC 仍然會把這兩個值放在 <code>args_json</code>
+- 但文件主體請把它理解成兩個明確的位置參數即可</p>
+<p><strong>ex:</strong> <code>SWAP_CAMERAS cam0 cam6</code></p>
+<h4 id="see10-supplemental-notes-start_record"><code>START_RECORD</code><a class="headerlink" href="#see10-supplemental-notes-start_record" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 讓指定邏輯相機開始錄影</p>
+<p>常見參數：
+- <code>camera_id = "cam0"</code> 或其他目標槽位</p>
+<p>常見參數：</p>
+<pre><code class="language-json">{
+  &quot;duration_sec&quot;: 60,
+  &quot;file_prefix&quot;: &quot;cam0&quot;
+}
+</code></pre>
+<p>可選欄位：
+- <code>duration_sec</code>
+- <code>output_dir</code>
+- <code>file_prefix</code></p>
+<p>成功時會回：
+- <code>camera_id</code>
+- <code>recording = true</code>
+- <code>duration_sec</code></p>
+<p>前提：
+- 該相機必須已經有畫面</p>
+<p><strong>ex:</strong> <code>START_RECORD cam0 {"duration_sec":60}</code></p>
+<h4 id="see10-supplemental-notes-stop_record"><code>STOP_RECORD</code><a class="headerlink" href="#see10-supplemental-notes-stop_record" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 停止指定邏輯相機的錄影</p>
+<p>常見用法：
+- <code>camera_id = "cam0"</code>；這個欄位就是實際要停止錄影的相機</p>
+<p>成功時會回：
+- <code>camera_id</code>
+- <code>recording = false</code></p>
+<p><strong>ex:</strong> <code>STOP_RECORD cam0</code></p>
+<h4 id="see10-supplemental-notes-capture_snapshot"><code>CAPTURE_SNAPSHOT</code><a class="headerlink" href="#see10-supplemental-notes-capture_snapshot" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 讓指定邏輯相機拍一張照</p>
+<p>這就是 <code>SuperCarter</code> 要求 <code>SEE_1.0</code> 截圖時應該送的正式指令。</p>
+<p>字串指令格式：</p>
+<pre><code class="language-text">CAPTURE_SNAPSHOT [cam0|cam1|cam2|all]
+</code></pre>
+<p>目標定義：
+- <code>cam0|cam1|cam2</code>：指定其中一個邏輯相機拍照
+- <code>all</code>：目前所有已開啟的邏輯相機都各拍一張</p>
+<p>可接受的 target 寫法：
+- <code>cam0|cam1|cam2|all</code>
+- <code>0|1|2</code></p>
+<p>結構化公式：</p>
+<pre><code class="language-json">{
+  &quot;command&quot;: &quot;CAPTURE_SNAPSHOT&quot;,
+  &quot;camera_id&quot;: &quot;&lt;cam0|cam1|cam2|all&gt;&quot;,
+  &quot;args_json&quot;: &quot;{} | {\&quot;output_path\&quot;:\&quot;D:\\\\temp\\\\cam0.jpg\&quot;}&quot;
+}
+</code></pre>
+<p>也可以指定輸出檔案：</p>
+<pre><code class="language-json">{
+  &quot;output_path&quot;: &quot;D:\\temp\\cam0.jpg&quot;
+}
+</code></pre>
+<p>成功時會回：
+- <code>camera_id</code>
+- <code>snapshot_path</code></p>
+<p>如果使用 <code>camera_id = "all"</code>：
+- 會一次對所有已開啟的相機各拍一張
+- 回傳內容會改成：
+  - <code>camera_id = "all"</code>
+  - <code>snapshots</code>：每顆相機對應的 <code>snapshot_path</code>
+  - <code>count</code>：實際完成的截圖數量</p>
+<p><strong>注意：</strong>
+- <code>all</code> 模式建議不要搭配單一 <code>output_path</code>
+- 讓 runtime 自動產生每顆相機各自的檔名會比較安全</p>
+<p>補充規則：
+- <code>all</code> 目前只適用於 <code>CAPTURE_SNAPSHOT</code>
+- <code>OPEN_CAMERA</code>、<code>CLOSE_CAMERA</code>、<code>SET_CAMERA_CONFIG</code> 這類單機性質指令，仍必須指定單一 <code>camera_id</code></p>
+<p><strong>ex:</strong> <code>CAPTURE_SNAPSHOT cam0</code>, <code>CAPTURE_SNAPSHOT all</code></p>
+<h4 id="see10-supplemental-notes-set_camera_config"><code>SET_CAMERA_CONFIG</code><a class="headerlink" href="#see10-supplemental-notes-set_camera_config" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 更新某個邏輯相機的拍攝設定</p>
+<p>相機指定：
+- <code>camera_id = "cam0"</code> 或其他目標槽位</p>
+<p>可設定欄位：
+- <code>width</code>
+- <code>height</code>
+- <code>fps</code>
+- <code>recording_duration</code>
+- <code>max_folder_size_gb</code></p>
+<p><strong>ex:</strong> <code>SET_CAMERA_CONFIG cam0 {"width":1280,"height":720,"fps":20}</code></p>
+<h4 id="see10-supplemental-notes-set_output_root"><code>SET_OUTPUT_ROOT</code><a class="headerlink" href="#see10-supplemental-notes-set_output_root" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 更新目前快照與錄影的預設儲存資料夾</p>
+<p><code>SuperCarter</code> 平常就是靠這個指令，把目前選到的輸出路徑推給 <code>SEE_1.0</code>。</p>
+<p><strong>ex:</strong> <code>SET_OUTPUT_ROOT {"output_dir":"D:\\capture_output"}</code></p>
+<p>也可以用：</p>
+<pre><code class="language-json">{
+  &quot;save_path&quot;: &quot;D:\\capture_output&quot;
+}
+</code></pre>
+<p>成功時會回：
+- 目前生效的 <code>output_dir</code></p>
+<h4 id="see10-supplemental-notes-open_output_folder"><code>OPEN_OUTPUT_FOLDER</code><a class="headerlink" href="#see10-supplemental-notes-open_output_folder" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 取得目前輸出資料夾的位置</p>
+<p>目前實作會回：
+- <code>output_dir</code></p>
+<p>通常是 <code>SuperCarter</code> 拿到這個路徑後，再決定是否幫你打開資料夾。</p>
+<p><strong>ex:</strong> <code>OPEN_OUTPUT_FOLDER</code></p>
+<h4 id="see10-supplemental-notes-shutdown"><code>SHUTDOWN</code><a class="headerlink" href="#see10-supplemental-notes-shutdown" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 要求整個 <code>SEE_1.0</code> runtime 結束</p>
+<p>這通常對應：
+- <code>Stop SEE_1.0</code>
+- 或某些完整停止流程</p>
+<p>成功時會回：
+- <code>shutdown = true</code></p>
+<p><strong>ex:</strong> <code>SHUTDOWN</code></p>
+<h3 id="see10-supplemental-notes-querycamerastate">QueryCameraState 查詢指令<a class="headerlink" href="#see10-supplemental-notes-querycamerastate" title="Permanent link">&para;</a></h3>
+<h4 id="see10-supplemental-notes-get_status"><code>GET_STATUS</code><a class="headerlink" href="#see10-supplemental-notes-get_status" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 查整個 runtime 的整體狀態</p>
+<p>會回：
+- <code>connection_state</code>
+- <code>uptime_sec</code>
+- <code>camera_count</code>
+- <code>default_camera_id</code>
+- <code>recording_cameras</code></p>
+<p><strong>ex:</strong> <code>GET_STATUS</code></p>
+<h4 id="see10-supplemental-notes-list_cameras"><code>LIST_CAMERAS</code><a class="headerlink" href="#see10-supplemental-notes-list_cameras" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 查目前所有已開啟的邏輯相機</p>
+<p>每個項目通常包含：
+- <code>camera_id</code>
+- <code>device_index</code>
+- <code>friendly_name</code>
+- <code>opened</code>
+- <code>recording</code>
+- <code>width</code>
+- <code>height</code>
+- <code>fps</code></p>
+<p><strong>ex:</strong> <code>LIST_CAMERAS</code></p>
+<h4 id="see10-supplemental-notes-list_devices"><code>LIST_DEVICES</code><a class="headerlink" href="#see10-supplemental-notes-list_devices" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 查目前 Windows 偵測到的硬體相機與對應槽位</p>
+<p>每個項目可能包含：
+- <code>camera_index</code>
+- <code>device_index</code>
+- <code>friendly_name</code>
+- <code>device_id</code>
+- <code>pnp_device_id</code>
+- <code>location_information</code>
+- <code>manufacturer</code>
+- <code>is_external</code>
+- <code>assigned_camera_id</code>
+- <code>opened_camera_id</code></p>
+<p>這個查詢很重要，因為：
+- 當兩顆相機同型號時，光看 <code>friendly_name</code> 常常不夠
+- 這時可以搭配 <code>device_id</code> / <code>pnp_device_id</code> 來辨識</p>
+<p><strong>ex:</strong> <code>LIST_DEVICES</code></p>
+<h4 id="see10-supplemental-notes-get_camera_config"><code>GET_CAMERA_CONFIG</code><a class="headerlink" href="#see10-supplemental-notes-get_camera_config" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 查某個邏輯相機目前的設定</p>
+<p>相機指定：
+- <code>camera_id = "cam0"</code> 或其他目標槽位</p>
+<p>通常會回：
+- <code>width</code>
+- <code>height</code>
+- <code>fps</code>
+- <code>recording_duration</code>
+- <code>max_folder_size_gb</code></p>
+<p><strong>ex:</strong> <code>GET_CAMERA_CONFIG cam0</code></p>
+<h4 id="see10-supplemental-notes-get_record_state"><code>GET_RECORD_STATE</code><a class="headerlink" href="#see10-supplemental-notes-get_record_state" title="Permanent link">&para;</a></h4>
+<p>用途：
+- 查某個邏輯相機目前是否正在錄影</p>
+<p>相機指定：
+- <code>camera_id = "cam0"</code> 或其他目標槽位</p>
+<p>通常會回：
+- <code>camera_id</code>
+- <code>recording</code></p>
+<p><strong>ex:</strong> <code>GET_RECORD_STATE cam0</code></p>
+<h2 id="see10-supplemental-notes-supercarter_1">SuperCarter 最常用的幾個指令<a class="headerlink" href="#see10-supplemental-notes-supercarter_1" title="Permanent link">&para;</a></h2>
+<p>如果只看最常用的操作，通常是這幾個：
+- <code>SET_OUTPUT_ROOT</code>
+- <code>CAPTURE_SNAPSHOT</code>
+- <code>START_RECORD</code>
+- <code>STOP_RECORD</code>
+- <code>GET_STATUS</code>
+- <code>LIST_DEVICES</code>
+- <code>SCAN_DEVICES</code></p>
+<h2 id="see10-supplemental-notes-_7">輸出路徑<a class="headerlink" href="#see10-supplemental-notes-_7" title="Permanent link">&para;</a></h2>
+<p>目前輸出資料夾行為：
+- <code>SuperCarter</code> 會透過 <code>SET_OUTPUT_ROOT</code> 把目前儲存位置推給 <code>SEE_1.0</code>
+- 拍照與錄影都會寫到這個資料夾
+- 在小黑窗可直接用 <code>open_output_folder</code> 打開</p>
+<h2 id="see10-supplemental-notes-_8">已知注意事項<a class="headerlink" href="#see10-supplemental-notes-_8" title="Permanent link">&para;</a></h2>
+<p>目前已知狀況：
+- 兩台同型號相機可能會因 Windows 或 OpenCV backend 導致畫面異常
+- <code>cam1</code> 在 <code>CAP_MSMF</code> 下可能失敗，runtime 會在讀流失敗後切換 backend 重試
+- 如果兩台相機共用同一個 USB hub，穩定性可能更差
+- 背景隨插隨拔刷新預設不會一直印出搜尋訊息；若要立刻確認新硬體，請手動輸入 <code>scan_devices</code>
+- 若畫面對應錯誤，請先用 <code>list_devices</code> 檢查，再用 <code>swap cam0 cam1</code>
+- 若 <code>close cam1</code> 過去曾造成異常，現在已加強關閉流程，但仍建議優先用最新打包版本驗證</p>
+<h2 id="see10-supplemental-notes-_9">建議排查順序<a class="headerlink" href="#see10-supplemental-notes-_9" title="Permanent link">&para;</a></h2>
+<ol>
+<li>啟動 <code>SEE_1.0</code></li>
+<li>插入新設備後，先打 <code>scan_devices</code></li>
+<li>確認每顆硬體的 <code>assigned_camera_id</code> / <code>opened_camera_id</code></li>
+<li>如果相機對應反了，打 <code>swap cam0 cam1</code></li>
+</ol>
+<h2 id="see10-supplemental-notes-_10">重要提醒<a class="headerlink" href="#see10-supplemental-notes-_10" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>如果畫面仍不穩，請把兩顆相機分開插到不同 USB port，不要共用同一個 hub。
+兩顆同型號相機共用同一個 hub 時，容易出現黑畫面、卡頓、掉幀或取流異常。</p>
+</blockquote></section></section>
                     <section class='print-page md-section' id='section-7' heading-number='7'>
                         <h1>測試報表<a class='headerlink' href='#section-7' title='Permanent link'></a>
                         </h1>
@@ -5312,6 +5678,14 @@ Bug / 文件問題 / 功能建議 / 其他
                 .print-site-enumerate-headings #monitoring-csv-export h3 {  counter-increment: counter-monitoring-csv-export-3 }
             
 .print-site-enumerate-headings #section-6 > h1:before { content: '6 ' }
+.print-site-enumerate-headings #see10-supplemental-notes > h1:before { content: '6.1 ' }
+
+                .print-site-enumerate-headings #see10-supplemental-notes h2:before { content: '6.1.' counter(counter-see10-supplemental-notes-2) ' ' }
+                .print-site-enumerate-headings #see10-supplemental-notes h2 {  counter-reset: counter-see10-supplemental-notes-3 ;  counter-increment: counter-see10-supplemental-notes-2 }
+            
+                .print-site-enumerate-headings #see10-supplemental-notes h3:before { content: '6.1.' counter(counter-see10-supplemental-notes-2) '.' counter(counter-see10-supplemental-notes-3) ' ' }
+                .print-site-enumerate-headings #see10-supplemental-notes h3 {  counter-increment: counter-see10-supplemental-notes-3 }
+            
 .print-site-enumerate-headings #section-7 > h1:before { content: '7 ' }
 .print-site-enumerate-headings #testresultviewer-reportviewer%e4%bd%bf%e7%94%a8%e8%aa%aa%e6%98%8e > h1:before { content: '7.1 ' }
 
