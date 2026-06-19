@@ -51,6 +51,8 @@ nav:
       - 即時監控: monitoring/live-monitor.md
       - Logging: monitoring/logging.md
       - CSV 輸出: monitoring/csv-export.md
+  - 測試方案:
+      - 光學方案: opticaltest/opticaltest.md
   - 補充文件 👾:
       - SuperEagleEye (SEE_1.0): see10-supplemental-notes.md
   - 測試報表:
